@@ -9,6 +9,7 @@ export default function VerdictCard({ verdictResult, adText, onCopy }) {
   const verdictClass = useMemo(() => {
     if (verdict.label === 'ГОДЕН') return 'pass';
     if (verdict.label === 'ОТКЛОНИТЬ') return 'reject';
+    if (verdict.label === 'НЕ ПРОВЕРЕНО') return 'unverified';
     return 'needs-fixes';
   }, [verdict]);
 

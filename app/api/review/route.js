@@ -1,19 +1,9 @@
 import { NextResponse } from 'next/server';
+import defaultChecklist from '@/data/default-checklist.json';
 
 /**
  * POST /api/review
- * Receives lightweight JSON payload:
- * {
- *   adText: { primaryText, headline, description },
- *   placements: string[],
- *   checklist: Object,
- *   videoFrames: Array<{ label, time, dataUrl }>,
- *   videoMeta: { name, sizeMb, durationSec, resolution, aspectRatio },
- *   imageBase64: string | null
- * }
- *
- * Sends formatted multimodal prompt to OpenAI GPT-4o Vision.
- * Returns structured QC results with pass/fail/warning and fixes.
+ * Multimodal AI QC audit for Meta Ads creative drafts (GPT-4o Vision).
  */
 export async function POST(request) {
   let body = {};
@@ -43,14 +33,28 @@ export async function POST(request) {
     const {
       adText = {},
       placements = [],
-      checklist = {},
+      checklist = null,
       videoFrames = null,
       videoMeta = null,
       imageBase64 = null,
     } = body;
 
-    // Build the system prompt with checklist criteria
-    const systemPrompt = buildSystemPrompt(checklist);
+    // Guaranteed fallback to default checklist if client sends empty object
+    const activeChecklist =
+      checklist && checklist.sections && checklist.sections.length > 0
+        ? checklist
+        : defaultChecklist;
+
+    // Extract all items from checklist
+    const allItems = [];
+    for (const section of activeChecklist.sections) {
+      for (const item of section.items) {
+        allItems.push(item);
+      }
+    }
+
+    // Build the system prompt with checklist criteria & strict ID enforcement
+    const systemPrompt = buildSystemPrompt(activeChecklist, allItems);
 
     // Build multimodal user message (text + video frames / image)
     const userContent = buildUserContent({
@@ -99,7 +103,15 @@ export async function POST(request) {
     }
 
     const parsed = JSON.parse(content);
-    return NextResponse.json(parsed);
+
+    // Strictly normalize AI results so all keys match the checklist item IDs
+    const normalizedResults = normalizeResults(parsed.results, allItems);
+
+    return NextResponse.json({
+      results: normalizedResults,
+      summary: parsed.summary || 'Анализ завершён.',
+      suggested_fixes: parsed.suggested_fixes || [],
+    });
 
   } catch (err) {
     console.error('AI review error:', err);
@@ -111,53 +123,67 @@ export async function POST(request) {
 }
 
 /**
- * Build system prompt from checklist structure.
+ * Build system prompt from checklist structure with strict ID enforcement.
  */
-function buildSystemPrompt(checklist) {
-  let prompt = `Ты — старший QC-ревьюер рекламных креативов для Meta Ads (Facebook/Instagram/Reels).
+function buildSystemPrompt(checklist, allItems) {
+  const validIds = allItems.map((i) => i.id);
+
+  let prompt = `Ты — ведущий QC-ревьюер рекламных креативов для Meta Ads (Facebook/Instagram/Reels).
 Бренд: Академия MindBodyFace — образовательный продукт в сфере фейспластики, естественного омоложения, массажа лица и здоровья (испаноязычный рынок: Испания, Мексика, США LatAm).
 
 ВНИМАНИЕ: Это чувствительная вертикаль (Personal Attributes / Health / Aesthetic Claims).
-Meta автоматически банит рекламу, если:
-1. Есть агрессивный "до/после" или фокус на недостатках ("твои морщины", "второй подбородок").
-2. Текст обращается на «ты» с указанием на дефект внешности.
-3. Обещаются медицинские чудеса за 24 часа.
-4. В хуке (0-3 сек) нет проблемы или кадр темный/наигранный сток.
-5. Важные элементы/субтитры попадают под интерфейс Reels (safe zones).
+Meta банит рекламу за:
+1. Агрессивный "до/после" или фокус на недостатках ("твои морщины", "второй подбородок").
+2. Обращение на «ты» с указанием на дефект внешности.
+3. Медицинские обещания («cura», «elimina», результат за 24 часа).
+4. Затянутый темный хук (боль должна быть с 0-й секунды).
+5. Текст или субтитры под интерфейсом Reels/Stories (safe zones).
 
-Проверь предоставленный креатив (текст, метаданные видео и кадры) строго по чек-листу.
+ТВОЯ ЗАДАЧА:
+Проверить креатив (текст, метаданные и прикрепленные кадры) по каждому применимому пункту регламента.
 
-Формат ответа (СТРОГО JSON):
+КРИТИЧЕСКИ ВАЖНО ДЛЯ ПОЛЯ "results":
+Ключами объекта "results" ДОЛЖНЫ БЫТЬ ТОЛЬКО точные ID пунктов из списка:
+${validIds.map((id) => `"${id}"`).join(', ')}
+
+НИКОГДА НЕ ПРИДУМЫВАЙ СВОИ КЛЮЧИ (никаких "headline", "hook", "safe_zones" и т.п.)!
+Используй ТОЛЬКО идентификаторы: "pa-001", "pa-002", "ba-001", "vp-001", "tr-001", "ac-001" и т.д.
+
+ФОРМАТ ОТВЕТА (СТРОГО JSON):
 {
   "results": {
-    "<item_id>": {
-      "status": "pass" | "fail" | "warning",
-      "comment": "Краткое обоснование на русском с указанием конкретной проблемы"
+    "pa-001": {
+      "status": "pass" | "fail" | "warning" | "skip",
+      "comment": "Пояснение на русском с указанием конкретной проблемы или подтверждением нормы"
+    },
+    "vp-001": {
+      "status": "pass" | "fail" | "warning" | "skip",
+      "comment": "Пояснение по хуку 0.1с"
     }
   },
   "summary": "Краткий вывод по креативу (2-3 предложения): готов к запуску или нужны правки монтажеру",
   "suggested_fixes": [
     {
-      "item_id": "<id>",
-      "was": "Что не так сейчас (в кадре/тексте)",
+      "item_id": "<id из списка выше>",
+      "was": "Что не так сейчас в кадре или тексте",
       "should_be": "Конкретная рекомендация монтажеру/копирайтеру как исправить"
     }
   ]
 }
 
-ЧЕК-ЛИСТ ПРОВЕРКИ:
+СПИСОК ВСЕХ ПУНКТОВ РЕГЛАМЕНТА:
 `;
 
   if (checklist?.sections) {
     for (const section of checklist.sections) {
-      prompt += `\n### ${section.title}\n`;
+      prompt += `\n### [${section.id}] ${section.title}\n`;
       for (const item of section.items) {
-        prompt += `- [${item.id}] (${item.severity}) ${item.text}\n`;
+        prompt += `- ID: "${item.id}" (${item.severity}) ${item.text}\n`;
         if (item.ai_prompt) {
-          prompt += `  Инструкция проверки: ${item.ai_prompt}\n`;
+          prompt += `  Инструкция: ${item.ai_prompt}\n`;
         }
         if (item.bad_examples?.length) {
-          prompt += `  ❌ Нарушения: ${item.bad_examples.join('; ')}\n`;
+          prompt += `  ❌ Нарушение: ${item.bad_examples.join('; ')}\n`;
         }
         if (item.good_examples?.length) {
           prompt += `  ✅ Норма: ${item.good_examples.join('; ')}\n`;
@@ -166,15 +192,76 @@ Meta автоматически банит рекламу, если:
     }
   }
 
-  prompt += `\nОценивай реальные кадры видео:
-- Кадр 0.1s: показана ли боль/проблема сразу?
-- Кадры 0.1s - 3.0s: нет ли задержек, темных сцен, неестественного стока?
-- Safe zones: нет ли критичного текста у самого верха или низа?
-- Финал: есть ли понятный призыв к действию (CTA)?
+  prompt += `\nОбязательно оцени каждый применимый пункт!
+- Кадр 0.1s: показана ли проблема сразу (vp-001)?
+- Safe zones Reels: нет ли текста под UI (tr-001, tr-003)?
+- Персональные атрибуты в тексте и кадре (pa-001, pa-002)?
+- CTA и логотип (bc-001, bc-004)?
 
-Отвечай профессионально, аргументированно и только на русском языке.`;
+Отвечай строго на русском языке.`;
 
   return prompt;
+}
+
+/**
+ * Normalize AI results so keys match the checklist item IDs 100%.
+ */
+function normalizeResults(rawResults, allItems) {
+  const normalized = {};
+  if (!rawResults || typeof rawResults !== 'object') return normalized;
+
+  // Build lookup map for IDs (exact, lowercase, underscores)
+  const idMap = new Map();
+  for (const item of allItems) {
+    idMap.set(item.id.toLowerCase(), item.id);
+    idMap.set(item.id.replace(/-/g, '_').toLowerCase(), item.id);
+    idMap.set(item.id.replace(/-/g, '').toLowerCase(), item.id);
+  }
+
+  for (const [key, val] of Object.entries(rawResults)) {
+    if (!val || typeof val !== 'object') continue;
+
+    const cleanKey = key.trim().toLowerCase().replace(/[\[\]"]/g, '');
+    let matchedId = idMap.get(cleanKey);
+
+    // Semantic fallbacks if AI slipped into descriptive names
+    if (!matchedId) {
+      if (cleanKey.includes('hook') || cleanKey.includes('0.1s') || cleanKey.includes('0-3')) {
+        matchedId = 'vp-001';
+      } else if (cleanKey.includes('personal') || cleanKey.includes('attribute') || cleanKey.includes('arrugas')) {
+        matchedId = 'pa-001';
+      } else if (cleanKey.includes('before') || cleanKey.includes('after') || cleanKey.includes('antes') || cleanKey.includes('despues')) {
+        matchedId = 'ba-002';
+      } else if (cleanKey.includes('medical') || cleanKey.includes('cura') || cleanKey.includes('elimina')) {
+        matchedId = 'mc-001';
+      } else if (cleanKey.includes('safe') || cleanKey.includes('zone') || cleanKey.includes('aspect')) {
+        matchedId = 'tr-001';
+      } else if (cleanKey.includes('subtitle') || cleanKey.includes('subtitulo')) {
+        matchedId = 'tr-002';
+      } else if (cleanKey.includes('logo') || cleanKey.includes('brand')) {
+        matchedId = 'bc-001';
+      } else if (cleanKey.includes('cta') || cleanKey.includes('call_to_action')) {
+        matchedId = 'bc-004';
+      } else if (cleanKey.includes('sensational') || cleanKey.includes('headline') || cleanKey.includes('copy')) {
+        matchedId = 'ac-001';
+      }
+    }
+
+    if (matchedId) {
+      let status = val.status?.toLowerCase() || 'pass';
+      if (!['pass', 'fail', 'warning', 'skip'].includes(status)) {
+        status = status.includes('fail') ? 'fail' : status.includes('warn') ? 'warning' : 'pass';
+      }
+
+      normalized[matchedId] = {
+        status,
+        comment: val.comment || '',
+        aiGenerated: true,
+      };
+    }
+  }
+
+  return normalized;
 }
 
 /**

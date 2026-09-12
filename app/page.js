@@ -132,7 +132,7 @@ export default function Home() {
       setAiStatusText('Анализ завершен!');
 
       if (aiResult.results) {
-        const merged = mergeAiResults(results, aiResult.results);
+        const merged = mergeAiResults(results, aiResult.results, checklist);
         setResults(merged);
       }
 
