@@ -6,14 +6,14 @@ import UploadZone from '@/components/UploadZone';
 import ChecklistPanel from '@/components/ChecklistPanel';
 import VerdictCard from '@/components/VerdictCard';
 import SettingsModal from '@/components/SettingsModal';
-import { loadChecklist, reloadChecklist } from '@/lib/checklist-loader';
+import { loadChecklist, reloadChecklist, getInitialChecklist } from '@/lib/checklist-loader';
 import { calculateVerdict, mergeAiResults } from '@/lib/qc-engine';
 import { requestAiReview } from '@/lib/ai-reviewer';
 import { PLACEMENTS, SUPPORTED_VIDEO_TYPES } from '@/lib/constants';
 
 export default function Home() {
   // State
-  const [checklist, setChecklist] = useState(null);
+  const [checklist, setChecklist] = useState(getInitialChecklist);
   const [file, setFile] = useState(null);
   const [adText, setAdText] = useState({
     primaryText: '',
@@ -26,7 +26,7 @@ export default function Home() {
   const [aiStatusText, setAiStatusText] = useState('');
   const [aiProgress, setAiProgress] = useState(0);
   const [aiElapsed, setAiElapsed] = useState(0);
-  const [checklistLoading, setChecklistLoading] = useState(true);
+  const [checklistLoading, setChecklistLoading] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [toast, setToast] = useState(null);
 
@@ -148,6 +148,9 @@ export default function Home() {
     } catch (err) {
       clearInterval(progressInterval);
       showToast('error', `❌ AI-ревью: ${err.message}`);
+      if (err.message.includes('OPENAI_API_KEY') || err.message.includes('401') || err.message.includes('не настроен')) {
+        setTimeout(() => setShowSettings(true), 1000);
+      }
     } finally {
       setTimeout(() => {
         setAiLoading(false);

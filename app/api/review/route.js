@@ -16,17 +16,30 @@ import { NextResponse } from 'next/server';
  * Returns structured QC results with pass/fail/warning and fixes.
  */
 export async function POST(request) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  let body = {};
+  try {
+    body = await request.json();
+  } catch (err) {
+    return NextResponse.json(
+      { error: 'Неверный JSON запрос' },
+      { status: 400 }
+    );
+  }
+
+  // Priority: 1. Server env variable -> 2. Client header -> 3. Request body
+  const serverKey = process.env.OPENAI_API_KEY;
+  const headerKey = request.headers.get('x-openai-key');
+  const bodyKey = body?.apiKey;
+  const apiKey = (serverKey || headerKey || bodyKey || '').trim();
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'OPENAI_API_KEY не настроен. Укажите ключ в .env.local или переменных Vercel.' },
-      { status: 500 }
+      { error: 'OPENAI_API_KEY не настроен. Укажите ключ в ⚙️ Настройках сервиса (вверху справа) или в переменных окружения Vercel.' },
+      { status: 401 }
     );
   }
 
   try {
-    const body = await request.json();
     const {
       adText = {},
       placements = [],

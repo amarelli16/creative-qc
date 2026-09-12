@@ -1,14 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getSavedChecklistUrl, saveChecklistUrl } from '@/lib/checklist-loader';
+import {
+  getSavedChecklistUrl,
+  saveChecklistUrl,
+  getSavedApiKey,
+  saveApiKey,
+} from '@/lib/checklist-loader';
 
 export default function SettingsModal({ isOpen, onClose, onReloadChecklist }) {
   const [checklistUrl, setChecklistUrl] = useState('');
+  const [apiKey, setApiKey] = useState('');
+  const [showKey, setShowKey] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setChecklistUrl(getSavedChecklistUrl() || '');
+      setApiKey(getSavedApiKey() || '');
     }
   }, [isOpen]);
 
@@ -16,6 +24,7 @@ export default function SettingsModal({ isOpen, onClose, onReloadChecklist }) {
 
   const handleSave = () => {
     saveChecklistUrl(checklistUrl);
+    saveApiKey(apiKey);
     onReloadChecklist?.(checklistUrl);
     onClose();
   };
@@ -31,34 +40,45 @@ export default function SettingsModal({ isOpen, onClose, onReloadChecklist }) {
         </div>
 
         <div className="modal-body">
+          {/* OpenAI API Key */}
+          <div className="field-group">
+            <label className="field-label">OpenAI API Key (GPT-4o Vision)</label>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input
+                type={showKey ? 'text' : 'password'}
+                className="field-input"
+                placeholder="sk-proj-..."
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                style={{ flex: 1, fontFamily: 'monospace', fontSize: '0.8125rem' }}
+              />
+              <button
+                type="button"
+                className="btn btn-ghost"
+                style={{ fontSize: '0.75rem', padding: '0 12px' }}
+                onClick={() => setShowKey(!showKey)}
+              >
+                {showKey ? 'Скрыть' : 'Показать'}
+              </button>
+            </div>
+            <div style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginTop: 4 }}>
+              💡 Ключ сохраняется локально в браузере. Это позволяет запускать AI-ревью на Vercel даже без настройки переменных окружения в панели Vercel.
+            </div>
+          </div>
+
           {/* Checklist URL */}
           <div className="field-group">
             <label className="field-label">URL чек-листа (GitHub Raw)</label>
             <input
               type="url"
               className="field-input"
-              placeholder="https://raw.githubusercontent.com/user/repo/main/checklist.json"
+              placeholder="https://raw.githubusercontent.com/amarelli16/creative-qc-checklist/main/checklist.json"
               value={checklistUrl}
               onChange={(e) => setChecklistUrl(e.target.value)}
+              style={{ fontSize: '0.8125rem' }}
             />
             <div style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginTop: 4 }}>
-              Оставь пустым для использования встроенного чек-листа. 
-              Поддерживаются raw.githubusercontent.com и gist.githubusercontent.com
-            </div>
-          </div>
-
-          {/* API Key info */}
-          <div className="field-group">
-            <label className="field-label">OpenAI API Key</label>
-            <div style={{
-              padding: '12px 16px',
-              borderRadius: 'var(--radius-md)',
-              background: 'var(--color-info-bg)',
-              border: '1px solid var(--color-info-border)',
-              fontSize: '0.8125rem',
-              color: 'var(--color-info)',
-            }}>
-              🔑 API-ключ настраивается в переменных окружения сервера (OPENAI_API_KEY в .env.local или Vercel Environment Variables). Он не хранится в браузере из соображений безопасности.
+              По умолчанию используется динамический чек-лист из GitHub репозитория amarelli16/creative-qc-checklist.
             </div>
           </div>
         </div>
@@ -68,7 +88,7 @@ export default function SettingsModal({ isOpen, onClose, onReloadChecklist }) {
             Отмена
           </button>
           <button className="btn btn-primary" onClick={handleSave}>
-            Сохранить
+            Сохранить настройки
           </button>
         </div>
       </div>
