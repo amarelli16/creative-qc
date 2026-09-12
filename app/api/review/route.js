@@ -2,30 +2,51 @@ import { NextResponse } from 'next/server';
 
 /**
  * POST /api/review
- * Receives creative media + ad text + checklist,
- * sends to OpenAI GPT-4o Vision for QC analysis.
- * Returns structured verdict per checklist item.
+ * Receives lightweight JSON payload:
+ * {
+ *   adText: { primaryText, headline, description },
+ *   placements: string[],
+ *   checklist: Object,
+ *   videoFrames: Array<{ label, time, dataUrl }>,
+ *   videoMeta: { name, sizeMb, durationSec, resolution, aspectRatio },
+ *   imageBase64: string | null
+ * }
+ *
+ * Sends formatted multimodal prompt to OpenAI GPT-4o Vision.
+ * Returns structured QC results with pass/fail/warning and fixes.
  */
 export async function POST(request) {
   const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'OPENAI_API_KEY not configured. Set it in environment variables.' },
+      { error: 'OPENAI_API_KEY не настроен. Укажите ключ в .env.local или переменных Vercel.' },
       { status: 500 }
     );
   }
 
   try {
-    const formData = await request.formData();
-    const file = formData.get('file');
-    const adText = JSON.parse(formData.get('adText') || '{}');
-    const placements = JSON.parse(formData.get('placements') || '[]');
-    const checklist = JSON.parse(formData.get('checklist') || '{}');
+    const body = await request.json();
+    const {
+      adText = {},
+      placements = [],
+      checklist = {},
+      videoFrames = null,
+      videoMeta = null,
+      imageBase64 = null,
+    } = body;
 
-    // Build the prompt from checklist
+    // Build the system prompt with checklist criteria
     const systemPrompt = buildSystemPrompt(checklist);
-    const userContent = await buildUserContent(file, adText, placements);
+
+    // Build multimodal user message (text + video frames / image)
+    const userContent = buildUserContent({
+      adText,
+      placements,
+      videoFrames,
+      videoMeta,
+      imageBase64,
+    });
 
     // Call OpenAI GPT-4o
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -59,7 +80,7 @@ export async function POST(request) {
 
     if (!content) {
       return NextResponse.json(
-        { error: 'Empty response from AI' },
+        { error: 'Пустой ответ от OpenAI' },
         { status: 502 }
       );
     }
@@ -70,7 +91,7 @@ export async function POST(request) {
   } catch (err) {
     console.error('AI review error:', err);
     return NextResponse.json(
-      { error: `Review failed: ${err.message}` },
+      { error: `Ошибка ревью: ${err.message}` },
       { status: 500 }
     );
   }
@@ -80,31 +101,38 @@ export async function POST(request) {
  * Build system prompt from checklist structure.
  */
 function buildSystemPrompt(checklist) {
-  let prompt = `Ты — QC-ревьюер рекламных креативов для Meta Ads (Facebook/Instagram).
-Академия MindBodyFace — образовательный продукт в сфере фейспластики/массажа лица/бьюти, испаноязычный рынок.
-Это чувствительная вертикаль: Meta банит контент, который выглядит как медицинское обещание или комментирует внешность/тело зрителя.
+  let prompt = `Ты — старший QC-ревьюер рекламных креативов для Meta Ads (Facebook/Instagram/Reels).
+Бренд: Академия MindBodyFace — образовательный продукт в сфере фейспластики, естественного омоложения, массажа лица и здоровья (испаноязычный рынок: Испания, Мексика, США LatAm).
 
-Проверь креатив по следующему чек-листу и верни JSON с результатами.
+ВНИМАНИЕ: Это чувствительная вертикаль (Personal Attributes / Health / Aesthetic Claims).
+Meta автоматически банит рекламу, если:
+1. Есть агрессивный "до/после" или фокус на недостатках ("твои морщины", "второй подбородок").
+2. Текст обращается на «ты» с указанием на дефект внешности.
+3. Обещаются медицинские чудеса за 24 часа.
+4. В хуке (0-3 сек) нет проблемы или кадр темный/наигранный сток.
+5. Важные элементы/субтитры попадают под интерфейс Reels (safe zones).
 
-Формат ответа (строго JSON):
+Проверь предоставленный креатив (текст, метаданные видео и кадры) строго по чек-листу.
+
+Формат ответа (СТРОГО JSON):
 {
   "results": {
     "<item_id>": {
       "status": "pass" | "fail" | "warning",
-      "comment": "Краткое пояснение"
+      "comment": "Краткое обоснование на русском с указанием конкретной проблемы"
     }
   },
-  "summary": "Общий краткий вывод",
+  "summary": "Краткий вывод по креативу (2-3 предложения): готов к запуску или нужны правки монтажеру",
   "suggested_fixes": [
     {
       "item_id": "<id>",
-      "was": "Проблемный текст/описание",
-      "should_be": "Исправленный вариант"
+      "was": "Что не так сейчас (в кадре/тексте)",
+      "should_be": "Конкретная рекомендация монтажеру/копирайтеру как исправить"
     }
   ]
 }
 
-ЧЕК-ЛИСТ:
+ЧЕК-ЛИСТ ПРОВЕРКИ:
 `;
 
   if (checklist?.sections) {
@@ -113,79 +141,90 @@ function buildSystemPrompt(checklist) {
       for (const item of section.items) {
         prompt += `- [${item.id}] (${item.severity}) ${item.text}\n`;
         if (item.ai_prompt) {
-          prompt += `  Инструкция: ${item.ai_prompt}\n`;
+          prompt += `  Инструкция проверки: ${item.ai_prompt}\n`;
         }
         if (item.bad_examples?.length) {
-          prompt += `  ❌ Примеры нарушений: ${item.bad_examples.join('; ')}\n`;
+          prompt += `  ❌ Нарушения: ${item.bad_examples.join('; ')}\n`;
         }
         if (item.good_examples?.length) {
-          prompt += `  ✅ Правильно: ${item.good_examples.join('; ')}\n`;
+          prompt += `  ✅ Норма: ${item.good_examples.join('; ')}\n`;
         }
       }
     }
   }
 
-  prompt += `\nПроверяй только те пункты, которые применимы к предоставленному контенту.
-Не одобряй креатив с критичными проблемами — дай конкретную переформулировку.
-Отвечай на русском.`;
+  prompt += `\nОценивай реальные кадры видео:
+- Кадр 0.1s: показана ли боль/проблема сразу?
+- Кадры 0.1s - 3.0s: нет ли задержек, темных сцен, неестественного стока?
+- Safe zones: нет ли критичного текста у самого верха или низа?
+- Финал: есть ли понятный призыв к действию (CTA)?
+
+Отвечай профессионально, аргументированно и только на русском языке.`;
 
   return prompt;
 }
 
 /**
- * Build user message content with text and optional image.
+ * Build multimodal user message content.
  */
-async function buildUserContent(file, adText, placements) {
+function buildUserContent({ adText, placements, videoFrames, videoMeta, imageBase64 }) {
   const content = [];
 
-  // Text part
-  let textPart = 'Проверь следующий рекламный креатив:\n\n';
+  let textPart = 'Пожалуйста, проверь следующий креатив:\n\n';
 
-  if (placements.length > 0) {
-    textPart += `Плейсменты: ${placements.join(', ')}\n\n`;
+  if (videoMeta) {
+    textPart += `📹 ТЕХНИЧЕСКИЕ ПАРАМЕТРЫ ВИДЕО:\n`;
+    textPart += `- Файл: ${videoMeta.name} (${videoMeta.sizeMb} МБ)\n`;
+    textPart += `- Длительность: ${videoMeta.durationSec} сек\n`;
+    textPart += `- Разрешение: ${videoMeta.resolution} [Соотношение: ${videoMeta.aspectRatio}]\n\n`;
   }
 
-  if (adText.headline) {
-    textPart += `Headline: ${adText.headline}\n`;
+  if (placements && placements.length > 0) {
+    textPart += `📱 Целевые плейсменты: ${placements.join(', ')}\n\n`;
   }
-  if (adText.primaryText) {
-    textPart += `Primary Text: ${adText.primaryText}\n`;
-  }
-  if (adText.description) {
-    textPart += `Description: ${adText.description}\n`;
+
+  textPart += `📝 РЕКЛАМНЫЙ КОПИРАЙТ:\n`;
+  textPart += `- Headline: ${adText.headline || '(не указан)'}\n`;
+  textPart += `- Primary Text: ${adText.primaryText || '(не указан)'}\n`;
+  textPart += `- Description: ${adText.description || '(не указан)'}\n\n`;
+
+  if (videoFrames && videoFrames.length > 0) {
+    textPart += `🎞️ КЛЮЧЕВЫЕ КАДРЫ ВИДЕО ДЛЯ QC-АНАЛИЗА:\nНиже прикреплены ${videoFrames.length} опорных кадров ролика с точными таймкодами (хук 0.1с, 1.5с, 3с, середина и финал):\n`;
   }
 
   content.push({ type: 'text', text: textPart });
 
-  // Image part (if file is an image)
-  if (file && file.type?.startsWith('image/')) {
-    const buffer = await file.arrayBuffer();
-    const base64 = Buffer.from(buffer).toString('base64');
-    const mimeType = file.type;
+  // Attach video frames
+  if (videoFrames && Array.isArray(videoFrames)) {
+    for (const frame of videoFrames) {
+      content.push({
+        type: 'text',
+        text: `📍 [Кадр таймкода: ${frame.label}]`,
+      });
+      content.push({
+        type: 'image_url',
+        image_url: {
+          url: frame.dataUrl,
+          detail: 'high',
+        },
+      });
+    }
+  }
 
+  // Attach static image if image mode
+  if (imageBase64) {
+    content.push({
+      type: 'text',
+      text: '🖼️ Изображение креатива (баннер):',
+    });
     content.push({
       type: 'image_url',
       image_url: {
-        url: `data:${mimeType};base64,${base64}`,
+        url: imageBase64,
         detail: 'high',
       },
     });
   }
 
-  // For video files, we get frames client-side and send them as separate images
-  // The client extracts key frames before sending to this endpoint
-  if (file && file.type?.startsWith('video/')) {
-    textPart += '\n[Видео-файл загружен. Для полного анализа видео используйте извлечение ключевых кадров на клиенте.]';
-    // Still try to read as best we can
-    content[0] = { type: 'text', text: textPart };
-  }
-
   return content;
 }
-
-// Increase body size limit for file uploads
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};

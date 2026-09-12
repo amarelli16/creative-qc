@@ -25,6 +25,7 @@ export default function Home() {
   const [showSettings, setShowSettings] = useState(false);
   const [toast, setToast] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiStatusText, setAiStatusText] = useState('');
   const [checklistLoading, setChecklistLoading] = useState(true);
 
   // Determine media type
@@ -82,12 +83,20 @@ export default function Home() {
     if (!checklist) return;
 
     setAiLoading(true);
+    setAiStatusText('Подготовка к анализу...');
     try {
       const aiResult = await requestAiReview({
         file,
         adText,
         placements,
         checklist,
+        onProgress: (stage) => {
+          if (stage === 'extracting') {
+            setAiStatusText('Извлекаем опорные кадры видео (хук, динамика, CTA)...');
+          } else if (stage === 'analyzing') {
+            setAiStatusText('GPT-4o анализирует кадры и текст...');
+          }
+        },
       });
 
       if (aiResult.results) {
@@ -108,6 +117,7 @@ export default function Home() {
       showToast('error', `❌ AI-ревью: ${err.message}`);
     } finally {
       setAiLoading(false);
+      setAiStatusText('');
     }
   }, [checklist, file, adText, placements, results]);
 
@@ -234,7 +244,7 @@ export default function Home() {
                 <div className="ai-loading">
                   <div className="ai-spinner" />
                   <div className="ai-loading-text">
-                    🤖 AI анализирует креатив...
+                    {aiStatusText || '🤖 AI анализирует креатив...'}
                   </div>
                 </div>
               ) : (

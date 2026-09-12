@@ -24,8 +24,10 @@ export default function UploadZone({ file, onFileChange, onError }) {
       const maxSize = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
 
       if (f.size > maxSize) {
-        const maxMb = Math.round(maxSize / 1024 / 1024);
-        onError?.(`Файл слишком большой. Максимум: ${maxMb} МБ`);
+        const sizeStr = maxSize >= 1024 * 1024 * 1024
+          ? `${(maxSize / (1024 * 1024 * 1024)).toFixed(0)} ГБ`
+          : `${Math.round(maxSize / 1024 / 1024)} МБ`;
+        onError?.(`Файл слишком большой. Максимум: ${sizeStr}`);
         return false;
       }
 
@@ -106,7 +108,7 @@ export default function UploadZone({ file, onFileChange, onError }) {
       <div className="upload-icon">📁</div>
       <div className="upload-title">Загрузи креатив</div>
       <div className="upload-hint">
-        Перетащи файл сюда или кликни для выбора
+        Перетащи файл сюда или кликни для выбора (до 2 ГБ)
       </div>
       <div className="upload-formats">
         <span className="format-badge">JPG</span>
@@ -122,6 +124,7 @@ export default function UploadZone({ file, onFileChange, onError }) {
 
 function MediaPreview({ file, onRemove }) {
   const isVideo = SUPPORTED_VIDEO_TYPES.includes(file.type);
+  const [meta, setMeta] = useState(null);
   const url = URL.createObjectURL(file);
   const sizeMb = (file.size / 1024 / 1024).toFixed(1);
 
@@ -129,7 +132,24 @@ function MediaPreview({ file, onRemove }) {
     <div className="upload-zone glass-card has-file">
       <div className="media-preview">
         {isVideo ? (
-          <video src={url} controls preload="metadata" />
+          <video
+            src={url}
+            controls
+            preload="metadata"
+            onLoadedMetadata={(e) => {
+              const v = e.target;
+              const ratio = v.videoWidth / v.videoHeight;
+              let aspect = '16:9';
+              if (ratio < 0.65) aspect = '9:16';
+              else if (ratio < 0.85) aspect = '4:5';
+              else if (ratio < 1.15) aspect = '1:1';
+              setMeta({
+                dur: Math.round(v.duration * 10) / 10,
+                res: `${v.videoWidth}×${v.videoHeight}`,
+                aspect,
+              });
+            }}
+          />
         ) : (
           <img src={url} alt="Креатив" />
         )}
@@ -147,7 +167,10 @@ function MediaPreview({ file, onRemove }) {
       </div>
       <div className="media-info">
         <span>{file.name}</span>
-        <span>{sizeMb} МБ • {isVideo ? '🎬 Видео' : '🖼️ Изображение'}</span>
+        <span>
+          {sizeMb} МБ • {isVideo ? '🎬 Видео' : '🖼️ Изображение'}
+          {meta ? ` • ${meta.res} (${meta.aspect}) • ${meta.dur}с` : ''}
+        </span>
       </div>
     </div>
   );
