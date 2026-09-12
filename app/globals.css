@@ -1117,3 +1117,213 @@ h3 { font-size: 1.125rem; }
   max-width: 300px;
   margin: 0 auto;
 }
+
+/* ─── Upload Processing Card & Progress ─── */
+.upload-loading-card {
+  padding: var(--space-xl);
+  text-align: left;
+  background: rgba(108, 92, 231, 0.06);
+  border: 1px solid rgba(108, 92, 231, 0.3);
+  cursor: default;
+}
+
+.upload-loading-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.upload-loading-icon {
+  font-size: 2.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-loading-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.upload-loading-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.upload-loading-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.progress-container {
+  width: 100%;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+  font-size: 0.75rem;
+}
+
+.progress-status {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.progress-percent {
+  color: var(--color-success);
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #6c5ce7, #00d2d3, #a29bfe);
+  background-size: 200% 100%;
+  animation: shimmerProgress 2s linear infinite;
+}
+
+@keyframes shimmerProgress {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.upload-loading-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-sm);
+  font-size: 0.75rem;
+}
+
+.upload-time-est {
+  color: var(--text-muted);
+}
+
+.badge-ready {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #00d2d3;
+  background: rgba(0, 210, 211, 0.12);
+  border: 1px solid rgba(0, 210, 211, 0.3);
+}
+
+/* ─── Safe Zones Overlay (Reels 9:16) ─── */
+.safe-zone-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.safe-zone-top {
+  background: rgba(255, 71, 87, 0.25);
+  border-bottom: 2px dashed rgba(255, 71, 87, 0.7);
+  padding: 6px;
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #fff;
+  height: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.safe-zone-center {
+  flex: 1;
+  border: 1px dashed rgba(0, 210, 211, 0.5);
+  margin: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 210, 211, 0.6);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: rgba(0, 210, 211, 0.04);
+}
+
+.safe-zone-bottom {
+  background: rgba(255, 71, 87, 0.25);
+  border-top: 2px dashed rgba(255, 71, 87, 0.7);
+  padding: 6px;
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #fff;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.safe-zone-sidebar {
+  position: absolute;
+  right: 6px;
+  bottom: 22%;
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px dashed rgba(255, 107, 107, 0.6);
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  color: #fff;
+}
+
+.safe-zone-toggle {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.safe-zone-toggle:hover {
+  background: rgba(108, 92, 231, 0.8);
+  border-color: rgba(108, 92, 231, 1);
+}
+
+.safe-zone-toggle.active {
+  background: #6c5ce7;
+  border-color: #a29bfe;
+}
+

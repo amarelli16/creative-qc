@@ -22,11 +22,25 @@ export default function Home() {
   });
   const [placements, setPlacements] = useState([]);
   const [results, setResults] = useState({});
-  const [showSettings, setShowSettings] = useState(false);
-  const [toast, setToast] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiStatusText, setAiStatusText] = useState('');
+  const [aiProgress, setAiProgress] = useState(0);
+  const [aiElapsed, setAiElapsed] = useState(0);
   const [checklistLoading, setChecklistLoading] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  // Timer for AI Review
+  useEffect(() => {
+    let interval;
+    if (aiLoading) {
+      setAiElapsed(0);
+      interval = setInterval(() => {
+        setAiElapsed((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [aiLoading]);
 
   // Determine media type
   const mediaType = file
@@ -83,7 +97,19 @@ export default function Home() {
     if (!checklist) return;
 
     setAiLoading(true);
-    setAiStatusText('Подготовка к анализу...');
+    setAiProgress(15);
+    setAiStatusText('Подготовка данных креатива...');
+
+    // Incremental progress simulation while waiting for API
+    const progressInterval = setInterval(() => {
+      setAiProgress((prev) => {
+        if (prev < 40) return prev + 10;
+        if (prev < 80) return prev + 5;
+        if (prev < 92) return prev + 1;
+        return prev;
+      });
+    }, 600);
+
     try {
       const aiResult = await requestAiReview({
         file,
@@ -92,12 +118,18 @@ export default function Home() {
         checklist,
         onProgress: (stage) => {
           if (stage === 'extracting') {
-            setAiStatusText('Извлекаем опорные кадры видео (хук, динамика, CTA)...');
+            setAiProgress(35);
+            setAiStatusText('Извлекаем опорные QC-кадры (хук 0.1с, 1.5с, 3с, CTA)...');
           } else if (stage === 'analyzing') {
-            setAiStatusText('GPT-4o анализирует кадры и текст...');
+            setAiProgress(65);
+            setAiStatusText('GPT-4o Vision проверяет креатив по 23 правилам...');
           }
         },
       });
+
+      clearInterval(progressInterval);
+      setAiProgress(100);
+      setAiStatusText('Анализ завершен!');
 
       if (aiResult.results) {
         const merged = mergeAiResults(results, aiResult.results);
@@ -114,10 +146,14 @@ export default function Home() {
 
       showToast('success', '🤖 AI-ревью завершено');
     } catch (err) {
+      clearInterval(progressInterval);
       showToast('error', `❌ AI-ревью: ${err.message}`);
     } finally {
-      setAiLoading(false);
-      setAiStatusText('');
+      setTimeout(() => {
+        setAiLoading(false);
+        setAiStatusText('');
+        setAiProgress(0);
+      }, 400);
     }
   }, [checklist, file, adText, placements, results]);
 
@@ -237,14 +273,48 @@ export default function Home() {
             )}
           </div>
 
-          {/* AI Review Button */}
+          {/* AI Review Button & Progress Card */}
           {hasContent && (
             <div className="glass-card animate-in stagger-3 ai-review-section">
               {aiLoading ? (
-                <div className="ai-loading">
-                  <div className="ai-spinner" />
-                  <div className="ai-loading-text">
-                    {aiStatusText || '🤖 AI анализирует креатив...'}
+                <div style={{ textAlign: 'left', padding: 'var(--space-sm)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                    <div className="ai-spinner" style={{ width: '28px', height: '28px', flexShrink: 0 }} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>
+                        🤖 Мультимодальный QC-анализ
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                        {aiStatusText || 'Анализируем креатив...'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="progress-container">
+                    <div className="progress-header">
+                      <span className="progress-status">
+                        ⏱️ Прошло: {aiElapsed}с • Осталось: ~{Math.max(1, 8 - aiElapsed)}с
+                      </span>
+                      <span className="progress-percent">{aiProgress}%</span>
+                    </div>
+                    <div className="progress-bar-track">
+                      <div
+                        className="progress-bar-fill"
+                        style={{ width: `${aiProgress}%`, transition: 'width 0.4s ease-out' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: '12px', fontSize: '0.6875rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div style={{ color: aiProgress >= 30 ? 'var(--color-success)' : 'inherit' }}>
+                      {aiProgress >= 30 ? '✓' : '○'} 1. Извлечение опорных QC-кадров (0.1с, 1.5с, 3.0с, финал)
+                    </div>
+                    <div style={{ color: aiProgress >= 65 ? 'var(--color-success)' : 'inherit' }}>
+                      {aiProgress >= 65 ? '✓' : '○'} 2. Аудит 23 критериев регламента Meta (Personal Attributes, Safe Zones, Hook)
+                    </div>
+                    <div style={{ color: aiProgress >= 90 ? 'var(--color-success)' : 'inherit' }}>
+                      {aiProgress >= 90 ? '✓' : '○'} 3. Формирование ТЗ на правки монтажёру
+                    </div>
                   </div>
                 </div>
               ) : (
