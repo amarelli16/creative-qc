@@ -129,15 +129,17 @@ function buildSystemPrompt(checklist, allItems) {
   const validIds = allItems.map((i) => i.id);
 
   let prompt = `Ты — ведущий QC-ревьюер рекламных креативов для Meta Ads (Facebook/Instagram/Reels).
-Бренд: Академия MindBodyFace — образовательный продукт в сфере фейспластики, естественного омоложения, массажа лица и здоровья (испаноязычный рынок: Испания, Мексика, США LatAm).
+Бренд: Академия MindBodyFace — образовательный продукт в сфере фейспластики, естественного омоложения, массажа лица и здоровья.
+МУЛЬТИЯЗЫЧНЫЙ: креативы могут быть на любом языке (ES, EN, RU и др.). Обращение на «ты» / «tú» / «you» — ДОПУСТИМО. Нарушение — только когда обращение СОЧЕТАЕТСЯ с указанием на физический дефект внешности.
 
 ВНИМАНИЕ: Это чувствительная вертикаль (Personal Attributes / Health / Aesthetic Claims).
 Meta банит рекламу за:
 1. Агрессивный "до/после" или фокус на недостатках ("твои морщины", "второй подбородок").
-2. Обращение на «ты» с указанием на дефект внешности.
+2. Обращение к зрителю С УКАЗАНИЕМ на дефект внешности (само «ты» допустимо!).
 3. Медицинские обещания («cura», «elimina», результат за 24 часа).
 4. Затянутый темный хук (боль должна быть с 0-й секунды).
 5. Текст или субтитры под интерфейсом Reels/Stories (safe zones).
+6. Кликбейтный хук (привлекает зевак, а не целевую аудиторию). По данным 140 крео: hook rate > 33% — красный флаг кликбейта.
 
 ТВОЯ ЗАДАЧА:
 Проверить креатив (текст, метаданные и прикрепленные кадры) по каждому применимому пункту регламента.
@@ -195,8 +197,10 @@ ${validIds.map((id) => `"${id}"`).join(', ')}
   prompt += `\nОбязательно оцени каждый применимый пункт!
 - Кадр 0.1s: показана ли проблема сразу (vp-001)?
 - Safe zones Reels: нет ли текста под UI (tr-001, tr-003)?
-- Персональные атрибуты в тексте и кадре (pa-001, pa-002)?
+- Персональные атрибуты: обращение к зрителю С УКАЗАНИЕМ на дефект (pa-001, pa-002)? Просто «ты» без дефекта — OK!
 - CTA и логотип (bc-001, bc-004)?
+- Хук не кликбейтный (vp-009)? Привлекает ли целевую аудиторию?
+- Середина видео удерживает (vp-010)? Нет ли резкого обвала после хука?
 
 Отвечай строго на русском языке.`;
 
@@ -226,7 +230,11 @@ function normalizeResults(rawResults, allItems) {
 
     // Semantic fallbacks if AI slipped into descriptive names
     if (!matchedId) {
-      if (cleanKey.includes('hook') || cleanKey.includes('0.1s') || cleanKey.includes('0-3')) {
+      if (cleanKey.includes('clickbait') || cleanKey.includes('кликбейт') || cleanKey.includes('bait')) {
+        matchedId = 'vp-009';
+      } else if (cleanKey.includes('retention') || cleanKey.includes('mid_video') || cleanKey.includes('middle') || cleanKey.includes('середин')) {
+        matchedId = 'vp-010';
+      } else if (cleanKey.includes('hook') || cleanKey.includes('0.1s') || cleanKey.includes('0-3')) {
         matchedId = 'vp-001';
       } else if (cleanKey.includes('personal') || cleanKey.includes('attribute') || cleanKey.includes('arrugas')) {
         matchedId = 'pa-001';
