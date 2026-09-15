@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MBF · Регламент QC видео-креативов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08090d;
+      --surface: rgba(255,255,255,.04);
+      --surface-hover: rgba(255,255,255,.07);
+      --border: rgba(255,255,255,.08);
+      --text: #f0f1f5;
+      --text-2: #a0a4b8;
+      --text-3: #636882;
+      --accent: #8b5cf6;
+      --accent-2: #a78bfa;
+      --red: #f43f5e;
+      --orange: #f59e0b;
+      --green: #10b981;
+      --blue: #3b82f6;
+      --red-glow: rgba(244,63,94,.12);
+      --orange-glow: rgba(245,158,11,.10);
+      --green-glow: rgba(16,185,129,.10);
+      --blue-glow: rgba(59,130,246,.10);
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    .hero {
+      position: relative;
+      padding: 64px 24px 48px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(139,92,246,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(139,92,246,.05));
+      border: 1px solid rgba(139,92,246,.25);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: 12px; font-weight: 600; color: var(--accent-2);
+      letter-spacing: .5px; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .hero p { color: var(--text-2); font-size: 16px; max-width: 560px; margin: 0 auto; }
+    .hero .date { margin-top: 20px; font-size: 13px; color: var(--text-3); }
+
+    .summary-strip {
+      display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+      padding: 20px 24px; margin: 0 auto;
+      max-width: 600px;
+    }
+    .summary-item { text-align: center; }
+    .summary-num {
+      font-size: 32px; font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .summary-num.c-red { color: var(--red); }
+    .summary-num.c-orange { color: var(--orange); }
+    .summary-num.c-blue { color: var(--blue); }
+    .summary-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: .8px; margin-top: 2px; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,9,13,.75);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      overflow-x: auto; white-space: nowrap;
+      display: flex; justify-content: center; gap: 4px;
+    }
+    nav a {
+      display: inline-block; color: var(--text-3); text-decoration: none;
+      font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 8px;
+      transition: all .2s;
+    }
+    nav a:hover { color: var(--text); background: var(--surface-hover); }
+
+    .wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+    .card:hover { border-color: rgba(255,255,255,.12); }
+    .card-head {
+      padding: 18px 22px;
+      display: flex; align-items: center; gap: 14px;
+      cursor: pointer; user-select: none;
+    }
+    .card-head .emoji { font-size: 22px; }
+    .card-head h2 { font-size: 17px; font-weight: 700; flex: 1; }
+    .card-head .arrow {
+      width: 18px; height: 18px; color: var(--text-3);
+      transition: transform .25s;
+    }
+    .card.shut .card-body { display: none; }
+    .card.shut .arrow { transform: rotate(-90deg); }
+    .card-body { padding: 0 22px 22px; }
+
+    .ctx {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, rgba(139,92,246,.06), rgba(59,130,246,.04));
+      border: 1px solid rgba(139,92,246,.12);
+      border-radius: 10px;
+      font-size: 14px; color: var(--text-2);
+      margin-bottom: 18px;
+    }
+    .ctx strong { color: var(--text); }
+
+    .rule {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .rule:last-child { border-bottom: none; }
+    .pip {
+      width: 10px; height: 10px; border-radius: 50%;
+      margin-top: 5px; flex-shrink: 0;
+    }
+    .pip.crit { background: var(--red); box-shadow: 0 0 10px var(--red-glow); }
+    .pip.warn { background: var(--orange); box-shadow: 0 0 10px var(--orange-glow); }
+    .pip.info { background: var(--blue); box-shadow: 0 0 10px var(--blue-glow); }
+    .rule-body { flex: 1; }
+    .rule-title { font-weight: 600; font-size: 14px; margin-bottom: 3px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--text-3);
+      background: rgba(255,255,255,.06); padding: 2px 7px; border-radius: 4px;
+    }
+    .chip {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .chip.crit { color: var(--red); background: var(--red-glow); }
+    .chip.warn { color: var(--orange); background: var(--orange-glow); }
+    .chip.info { color: var(--blue); background: var(--blue-glow); }
+    .rule-hint { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+
+    .exs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+    @media (max-width: 560px) { .exs { grid-template-columns: 1fr; } }
+    .ex {
+      font-size: 12.5px; padding: 8px 12px; border-radius: 8px;
+      line-height: 1.45;
+    }
+    .ex.bad { background: var(--red-glow); color: #fda4af; border-left: 3px solid var(--red); }
+    .ex.good { background: var(--green-glow); color: #6ee7b7; border-left: 3px solid var(--green); }
+    .ex.bad::before { content: '✗ '; font-weight: 700; }
+    .ex.good::before { content: '✓ '; font-weight: 700; }
+
+    .note {
+      padding: 14px 18px; border-radius: 10px;
+      font-size: 14px; line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .note.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.15); }
+    .note.orange { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.15); }
+    .note.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.15); }
+    .note.blue { background: var(--blue-glow); border: 1px solid rgba(59,130,246,.15); }
+    .note strong { display: block; margin-bottom: 3px; }
+
+    .terms { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    @media (max-width: 560px) { .terms { grid-template-columns: 1fr; } }
+    .term-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      padding: 12px 14px; border-radius: 10px;
+    }
+    .term-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .8px; color: var(--accent-2); margin-bottom: 4px;
+    }
+    .term-card small { color: var(--text-3); }
+
+    .traffic {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 16px;
+    }
+    .traffic h2 {
+      font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 24px;
+    }
+    .tl-row {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 18px; border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .tl-row.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.12); }
+    .tl-row.yellow { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.12); }
+    .tl-row.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.12); }
+    .tl-dot {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .tl-row.red .tl-dot { background: var(--red); }
+    .tl-row.yellow .tl-dot { background: var(--orange); }
+    .tl-row.green .tl-dot { background: var(--green); }
+    .tl-row h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .tl-row p { font-size: 13px; color: var(--text-2); }
+
+    .big-rule {
+      text-align: center; padding: 20px;
+      font-size: 15px; font-weight: 700;
+      background: var(--red-glow); border: 1px solid rgba(244,63,94,.15);
+      border-radius: var(--radius); margin-bottom: 16px;
+    }
+    .big-rule u { text-decoration-color: var(--red); }
+
+    .checklist-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 16px;
+    }
+    .checklist-header { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+    .ring-wrap {
+      position: relative; width: 56px; height: 56px; flex-shrink: 0;
+    }
+    .ring-wrap svg { transform: rotate(-90deg); }
+    .ring-bg { stroke: rgba(255,255,255,.06); }
+    .ring-fg { stroke: var(--green); transition: stroke-dashoffset .5s ease; }
+    .ring-pct {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .checklist-header h2 { font-size: 18px; font-weight: 700; }
+    .checklist-header .sub { font-size: 13px; color: var(--text-3); }
+
+    .chk {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer; user-select: none;
+      transition: opacity .2s;
+    }
+    .chk:last-child { border-bottom: none; }
+    .chk input { display: none; }
+    .chk-box {
+      width: 20px; height: 20px; border-radius: 6px;
+      border: 2px solid var(--text-3);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; flex-shrink: 0;
+    }
+    .chk-box svg { opacity: 0; transition: opacity .15s; }
+    .chk.done .chk-box {
+      background: var(--green); border-color: var(--green);
+    }
+    .chk.done .chk-box svg { opacity: 1; }
+    .chk.done .chk-text { color: var(--text-3); text-decoration: line-through; }
+    .chk-text { font-size: 14px; flex: 1; }
+
+    details { margin-top: 6px; }
+    details summary {
+      font-size: 12px; color: var(--accent-2); cursor: pointer; font-weight: 500;
+    }
+    details[open] summary { margin-bottom: 6px; }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      nav { display: none; }
+      .card, .traffic, .checklist-wrap, .note { border-color: #ddd; background: #fafafa; break-inside: avoid; }
+      .card-body { display: block !important; }
+      .hero::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">📋 Регламент</div>
+  <h1>QC видео-креативов</h1>
+  <p>Что проверять перед выпуском видео в Meta Ads.<br>Для монтажёров и ревьюеров.</p>
+  <div class="date">Обновлено: 15.09.2026 · На основе анализа 140 креативов</div>
+</div>
+
+<div class="summary-strip">
+  <div class="summary-item"><div class="summary-num c-red">6</div><div class="summary-label">🔴 Критичных</div></div>
+  <div class="summary-item"><div class="summary-num c-orange">15</div><div class="summary-label">🟡 Важных</div></div>
+  <div class="summary-item"><div class="summary-num c-blue">4</div><div class="summary-label">🔵 Рекомендаций</div></div>
+</div>
+
+<nav>
+  <a href="#brand">Бренд</a>
+  <a href="#ban">Зона бана</a>
+  <a href="#ba">До/После</a>
+  <a href="#med">Мед. клеймы</a>
+  <a href="#hook">Хук и монтаж</a>
+  <a href="#vo">Озвучка и оффер</a>
+  <a href="#tech">Техтребования</a>
+  <a href="#light">Светофор</a>
+  <a href="#check">Финал-чек</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- ═══════ БРЕНД ═══════ -->
+  <div class="card" id="brand">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">✨</span>
+      <h2>Бренд, тон и терминология</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        <strong>Кто мы:</strong> MindBodyFace — научно обоснованная система улучшения здоровья и внешности. Образовательный продукт, НЕ медицинская услуга.<br>
+        <strong>Голос бренда:</strong> спокойно, точно, с человеческим контактом. Эксперт и партнёр. Без заумия, без запугивания, без пустых слов.
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Важно</span> Тон — экспертный, тёплый, уважительный</div>
+          <div class="exs">
+            <div class="ex bad">INCREDIBLE OFFER!!! 🔥🔥🔥 DON'T MISS IT!!!</div>
+            <div class="ex good">Discover proven faceplastica techniques</div>
+          </div>
+          <div class="rule-hint">Никакого CAPS LOCK, !!!, агрессивного copy. Говорим со взрослым человеком.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Важно</span> Грамотность на языке креатива</div>
+          <div class="rule-hint">Орфография, согласование, пунктуация. Креативы могут быть на EN, ES, TR — проверяй на нужном языке. Ошибки = потеря доверия.</div>
+        </div>
+      </div>
+
+      <div class="note blue" style="margin-top:16px;">
+        <strong>📌 Правильные названия и термины</strong>
+        <div class="terms">
+          <div class="term-card"><div class="term-label">Эксперт</div>Dr. Ales Ulishchenko<br><small>НЕ «Alex», НЕ «Ayles», НЕ «Ale»</small></div>
+          <div class="term-card"><div class="term-label">Методика</div>Faceplastica® <small>(всегда с ®)</small></div>
+          <div class="term-card"><div class="term-label">Об Алесе в видео</div>MD, PhD, Integrative Longevity Doctor<br><small>НЕ Surgeon, НЕ Physician</small></div>
+          <div class="term-card"><div class="term-label">Продукт</div>MindBodyFace Membership<br><small>7-day free trial, $47/мес</small></div>
+        </div>
+      </div>
+
+      <div class="note red">
+        <strong>🚫 Зоны нулевой терпимости:</strong>
+        Цена, имя эксперта, название продукта, условия покупки. Одна ошибка здесь = ролик не выпускаем.<br>
+        <small>Пример: в начале $19, в финале $100 — переделка.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ЗОНА БАНА ═══════ -->
+  <div class="card" id="ban">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🛡️</span>
+      <h2>Зона бана: Personal Attributes (Meta)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        Причина №1 бана наших объявлений. Реклама НЕ должна утверждать или подразумевать, что Meta «знает что-то личное» о зрителе.
+      </div>
+
+      <div class="note green">
+        <strong>✅ Обращение на «ты» / «tú» / «you» / «sen» — ДОПУСТИМО.</strong>
+        Нарушение — только когда обращение <strong>сочетается</strong> с указанием на физический дефект внешности.
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">pa-001</span><span class="chip crit">Критично</span> Нет обращения к зрителю + указание на дефект</div>
+          <div class="exs">
+            <div class="ex bad">Your wrinkles are showing your age</div>
+            <div class="ex good">Many women notice changes as they age</div>
+          </div>
+          <div class="exs" style="margin-top:4px;">
+            <div class="ex bad">Tus arrugas te delatan / ¿Cansada de tu papada?</div>
+            <div class="ex good">Here's a natural approach to facial care</div>
+          </div>
+          <div class="exs" style="margin-top:4px;">
+            <div class="ex bad">Gıdından mı şikayetçisin? / Kırışıklıkların seni yaşlı mı gösteriyor?</div>
+            <div class="ex good">Doğal yüz bakım ve gençleşme teknikleri</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">pa-002</span><span class="chip crit">Критично</span> Нет крупного плана «проблемной зоны» + стрелка/текст «это твоя проблема»</div>
+          <div class="exs">
+            <div class="ex bad">Крупный план морщин со стрелкой и текстом</div>
+            <div class="ex good">Общий план лица с демонстрацией техники</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ДО/ПОСЛЕ ═══════ -->
+  <div class="card" id="ba">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🔄</span>
+      <h2>Правила «До / После»</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">Meta допускает до/после только при соблюдении условий. Мы — образовательный продукт, не клиника.</div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">ba-001</span><span class="chip crit">Критично</span> Нет гарантированных результатов</div>
+          <div class="exs">
+            <div class="ex bad">Guaranteed results / 100% effective / Works for everyone</div>
+            <div class="ex good">Results may vary / Many students notice improvements</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">ba-002</span><span class="chip warn">Важно</span> Контраст реалистичный, не экстремальный</div>
+          <div class="rule-hint">Не должно быть «ужасного фото до» и «фотошоп-идеала после». Натуральные фото с видимым, но правдоподобным улучшением.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">ba-003</span><span class="chip warn">Важно</span> Позиционирование: результат обучения, НЕ лечения</div>
+          <div class="exs">
+            <div class="ex bad">Wrinkle treatment results / Procedure eliminated the defect</div>
+            <div class="ex good">Student's result after faceplastica course</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ МЕД. КЛЕЙМЫ ═══════ -->
+  <div class="card" id="med">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">⚕️</span>
+      <h2>Медицинские клеймы</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">Мы продаём образование, не медицинские услуги. FTC и Meta следят за этим жёстко.</div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">mc-001</span><span class="chip crit">Критично</span> Нет медицинских обещаний</div>
+          <div class="exs">
+            <div class="ex bad">Cure your wrinkles / Eliminate double chin without surgery</div>
+            <div class="ex good">Natural facial care techniques / Learn self-massage methods</div>
+          </div>
+          <div class="exs" style="margin-top:4px;">
+            <div class="ex bad">"treatment" / "fixes" / "doesn't come back"</div>
+            <div class="ex good">"practice" / "technique" / "many students notice changes"</div>
+          </div>
+          <details>
+            <summary>Стоп-слова →</summary>
+            <p style="font-size:12px;color:var(--text-3);margin-top:4px;font-family:'JetBrains Mono',monospace;">cure · eliminate · treat · treatment · fixes · heals · guaranteed results · surgery equivalent · doesn't come back · permanent</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="note orange" style="margin-top:14px;">
+        <strong>⚠️ Про доктора Алеся в видео:</strong>
+        Используем: <strong>MD, PhD, Integrative Longevity Doctor, practicing in UAE</strong>.<br>
+        Нельзя: Surgeon, Physician, и всё, что создаёт впечатление практики в США.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ХУК И МОНТАЖ ═══════ -->
+  <div class="card" id="hook">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🎬</span>
+      <h2>Хук, монтаж и видео-продакшн</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        <strong>Данные из анализа 140 креативов (июль–сентябрь 2026):</strong><br>
+        Идеальный hook rate: 18–32%. Выше 33% — чаще всего кликбейт (зеваки кликают, но не покупают). У лучших креативов CR клик→покупка ≥ 2.2%.
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">vp-001</span><span class="chip crit">Критично</span> Хук (0–3 сек): боль/проблема показана сразу</div>
+          <div class="exs">
+            <div class="ex bad">Первые 3 сек — логотип или текст без визуала</div>
+            <div class="ex good">С 0 сек — до/после или визуал проблемы</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">vp-009</span><span class="chip warn">Важно</span> Хук не кликбейтный — цепляет ICP, а не зевак</div>
+          <div class="rule-hint">Хук должен показывать реальную боль нашей аудитории (женщины 35+, уход за лицом и телом). Шок ради вау-эффекта = высокий hook rate, но нулевые продажи.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">vp-010</span><span class="chip warn">Важно</span> Середина удерживает внимание</div>
+          <div class="rule-hint">После хука: ценность → соц. доказательство → CTA. Не пустое заполнение. У провальных крео — резкий обвал retention к середине.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-002</span><span class="chip warn">Важно</span> Хук: без анимаций «выезжания» объектов</div></div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-003</span><span class="chip warn">Важно</span> Хук НЕ тёмный — яркий, хорошо освещённый</div></div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-004</span><span class="chip warn">Важно</span> AI-генерация в хуке — только если неотличима от реала</div></div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-005</span><span class="chip warn">Важно</span> Сток минимизирован, не выглядит наигранным</div></div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-006</span><span class="chip warn">Важно</span> Кадры вертикальные, на весь экран (нет леттербоксинга)</div></div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-008</span><span class="chip warn">Важно</span> Объекты в кадре не перекрывают друг друга</div></div>
+      </div>
+
+      <div class="rule">
+        <div class="pip info"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">vp-007</span><span class="chip info">Инфо</span> AI-генерации — лучшее качество, нечасто, аккуратно с лицами</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ОЗВУЧКА И ОФФЕР ═══════ -->
+  <div class="card" id="vo">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🎙</span>
+      <h2>Озвучка, оффер и финальная сборка</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">Монтаж — это не только картинка. Перед экспортом проверяй озвучку, оффер, имена и CTA.</div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Критично</span> Оффер единый во всём ролике</div>
+          <div class="rule-hint">Цена, число курсов, условия trial, срок доступа — совпадают в речи, субтитрах и тексте на экране. Разный оффер в начале и в конце = переделка.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Критично</span> Имена и названия — точные</div>
+          <div class="rule-hint">Dr. Ales (не Alex, не Ayles), MindBodyFace, Faceplastica® (с ®). Неверное имя = ролик не выпускаем.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Важно</span> Озвучка чистая</div>
+          <div class="rule-hint">Без петель, обрывов, TTS-мусора. Нет смысловых дублей (одна мысль дважды). Нет посторонних вставок (чужой URL, YouTube-аутро).</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">bc-004</span><span class="chip warn">Важно</span> CTA понятен и завершён</div>
+          <div class="rule-hint">Зритель слышит/видит, что делать дальше. CTA не оборван. Соответствует цели рекламы (вебинар / trial / курс).</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">ac-003</span><span class="chip warn">Важно</span> Оффер в рекламе = оффер на лендинге</div>
+          <div class="rule-hint">Хук, тело и CTA — единая цепочка к одному офферу. Хук обещает одно, CTA ведёт к другому = кликбейт = плохой CR.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">ac-001</span><span class="chip warn">Важно</span> Нет sensational claims без обоснования</div>
+          <div class="exs">
+            <div class="ex bad">This will change your life in 24 hours!</div>
+            <div class="ex good">Thousands of students already practice these techniques</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip info"></div>
+        <div class="rule-body"><div class="rule-title"><span class="tag">ac-002</span><span class="chip info">Инфо</span> Нет избыточных CAPS и 🔥🔥🔥 в заголовках</div></div>
+      </div>
+
+      <div class="note green" style="margin-top:14px;">
+        <strong>⏱ Финальный контроль:</strong> прослушай ролик целиком в наушниках и отдельно пересмотри последние 10–15 секунд.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ТЕХТРЕБОВАНИЯ ═══════ -->
+  <div class="card" id="tech">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">📐</span>
+      <h2>Технические требования</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">tr-001</span><span class="chip crit">Критично</span> Аспект соответствует плейсменту</div>
+          <div class="rule-hint">Feed: 1:1 или 4:5 · Stories/Reels: 9:16 · Горизонтальное видео в Stories = сломанный креатив.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">tr-002</span><span class="chip warn">Важно</span> Субтитры есть (авто-play без звука)</div>
+          <div class="rule-hint">85% пользователей смотрят без звука. Субтитры обязательны для Reels, рекомендуются для Feed.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">tr-003</span><span class="chip warn">Важно</span> Текст не в safe zone (Stories/Reels)</div>
+          <div class="rule-hint">Верхние ~14% и нижние ~20% перекрываются интерфейсом Instagram. Никакого текста/CTA там.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip info"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">tr-004</span><span class="chip info">Инфо</span> Оптимальная длительность</div>
+          <div class="rule-hint">Feed: 15–30 сек · Stories: до 60 сек · Reels: до 90 сек.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ СВЕТОФОР ═══════ -->
+  <div class="traffic" id="light">
+    <h2>🚦 Светофор: выпускаем или переделываем?</h2>
+
+    <div class="tl-row red">
+      <div class="tl-dot">🔴</div>
+      <div>
+        <h3>Переделать. Не выпускаем.</h3>
+        <p>Неверное имя, цена, оффер или trial · Повтор фразы / TTS-мусор · Чужой URL · Оборванный CTA · Медицинское обещание · Обращение к зрителю + дефект внешности · Гарантированный результат · Неверный аспект</p>
+      </div>
+    </div>
+
+    <div class="tl-row yellow">
+      <div class="tl-dot">🟡</div>
+      <div>
+        <h3>Точечно поправить. Доэкспортировать.</h3>
+        <p>Двойной CTA · Лишнее слово · Неудачная пауза · Языковая неточность · Слишком категоричная формулировка без искажения оффера · Нет субтитров · Текст в safe zone</p>
+      </div>
+    </div>
+
+    <div class="tl-row green">
+      <div class="tl-dot">🟢</div>
+      <div>
+        <h3>Можно выпускать. ✓</h3>
+        <p>Озвучка чистая · Оффер и имена верные · Повторов и обрывов нет · CTA завершён · Аспект верный · Хук с 0 сек · Субтитры есть · Нет мед. клеймов · Нет Personal Attributes нарушений</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-rule">
+    Если зритель может услышать <u>другое имя, цену, продукт или CTA</u> — ролик не сдаём.
+  </div>
+
+  <!-- ═══════ ФИНАЛ-ЧЕК ═══════ -->
+  <div class="checklist-wrap" id="check">
+    <div class="checklist-header">
+      <div class="ring-wrap">
+        <svg width="56" height="56" viewBox="0 0 56 56">
+          <circle class="ring-bg" cx="28" cy="28" r="24" fill="none" stroke-width="4"/>
+          <circle class="ring-fg" id="ringFg" cx="28" cy="28" r="24" fill="none" stroke-width="4"
+                  stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8"/>
+        </svg>
+        <div class="ring-pct" id="ringPct">0%</div>
+      </div>
+      <div>
+        <h2>Экспресс-проверка перед экспортом</h2>
+        <div class="sub" id="checkSub">0 / 15 пунктов</div>
+      </div>
+    </div>
+
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Имя эксперта — Dr. Ales (не Alex, не Ayles)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Faceplastica® со знаком ®</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Цена и условия trial единые по всему ролику</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет обращения «ты / tú / you / sen» + дефект внешности</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет «guaranteed / 100% / works for everyone»</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет мед. обещаний (cure, eliminate, treatment, fixes)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук с 0 сек — проблема или до/после, не логотип</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук яркий, не тёмный</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Середина видео даёт ценность (не пустое заполнение)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">CTA завершён, зритель знает, что делать</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры есть (если есть речь)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Аспект верный (Feed 1:1/4:5 · Reels 9:16)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Текст не в safe zone (верх 14%, низ 20%)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Озвучка без петель, обрывов и TTS-мусора</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + последние 15 сек</span></label>
+  </div>
+
+</div>
+
+<script>
+function toggle(h){h.parentElement.classList.toggle('shut')}
+function chk(el){
+  const cb=el.querySelector('input');
+  cb.checked=!cb.checked;
+  el.classList.toggle('done',cb.checked);
+  updRing();
+}
+function updRing(){
+  const t=document.querySelectorAll('.chk').length;
+  const d=document.querySelectorAll('.chk.done').length;
+  const p=Math.round(d/t*100);
+  const circ=150.8;
+  document.getElementById('ringFg').style.strokeDashoffset=circ-(circ*p/100);
+  document.getElementById('ringPct').textContent=p+'%';
+  document.getElementById('checkSub').textContent=d+' / '+t+' пунктов';
+}
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>

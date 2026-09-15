@@ -11,6 +11,16 @@ export default function Header({ onSettingsClick }) {
         </div>
       </div>
       <div className="header-actions">
+        <a
+          href="/reglament"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-secondary btn-sm"
+          style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          title="Открыть интерактивный регламент QC"
+        >
+          📋 Регламент
+        </a>
         <button className="btn btn-ghost btn-icon" onClick={onSettingsClick} title="Настройки">
           ⚙️
         </button>

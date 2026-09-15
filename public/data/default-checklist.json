@@ -1,8 +1,8 @@
 {
-  "version": "1.0",
-  "updated": "2026-09-12",
+  "version": "2.0",
+  "updated": "2026-09-14",
   "name": "Meta Creative QC — MindBodyFace",
-  "description": "Чек-лист контроля качества рекламных креативов для Meta Ads (Facebook/Instagram). Академия MindBodyFace — образовательный продукт в сфере фейспластики/массажа лица/бьюти, испаноязычный рынок.",
+  "description": "Чек-лист контроля качества рекламных креативов для Meta Ads (Facebook/Instagram). Академия MindBodyFace — образовательный продукт в сфере фейспластики/массажа лица/бьюти. Мультиязычный (ES, EN, TR и др.).",
   "sections": [
     {
       "id": "personal-attributes",
@@ -12,25 +12,35 @@
       "items": [
         {
           "id": "pa-001",
-          "text": "Нет прямого обращения на «ты/вы» с указанием на недостаток адресата",
+          "text": "Нет обращения к зрителю с указанием на физический недостаток или дефект внешности",
           "severity": "critical",
-          "applies_to": ["text", "image", "video"],
+          "applies_to": [
+            "text",
+            "image",
+            "video"
+          ],
           "bad_examples": [
             "Tus arrugas te delatan",
             "¿Cansada de tu papada?",
-            "A tu edad esto ya no debería pasar"
+            "A tu edad esto ya no debería pasar",
+            "Your wrinkles are showing your age",
+            "Gıdından mı şikayetçisin? / Kırışıklıkların seni yaşlı mı gösteriyor?"
           ],
           "good_examples": [
             "Muchas mujeres notan cambios en la piel con la edad",
-            "Aprende técnicas de faceplastica para rejuvenecer el rostro"
+            "Aprende técnicas de faceplastica para rejuvenecer el rostro",
+            "Many women notice changes as they age — here's a natural approach"
           ],
-          "ai_prompt": "Проверь, обращается ли текст напрямую к зрителю (ты/вы) с указанием на физический недостаток — арруги, папада, возраст, кожа. Это нарушение Personal Attributes Policy Meta."
+          "ai_prompt": "Проверь, обращается ли текст/подписи к зрителю (ты/вы/you/sen) С УКАЗАНИЕМ на физический недостаток — морщины, папада, второй подбородок, возраст, кожа, усталый вид. Само обращение на «ты» допустимо, НАРУШЕНИЕ — только когда оно СОЧЕТАЕТСЯ с указанием на дефект внешности. Это Personal Attributes Policy Meta."
         },
         {
           "id": "pa-002",
-          "text": "Изображение/видео не содержит крупный план «проблемной зоны» с текстом-стрелкой в духе «esto te pasa a ti»",
+          "text": "Изображение/видео не содержит крупный план «проблемной зоны» с текстом-стрелкой в духе «это твоя проблема»",
           "severity": "critical",
-          "applies_to": ["image", "video"],
+          "applies_to": [
+            "image",
+            "video"
+          ],
           "bad_examples": [
             "Крупный план морщин со стрелкой и текстом",
             "Фото папады с подписью «Esto te pasa»"
@@ -53,23 +63,32 @@
           "id": "ba-001",
           "text": "Нет обещания гарантированного результата",
           "severity": "critical",
-          "applies_to": ["text", "image", "video"],
+          "applies_to": [
+            "text",
+            "image",
+            "video"
+          ],
           "bad_examples": [
             "Resultados garantizados",
             "Elimina las arrugas para siempre",
-            "100% efectivo"
+            "100% efectivo",
+            "Guaranteed results"
           ],
           "good_examples": [
             "Resultados pueden variar",
-            "Muchas alumnas notan mejoras"
+            "Muchas alumnas notan mejoras",
+            "Results may vary"
           ],
-          "ai_prompt": "Проверь, есть ли в тексте/креативе обещание гарантированного результата: «garantizado», «para siempre», «100%», «elimina completamente» и т.п."
+          "ai_prompt": "Проверь, есть ли в тексте/креативе обещание гарантированного результата: «garantizado», «para siempre», «100%», «elimina completamente», «guaranteed» и т.п."
         },
         {
           "id": "ba-002",
           "text": "До/после — реалистичный контраст, не экстремальный",
           "severity": "warning",
-          "applies_to": ["image", "video"],
+          "applies_to": [
+            "image",
+            "video"
+          ],
           "bad_examples": [
             "Фото до: ужасное, после: фотошоп-идеал",
             "Нереалистичная разница, не соответствующая методу"
@@ -83,7 +102,9 @@
           "id": "ba-003",
           "text": "До/после позиционируется как «результаты учениц после применения техники», а не как результат лечения",
           "severity": "warning",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [
             "Результат лечения морщин",
             "Процедура устранила дефект"
@@ -106,27 +127,34 @@
           "id": "mc-001",
           "text": "Нет медицинских обещаний: «cura», «elimina», «trata [enfermedad]», «sin cirugía es lo mismo que...»",
           "severity": "critical",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [
             "Cura tus arrugas",
             "Elimina la papada sin cirugía",
             "Trata las líneas de expresión",
-            "Es lo mismo que un lifting pero sin cirugía"
+            "Es lo mismo que un lifting pero sin cirugía",
+            "Cure your wrinkles"
           ],
           "good_examples": [
             "Técnicas naturales para el cuidado facial",
-            "Aprende métodos de automasaje facial"
+            "Aprende métodos de automasaje facial",
+            "Natural facial care techniques"
           ],
-          "ai_prompt": "Найди в тексте медицинские обещания на испанском: «cura», «elimina [condición]», «trata [enfermedad/condición]», «resultados garantizados», «sin cirugía es lo mismo que...», сравнение с медицинской процедурой."
+          "ai_prompt": "Найди в тексте медицинские обещания на любом языке: «cura/cure», «elimina/eliminate [condición]», «trata/treat [enfermedad/condición]», «resultados garantizados/guaranteed results», «sin cirugía es lo mismo que.../without surgery it's the same as...», сравнение с медицинской процедурой."
         },
         {
           "id": "mc-002",
           "text": "Есть дисклеймер: это образовательный продукт/курс, а не медицинская услуга",
           "severity": "warning",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [],
           "good_examples": [
-            "Producto educativo. No sustituye el consejo médico."
+            "Producto educativo. No sustituye el consejo médico.",
+            "Educational product. Not medical advice."
           ],
           "ai_prompt": "Проверь, есть ли дисклеймер о том, что продукт — образовательный, не медицинский."
         },
@@ -134,7 +162,9 @@
           "id": "mc-003",
           "text": "Для ЕС-таргетинга: учтена повышенная чувствительность к рекламе здоровья",
           "severity": "info",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [],
           "good_examples": [],
           "ai_prompt": "Если реклама нацелена на ЕС — отметь, что могут потребоваться дополнительные документы/verification для рекламы, связанной со здоровьем."
@@ -151,7 +181,10 @@
           "id": "tr-001",
           "text": "Аспект соответствует плейсменту (Feed: 1:1/4:5, Stories/Reels: 9:16)",
           "severity": "critical",
-          "applies_to": ["image", "video"],
+          "applies_to": [
+            "image",
+            "video"
+          ],
           "bad_examples": [
             "16:9 видео в Stories",
             "Горизонтальное видео для Reels"
@@ -166,7 +199,9 @@
           "id": "tr-002",
           "text": "Видео: есть субтитры (авто-play без звука)",
           "severity": "warning",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Видео с речью без субтитров"
           ],
@@ -179,7 +214,9 @@
           "id": "tr-003",
           "text": "Текст на статике не залезает в safe zone (Stories/Reels: верх ~14%, низ ~20%)",
           "severity": "warning",
-          "applies_to": ["image"],
+          "applies_to": [
+            "image"
+          ],
           "bad_examples": [
             "CTA в нижних 20% для Stories",
             "Лого в верхних 14% для Stories"
@@ -193,7 +230,9 @@
           "id": "tr-004",
           "text": "Видео оптимальной длительности (Feed: 15-30 сек, Stories: до 60 сек, Reels: до 90 сек)",
           "severity": "info",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [],
           "good_examples": [],
           "ai_prompt": "Оцени длительность видео. Рекомендации: Feed 15-30 сек, Stories до 60 сек, Reels до 90 сек."
@@ -204,27 +243,15 @@
       "id": "brand-check",
       "title": "Бренд-чек",
       "icon": "✨",
-      "description": "Логотип, тон голоса, грамотность, CTA.",
+      "description": "Тон голоса, грамотность, CTA.",
       "items": [
-        {
-          "id": "bc-001",
-          "text": "Логотип/название MindBodyFace присутствует и не искажён",
-          "severity": "warning",
-          "applies_to": ["image", "video"],
-          "bad_examples": [
-            "Нет логотипа",
-            "Логотип обрезан или искажён"
-          ],
-          "good_examples": [
-            "Логотип чёткий, правильных пропорций"
-          ],
-          "ai_prompt": "Проверь наличие и корректность логотипа/названия MindBodyFace на креативе."
-        },
         {
           "id": "bc-002",
           "text": "Тон голоса: экспертный, тёплый — без кричащего copy, CAPS LOCK, избыточных восклицательных знаков",
           "severity": "warning",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [
             "¡¡¡INCREÍBLE OFERTA!!!",
             "RESULTADOS QUE NO CREERÁS",
@@ -238,25 +265,32 @@
         },
         {
           "id": "bc-003",
-          "text": "Испанский язык грамотный (орфография, согласование родов/чисел)",
+          "text": "Текст грамотный (орфография, согласование, пунктуация на языке креатива)",
           "severity": "warning",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [],
           "good_examples": [],
-          "ai_prompt": "Проверь грамотность испанского текста: орфография, согласование родов и чисел. Ошибки бьют по доверию на внешнем рынке."
+          "ai_prompt": "Проверь грамотность текста на языке креатива (испанский, английский, турецкий или другой): орфография, пунктуация, согласование. Ошибки бьют по доверию."
         },
         {
           "id": "bc-004",
           "text": "CTA присутствует и соответствует цели рекламы",
           "severity": "warning",
-          "applies_to": ["text", "image", "video"],
+          "applies_to": [
+            "text",
+            "image",
+            "video"
+          ],
           "bad_examples": [
             "Нет CTA вообще",
             "CTA не соответствует цели (написано 'купи', цель — регистрация на вебинар)"
           ],
           "good_examples": [
             "Regístrate al webinar gratuito",
-            "Comienza tu formación hoy"
+            "Comienza tu formación hoy",
+            "Join the free masterclass"
           ],
           "ai_prompt": "Проверь наличие CTA и его соответствие цели рекламы (регистрация на вебинар / курс / заявка)."
         }
@@ -266,13 +300,15 @@
       "id": "video-production",
       "title": "Стандарты видео-продакшена / монтажа",
       "icon": "🎬",
-      "description": "Внутренний регламент команды монтажа. Проверяй видео-креативы по ним отдельно от технических требований.",
+      "description": "Внутренний регламент команды монтажа. Проверяй видео-креативы по ним отдельно от технических требований. Основан на анализе 140 креативов (окно 2026-07-01→2026-09-04).",
       "items": [
         {
           "id": "vp-001",
           "text": "Хук (0-3 сек): показывает боль/проблему сразу с 0-й секунды",
           "severity": "critical",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Первые 3 секунды — лого или текст без визуала проблемы",
             "Боль показана только после 3-й секунды"
@@ -286,7 +322,9 @@
           "id": "vp-002",
           "text": "Хук: без анимаций появления объектов (не «выезжают» со сторон экрана)",
           "severity": "warning",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Объекты выезжают сбоку в первые секунды"
           ],
@@ -299,7 +337,9 @@
           "id": "vp-003",
           "text": "Хук не тёмный по свету/цвету",
           "severity": "warning",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Тёмный, мрачный первый кадр"
           ],
@@ -312,7 +352,9 @@
           "id": "vp-004",
           "text": "В хуке нет AI-генерации (или генерация выглядит полностью реалистично)",
           "severity": "warning",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Заметно AI-сгенерированное лицо в хуке"
           ],
@@ -325,7 +367,9 @@
           "id": "vp-005",
           "text": "Сток-футаж минимизирован и не выглядит «стоковым»/наигранным",
           "severity": "warning",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Много стоковых кадров с наигранными актёрами",
             "Плохая игра, плохая съёмка, плохой фон"
@@ -340,7 +384,9 @@
           "id": "vp-006",
           "text": "Фоновые кадры вертикальные и на весь экран (нет леттербоксинга)",
           "severity": "warning",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Горизонтальный кадр с чёрными полосами сверху/снизу"
           ],
@@ -353,7 +399,9 @@
           "id": "vp-007",
           "text": "AI-генерации — лучшее качество, используются нечасто, аккуратно с людьми",
           "severity": "info",
-          "applies_to": ["video"],
+          "applies_to": [
+            "video"
+          ],
           "bad_examples": [
             "Видео перегружено AI-контентом",
             "Заметные артефакты/неестественность на AI-людях"
@@ -367,15 +415,56 @@
           "id": "vp-008",
           "text": "Объекты в кадре не перекрывают друг друга",
           "severity": "warning",
-          "applies_to": ["video", "image"],
+          "applies_to": [
+            "video",
+            "image"
+          ],
           "bad_examples": [
-            "Текст перекрывает лицо", 
+            "Текст перекрывает лицо",
             "Лого закрывает важный элемент"
           ],
           "good_examples": [
             "Все объекты расположены без перекрытий"
           ],
           "ai_prompt": "Проверь композицию кадра: объекты не должны перекрывать друг друга."
+        },
+        {
+          "id": "vp-009",
+          "text": "Хук не «кликбейтный» — привлекает целевую аудиторию, а не зевак",
+          "severity": "warning",
+          "applies_to": [
+            "video"
+          ],
+          "bad_examples": [
+            "Шокирующий / сенсационный первый кадр, не связанный с продуктом",
+            "Кадр с экстремальной визуальной проблемой ради вау-эффекта",
+            "Хук, привлекающий любопытных, а не тех, кто купит"
+          ],
+          "good_examples": [
+            "Хук показывает реальную боль целевой аудитории (женщины 35+, уход за лицом)",
+            "Хук с до/после реальной ученицы — вызывает интерес покупателя",
+            "Хук с вопросом или утверждением, резонирующим именно с ICP"
+          ],
+          "ai_prompt": "Оцени, не является ли хук «кликбейтным» — привлекает ли он целевую аудиторию (женщины 35+, интерес к уходу за лицом, готовность учиться) или скорее зевак / широкую аудиторию. По данным 140 крео: хуки с hook rate > 33% часто оказывались кликбейтом с низкой конверсией. Идеальный hook rate: 18-32%."
+        },
+        {
+          "id": "vp-010",
+          "text": "Середина видео удерживает внимание (нет резкого провала retention после хука)",
+          "severity": "warning",
+          "applies_to": [
+            "video"
+          ],
+          "bad_examples": [
+            "Кривая удержания резко падает к середине видео",
+            "Длинный монотонный блок без смены кадров/темы после хука",
+            "Середина без value — только заполнение хронометража"
+          ],
+          "good_examples": [
+            "Плавная стабилизация кривой после начального сброса",
+            "Чередование кадров/ценности: проблема → решение → социальное доказательство → CTA",
+            "Удержание не менее 40% от hook rate к середине видео"
+          ],
+          "ai_prompt": "Оцени структуру видео после хука: есть ли 'тело', удерживающее внимание? По данным 140 крео: у провальных видео — резкий обвал retention к середине. У винеров — плавный, стабильный спад. Середина должна давать value (решение/техника/социальное доказательство), а не пустое заполнение."
         }
       ]
     },
@@ -383,27 +472,33 @@
       "id": "ad-copy-rules",
       "title": "Общие правила рекламного текста Meta",
       "icon": "📝",
-      "description": "Sensational claims, заглавные буквы, кликбейт.",
+      "description": "Sensational claims, заглавные буквы, кликбейт, соответствие оффера.",
       "items": [
         {
           "id": "ac-001",
           "text": "Нет «sensational» claims без обоснования",
           "severity": "warning",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [
             "¡Esto cambiará tu vida en 24 horas!",
-            "El secreto que los doctores no quieren que sepas"
+            "El secreto que los doctores no quieren que sepas",
+            "This will change your life overnight!"
           ],
           "good_examples": [
-            "Miles de alumnas ya practican estas técnicas"
+            "Miles de alumnas ya practican estas técnicas",
+            "Thousands of students already practice these techniques"
           ],
-          "ai_prompt": "Проверь текст на sensational claims без обоснования: «cambiará tu vida», «secreto», «milagro», «en 24 horas» и т.п."
+          "ai_prompt": "Проверь текст на sensational claims без обоснования: «cambiará tu vida», «secreto», «milagro», «en 24 horas», «overnight», «secret» и т.п."
         },
         {
           "id": "ac-002",
           "text": "Нет избыточных заглавных букв / эмодзи в headline",
           "severity": "info",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [
             "OFERTA INCREÍBLE 🔥🔥🔥 NO TE LO PIERDAS 😱😱"
           ],
@@ -414,16 +509,20 @@
         },
         {
           "id": "ac-003",
-          "text": "Ссылка/лендинг соответствует заявленному офферу (не кликбейт)",
+          "text": "Оффер в рекламе совпадает с оффером на лендинге (не кликбейт)",
           "severity": "warning",
-          "applies_to": ["text"],
+          "applies_to": [
+            "text"
+          ],
           "bad_examples": [
-            "Объявление про бесплатный вебинар, лендинг — платный курс"
+            "Объявление про бесплатный вебинар, лендинг — платный курс",
+            "Хук обещает одно, а CTA ведёт к другому"
           ],
           "good_examples": [
-            "Оффер в объявлении = оффер на лендинге"
+            "Оффер в объявлении = оффер на лендинге",
+            "Хук, тело и CTA — единая логическая цепочка к одному офферу"
           ],
-          "ai_prompt": "Проверь соответствие оффера в объявлении тому, что заявлено. Если указан URL — не кликбейт ли это?"
+          "ai_prompt": "Проверь соответствие оффера в объявлении тому, что заявлено. Если указан URL — не кликбейт ли это? По данным 140 крео: несоответствие оффера — одна из главных причин «Дорогого заказа» (высокий CTR, низкий CR)."
         }
       ]
     }
