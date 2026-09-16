@@ -472,6 +472,37 @@
       padding-left: 20px; font-size: 13px; color: var(--text-2); line-height: 1.6;
     }
     .bad-list li strong { color: var(--text); }
+
+    /* Folder Grid Styles */
+    .folder-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px; margin: 12px 0 6px;
+    }
+    .folder-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      text-decoration: none;
+      color: var(--text);
+      transition: all .2s;
+    }
+    .folder-card:hover {
+      background: rgba(139,92,246,.12);
+      border-color: rgba(139,92,246,.35);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+    .folder-name {
+      font-weight: 700; font-size: 13.5px; display: flex; align-items: center; gap: 8px;
+    }
+    .folder-desc {
+      font-size: 11.5px; color: var(--text-2); margin-top: 4px; line-height: 1.4;
+    }
+    .folder-action {
+      font-size: 11px; font-weight: 600; color: var(--accent-2); margin-top: 8px; display: flex; align-items: center; gap: 4px;
+    }
   </style>
 </head>
 <body>
@@ -490,6 +521,7 @@
 </div>
 
 <nav>
+  <a href="#materials" style="color:#38bdf8; font-weight:700;">📁 Материалы Drive</a>
   <a href="#pipeline" style="color:var(--accent-2); font-weight:700;">🚀 Пайплайн</a>
   <a href="#brand">Бренд</a>
   <a href="#ban">Зона бана</a>
@@ -503,6 +535,80 @@
 </nav>
 
 <div class="wrap">
+
+  <!-- ═══════ БАЗА МАТЕРИАЛОВ (GOOGLE DRIVE) ═══════ -->
+  <div class="card" id="materials" style="border-color: rgba(56,189,248,.3); background: linear-gradient(180deg, rgba(56,189,248,.05) 0%, rgba(255,255,255,.02) 100%);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">📁</span>
+      <h2>База рабочих материалов на Google Drive</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx" style="border-color:rgba(56,189,248,.2); background:rgba(56,189,248,.06);">
+        <strong>📂 Главная папка всех исходников:</strong> 
+        <a href="https://drive.google.com/drive/folders/130JHG_knBuzQnwCwQT1FwkoyyJ0dnSlX" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">МОНТАЖ МАТЕРИАЛЫ (Google Drive) ↗</a><br>
+        Здесь собраны все лицензионные треки, футажи с доктором Алесем по курсам, анатомия и примеры хуков для насмотренности.
+      </div>
+
+      <div class="folder-grid">
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 BODY SECRET</div>
+            <div class="folder-desc">Футажи с Алесем, демонстрации техник и практические уроки курса BodySecret.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 CELLULITE</div>
+            <div class="folder-desc">Материалы, упражнения и демонстрации техник по антицеллюлитному курсу.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 LIFTING</div>
+            <div class="folder-desc">Техники лифтинга лица, самомассажи и демонстрации Алеся на моделях.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 MAXILLA</div>
+            <div class="folder-desc">Анатомические разборы максиллы (на доске и на себе), приёмы работы со средней трети.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 RESET</div>
+            <div class="folder-desc">Футажи и практики по комплексной программе оздоровления и осанки Reset.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">🎵 МУЗЫКА</div>
+            <div class="folder-desc">Официальный пак купленной лицензионной музыки строго БЕЗ слов.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
+          <div>
+            <div class="folder-name">👁️ ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</div>
+            <div class="folder-desc">Большая база лучших роликов: хуки, разборы кейсов и примеры оформления для тренировки насмотренности.</div>
+          </div>
+          <div class="folder-action">Открыть примеры на Drive ↗</div>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════ ПАЙПЛАЙН МОНТАЖА ═══════ -->
   <div class="card" id="pipeline" style="border-color: rgba(139,92,246,.25); background: linear-gradient(180deg, rgba(139,92,246,.04) 0%, rgba(255,255,255,.02) 100%);">
@@ -610,7 +716,8 @@
               • ⚠️ <strong>В хуках — не только аватар, но и живые футажи с Алесем!</strong> Наш доктор обязан быть в хуке.<br>
               • <strong>Мини-анимации:</strong> выделение проблемных зон (стрелочки, круги, обводки), плавные и приятные глазу.<br>
               • <strong>Без нейрослопа:</strong> анатомия, живая съёмка (генерации — только идеального качества).<br>
-              • <strong>Динамика:</strong> смена кадров каждые 3–5 сек (не зависать на 6 сек на одном плане).
+              • <strong>Динамика:</strong> смена кадров каждые 3–5 сек (не зависать на 6 сек на одном плане).<br>
+              • 💡 <em>База хуков для тренировки насмотренности:</em> <a href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" style="color:var(--accent-2); font-weight:600; text-decoration:underline;">Папка «ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)» ↗</a>
             </div>
           </div>
         </div>
@@ -624,6 +731,7 @@
             </div>
             <div class="step-desc">
               • <strong>Футажи с Алесем и моделями — первостепенное требование:</strong> используем кадры по данному курсу, где Алесь что-то показывает на себе, на моделях или показывает анатомию на доске.<br>
+              • 📂 <em>Папки по направлениям:</em> <a href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" style="color:var(--accent-2);">BODY SECRET</a> · <a href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" style="color:var(--accent-2);">CELLULITE</a> · <a href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" style="color:var(--accent-2);">LIFTING</a> · <a href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" style="color:var(--accent-2);">MAXILLA</a> · <a href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" style="color:var(--accent-2);">RESET</a><br>
               • <strong>Анатомические футажи:</strong> наглядный разбор причин проблемы (<em>«это максилла, она отвечает за..., из-за неё у вас...»</em>).<br>
               • 🚫 <strong>Сток не используем вообще:</strong> стоки в начале и банальные клише больше всего вредят креативу. В идеале находить реальные живые кадры на <strong>YouTube и Pinterest</strong>.<br>
               • <strong>Запрет низкосортных исходников:</strong> никакого мыла, пластиковых лиц и корявых генераций.
@@ -738,7 +846,7 @@
                 <div class="mood-card">📈 Трендовая</div>
               </div>
               • <strong>Разрешённые источники музыки:</strong><br>
-              1) <strong>Пак музыки от Димы</strong> (официально купленная лицензия)<br>
+              1) <strong>Пак музыки от Димы</strong> — <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" style="color:var(--accent-2); font-weight:600; text-decoration:underline;">скачать из папки «МУЗЫКА» на Drive ↗</a><br>
               2) <strong>Magnific</strong> (Freepik Audio)<br>
               3) <strong>Meta Sound Collection</strong> (библиотека коммерческих треков Meta)<br>
               <small style="color:var(--orange); display:block; margin-top:6px;">⚠️ Примеры треков от команды служат только ориентиром по темпу — конкретно референсные треки брать нельзя.</small>
