@@ -358,6 +358,44 @@
     }
     .sub-bad { color: #f43f5e; }
     .sub-good { color: #10b981; }
+
+    /* Naming Styles */
+    .naming-box {
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 18px;
+    }
+    .naming-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px; margin: 14px 0;
+    }
+    .naming-file-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .naming-file-card strong { color: var(--accent-2); display: block; font-size: 13px; margin-bottom: 2px; }
+    .naming-legend {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .naming-tag {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 12px;
+    }
+    .naming-tag span {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--accent-2);
+      margin-right: 4px;
+    }
   </style>
 </head>
 <body>
@@ -383,7 +421,7 @@
   <a href="#med">Мед. клеймы</a>
   <a href="#hook">Хук и монтаж</a>
   <a href="#vo">Озвучка и оффер</a>
-  <a href="#tech">Техтребования</a>
+  <a href="#tech">Техтребования и нейминг</a>
   <a href="#light">Светофор</a>
   <a href="#check">Финал-чек</a>
 </nav>
@@ -559,6 +597,24 @@
           </div>
         </div>
 
+
+        <div class="step-card">
+          <div class="step-num">9</div>
+          <div class="step-content">
+            <div class="step-title">
+              Экспорт и строгий нейминг файлов (4 обязательных файла)
+              <span class="chip crit" style="font-size:10px;">Обязательно</span>
+            </div>
+            <div class="step-desc">
+              Каждый готовый ролик обязательно экспортируется ровно в <strong>4 файлах</strong>:<br>
+              1) <code>BDY_VID_S_BD123_DanD</code> — 1080×1920 (со звуком и сабами)<br>
+              2) <code>M_BDY_VID_S_BD123_DanD</code> — 1080×1920 (чистый мастер: без музыки и сабов)<br>
+              3) <code>BDY_VID_F_BD123_DanD</code> — 1080×1350 (со звуком и сабами)<br>
+              4) <code>M_BDY_VID_F_BD123_DanD</code> — 1080×1350 (чистый мастер: без музыки и сабов)<br>
+              <a href="#naming" style="color:var(--accent-2); font-size:12.5px; font-weight:600; text-decoration:underline;">Смотреть подробную расшифровку схемы нейминга в техтребованиях ↓</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -930,6 +986,52 @@
           <div class="rule-hint">Feed: 15–30 сек · Stories: до 60 сек · Reels: до 90 сек.</div>
         </div>
       </div>
+      <!-- ═══════ СТАНДАРТ НЕЙМИНГА ФАЙЛОВ ═══════ -->
+      <div class="naming-box" id="naming">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+          <span style="font-size:18px;">🏷️</span>
+          <strong style="font-size:15px; color:var(--text);">Стандарт нейминга файлов при экспорте (4 обязательных файла)</strong>
+        </div>
+        <p style="font-size:13px; color:var(--text-2); line-height:1.55;">
+          В таблице с ТЗ указано базовое имя креатива (например, <code style="color:var(--accent-2); background:rgba(255,255,255,.08); padding:2px 6px; border-radius:4px; font-family:'JetBrains Mono',monospace;">BDY_VID_BD123_DanD</code>). <br>
+          По нему монтажёр обязан сдать ровно <strong>4 файла</strong> с корректными суффиксами и префиксами:
+        </p>
+
+        <div class="naming-grid">
+          <div class="naming-file-card">
+            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">1 · Stories/Reels полная</div>
+            <strong>BDY_VID_S_BD123_DanD</strong>
+            <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · со звуком и сабами</div>
+          </div>
+          <div class="naming-file-card">
+            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">2 · Stories/Reels чистая</div>
+            <strong>M_BDY_VID_S_BD123_DanD</strong>
+            <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · БЕЗ музыки и субтитров</div>
+          </div>
+          <div class="naming-file-card">
+            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">3 · Feed полная</div>
+            <strong>BDY_VID_F_BD123_DanD</strong>
+            <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · со звуком и сабами</div>
+          </div>
+          <div class="naming-file-card">
+            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">4 · Feed чистая</div>
+            <strong>M_BDY_VID_F_BD123_DanD</strong>
+            <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · БЕЗ музыки и субтитров</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; font-size:12.5px; font-weight:600; color:var(--text-2);">Расшифровка схемы нейминга:</div>
+        <div class="naming-legend">
+          <div class="naming-tag"><span>M_</span> Префикс в начале = без музыки и сабов (чистый мастер)</div>
+          <div class="naming-tag"><span>BDY</span> Сокращение продукта (тут BodySecret, MBF = Membership)</div>
+          <div class="naming-tag"><span>VID</span> Видео</div>
+          <div class="naming-tag"><span>S</span> Формат 1080×1920 (Stories / Reels 9:16)</div>
+          <div class="naming-tag"><span>F</span> Формат 1080×1350 (Feed / Лента 4:5)</div>
+          <div class="naming-tag"><span>BD123</span> Порядковый ID креатива из таблицы ТЗ</div>
+          <div class="naming-tag"><span>DanD</span> Инициалы авторов / монтажёров (Даниил Dan, Дима D)</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -979,7 +1081,7 @@
       </div>
       <div>
         <h2>Экспресс-проверка перед экспортом</h2>
-        <div class="sub" id="checkSub">0 / 19 пунктов</div>
+        <div class="sub" id="checkSub">0 / 20 пунктов</div>
       </div>
     </div>
 
@@ -1000,6 +1102,8 @@
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">CTA завершён, зритель знает, что делать</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры есть (если есть речь)</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Аспект верный (Feed 1:1/4:5 · Reels 9:16)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по стандарту нейминга (S + M_S на 1080×1920, F + M_F на 1080×1350)</span></label>
+
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Текст не в safe zone (верх 14%, низ 20%)</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Озвучка без петель, обрывов и TTS-мусора</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + последние 15 сек</span></label>
