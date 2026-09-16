@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MBF · Регламент видеомонтажа (Video Editor Guide)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08090d;
+      --surface: rgba(255,255,255,.04);
+      --surface-hover: rgba(255,255,255,.07);
+      --border: rgba(255,255,255,.08);
+      --text: #f0f1f5;
+      --text-2: #a0a4b8;
+      --text-3: #636882;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56,189,248,.18);
+      --red: #f43f5e;
+      --orange: #f59e0b;
+      --green: #10b981;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+      --red-glow: rgba(244,63,94,.12);
+      --orange-glow: rgba(245,158,11,.10);
+      --green-glow: rgba(16,185,129,.10);
+      --blue-glow: rgba(59,130,246,.10);
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* Top Sticky Navigation */
+    .top-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,9,13,.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .top-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: inherit;
+    }
+    .top-logo {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; color: #fff;
+      box-shadow: 0 0 14px rgba(56,189,248,.4);
+    }
+    .top-title { font-weight: 700; font-size: 13.5px; color: var(--text); }
+    .top-subtitle { font-size: 11px; color: var(--text-3); }
+
+    /* Role Switcher Pills */
+    .role-switcher {
+      display: inline-flex; align-items: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 3px;
+      gap: 4px;
+    }
+    .role-btn {
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12.5px; font-weight: 600;
+      text-decoration: none; color: var(--text-2);
+      transition: all .2s ease;
+      display: inline-flex; align-items: center; gap: 6px;
+      white-space: nowrap;
+    }
+    .role-btn:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .role-btn.active {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(56,189,248,.35);
+    }
+    .role-btn.inactive {
+      color: #f472b6;
+    }
+    .role-btn.inactive:hover {
+      background: rgba(236,72,153,.15);
+      color: #fff;
+    }
+
+    .top-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .top-link {
+      padding: 6px 12px; border-radius: 8px;
+      font-size: 12px; font-weight: 500;
+      color: var(--text-2); text-decoration: none;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: all .2s ease;
+    }
+    .top-link:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 48px 24px 32px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%; transform: translateX(-50%);
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, rgba(56,189,248,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(56,189,248,.2), rgba(56,189,248,.05));
+      border: 1px solid rgba(56,189,248,.35);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11.5px; font-weight: 600;
+      color: #38bdf8;
+      letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4.5vw, 40px);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff 30%, #38bdf8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(14px, 1.8vw, 16.5px);
+      color: var(--text-2);
+      max-width: 680px;
+      margin: 0 auto 20px;
+      font-weight: 400;
+    }
+
+    /* Sub-nav in Hero to switch pages */
+    .role-callout-banner {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      margin: 0 auto 16px;
+      max-width: 720px;
+      font-size: 13px;
+      color: var(--text-2);
+      flex-wrap: wrap;
+    }
+    .role-callout-banner strong { color: var(--text); }
+    .role-callout-btn {
+      padding: 5px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+      text-decoration: none; color: #fff;
+      background: rgba(236,72,153,.25);
+      border: 1px solid rgba(236,72,153,.4);
+      transition: all .2s ease;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .role-callout-btn:hover { background: rgba(236,72,153,.4); }
+
+    /* Sticky In-page anchors */
+    nav.subnav {
+      position: sticky; top: 53px; z-index: 90;
+      background: rgba(8,9,13,.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      display: flex; gap: 6px;
+      overflow-x: auto;
+      justify-content: center;
+    }
+    nav.subnav a {
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    nav.subnav a:hover { color: var(--text); background: var(--surface-hover); }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: rgba(255,255,255,.14); }
+    .card-head {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .card-head:hover { background: var(--surface-hover); }
+    .card-head .emoji { font-size: 20px; flex-shrink: 0; }
+    .card-head h2 {
+      font-size: 16px; font-weight: 700;
+      letter-spacing: -.01em; flex: 1;
+    }
+    .card-head .arrow {
+      width: 18px; height: 18px; color: var(--text-3);
+      transition: transform .25s ease;
+      flex-shrink: 0;
+    }
+    .card.shut .card-body { display: none; }
+    .card.shut .arrow { transform: rotate(-90deg); }
+    .card-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    /* Rules */
+    .rule {
+      display: flex; gap: 12px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: background .15s;
+    }
+    .rule:hover { background: rgba(255,255,255,.035); }
+    .pip {
+      width: 4px; border-radius: 2px;
+      flex-shrink: 0; align-self: stretch;
+      min-height: 24px;
+    }
+    .pip.crit { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+    .pip.warn { background: var(--orange); }
+    .pip.info { background: var(--accent); }
+    .pip.ok   { background: var(--green); }
+
+    .rule-body { flex: 1; min-width: 0; }
+    .rule-title {
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 4px;
+    }
+    .rule-hint { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      color: var(--text-3);
+      background: rgba(255,255,255,.06);
+      padding: 1px 6px; border-radius: 4px;
+    }
+    .chip {
+      font-size: 10.5px; font-weight: 700;
+      padding: 1px 7px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: .03em;
+    }
+    .chip.crit { background: var(--red-glow); color: var(--red); }
+    .chip.warn { background: var(--orange-glow); color: var(--orange); }
+    .chip.info { background: rgba(56,189,248,.12); color: #38bdf8; }
+    .chip.ok   { background: var(--green-glow); color: var(--green); }
+
+    /* Examples */
+    .exs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      margin-top: 8px;
+    }
+    @media(max-width: 580px){ .exs { grid-template-columns: 1fr; } }
+    .ex {
+      padding: 8px 12px; border-radius: 8px;
+      font-size: 12.5px; line-height: 1.45;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .ex.bad { background: var(--red-glow); border: 1px solid rgba(244,63,94,.2); color: #fda4af; }
+    .ex.good { background: var(--green-glow); border: 1px solid rgba(16,185,129,.2); color: #6ee7b7; }
+    .ex::before { font-size: 13px; flex-shrink: 0; line-height: 1.3; }
+    .ex.bad::before { content: '✕'; color: var(--red); font-weight: 800; }
+    .ex.good::before { content: '✓'; color: var(--green); font-weight: 800; }
+
+    /* Notes */
+    .note {
+      border-radius: 10px; padding: 14px 16px;
+      font-size: 13px; line-height: 1.6;
+    }
+    .note.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.25); color: #fda4af; }
+    .note.orange { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.25); color: #fde68a; }
+    .note.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.25); color: #a7f3d0; }
+    .note.blue { background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.25); color: #bae6fd; }
+
+    .ctx {
+      font-size: 13.5px; color: var(--text-2);
+      line-height: 1.6; margin-bottom: 6px;
+    }
+
+    /* Drive Folders Grid */
+    .folder-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px; margin-top: 10px;
+    }
+    .folder-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      text-decoration: none;
+      color: inherit;
+      display: flex; flex-direction: column; justify-content: space-between;
+      gap: 8px;
+      transition: all .2s ease;
+    }
+    .folder-card:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(56,189,248,.4);
+      transform: translateY(-2px);
+    }
+    .folder-name {
+      font-size: 13.5px; font-weight: 700; color: #38bdf8;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .folder-desc { font-size: 12px; color: var(--text-3); line-height: 1.4; }
+    .folder-action {
+      font-size: 11px; font-weight: 600; color: var(--text-2);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    /* Subtitle Live Preview Box */
+    .sub-preview-box {
+      background: #000;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 12px;
+      position: relative;
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .sub-preview-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(56,189,248,.2) 0%, #000 80%);
+      opacity: .85;
+    }
+    .sub-preview-glow {
+      position: absolute;
+      width: 290px; height: 95px;
+      background: radial-gradient(ellipse, rgba(0,0,0,.92) 0%, rgba(0,0,0,.65) 50%, transparent 80%);
+      filter: blur(12px);
+      pointer-events: none;
+    }
+    .sub-preview-text {
+      position: relative; z-index: 2;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      text-align: center;
+      line-height: 1.2;
+      text-shadow: 0 4px 18px rgba(0,0,0,.95), 0 0 12px rgba(255,255,255,.2);
+      color: #ffffff;
+      padding: 0 20px;
+    }
+    .sub-preview-text span.highlight-pain {
+      color: #ff3366;
+      text-shadow: 0 0 20px rgba(255,51,102,.75);
+    }
+    .sub-preview-text span.highlight-benefit {
+      color: #38bdf8;
+      text-shadow: 0 0 20px rgba(56,189,248,.75);
+    }
+
+    /* Naming files grid */
+    .naming-box {
+      background: rgba(56,189,248,.05);
+      border: 1px solid rgba(56,189,248,.25);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 8px;
+    }
+    .naming-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-top: 12px;
+    }
+    @media(max-width:600px){ .naming-grid { grid-template-columns: 1fr; } }
+    .naming-file-card {
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .naming-legend {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px; margin-top: 10px; font-size: 11.5px;
+    }
+    .naming-tag {
+      background: rgba(255,255,255,.03); border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 8px; color: var(--text-2);
+    }
+    .naming-tag span { font-weight: 700; color: #38bdf8; font-family: 'JetBrains Mono', monospace; }
+
+    /* Interactive Naming Tool */
+    .tool-box {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+    .tool-inputs {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px; margin-bottom: 12px;
+    }
+    .tool-input-group label {
+      display: block; font-size: 11px; color: var(--text-3); margin-bottom: 4px; font-weight: 600;
+    }
+    .tool-input-group input, .tool-input-group select {
+      width: 100%;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12.5px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tool-results {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .tool-result-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,.4);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .copy-btn {
+      background: rgba(255,255,255,.1);
+      border: none; border-radius: 4px;
+      color: var(--text-2); cursor: pointer;
+      font-size: 11px; padding: 2px 8px;
+      transition: all .15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    /* Checklist */
+    .check-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .check-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 16px;
+    }
+    .check-title h2 { font-size: 18px; font-weight: 800; }
+    .check-title p  { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+    .progress-wrap { display: flex; align-items: center; gap: 12px; }
+    .progress-ring { position: relative; width: 56px; height: 56px; }
+    .progress-ring svg { transform: rotate(-90deg); }
+    .ring-bg { stroke: rgba(255,255,255,.08); }
+    .ring-fg { stroke: var(--green); transition: stroke-dashoffset .35s; }
+    .ring-text {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+    }
+    .chk-list { display: flex; flex-direction: column; gap: 6px; }
+    .chk {
+      display: flex; align-items: center; gap: 12px;
+      padding: 9px 12px; border-radius: 8px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid transparent;
+      cursor: pointer; user-select: none;
+      transition: all .15s;
+    }
+    .chk:hover { background: rgba(255,255,255,.04); }
+    .chk.done {
+      background: var(--green-glow);
+      border-color: rgba(16,185,129,.2);
+    }
+    .chk.done .chk-text { color: #a7f3d0; text-decoration: line-through; opacity: .75; }
+    .chk input { display: none; }
+    .chk-box {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 1.5px solid var(--text-3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .15s;
+    }
+    .chk.done .chk-box {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .chk-box svg { display: none; }
+    .chk.done .chk-box svg { display: block; }
+    .chk-text { font-size: 13.5px; color: var(--text); }
+
+    /* Traffic Light */
+    .traffic {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px; margin-top: 10px;
+    }
+    .tl-col {
+      border-radius: 10px; padding: 14px;
+      border: 1px solid var(--border);
+    }
+    .tl-col.red    { background: var(--red-glow);    border-color: rgba(244,63,94,.25); }
+    .tl-col.yellow { background: var(--orange-glow); border-color: rgba(245,158,11,.25); }
+    .tl-col.green  { background: var(--green-glow);  border-color: rgba(16,185,129,.25); }
+    .tl-col h3 {
+      font-size: 13px; font-weight: 800;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+    }
+    .tl-col.red h3    { color: var(--red); }
+    .tl-col.yellow h3 { color: var(--orange); }
+    .tl-col.green h3  { color: var(--green); }
+    .tl-col ul { list-style: none; font-size: 12px; line-height: 1.55; }
+    .tl-col ul li { position: relative; padding-left: 14px; margin-bottom: 5px; }
+    .tl-col.red ul li::before    { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+    .tl-col.yellow ul li::before { content: '△'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+    .tl-col.green ul li::before  { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    /* Search Box */
+    .search-box {
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px 10px 38px;
+      font-size: 13.5px;
+      color: var(--text);
+      outline: none;
+      transition: all .2s ease;
+    }
+    .search-input:focus {
+      border-color: rgba(56,189,248,.4);
+      background: rgba(255,255,255,.08);
+    }
+    .search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      font-size: 14px; color: var(--text-3); pointer-events: none;
+    }
+
+    /* Ref Links */
+    .ref-box {
+      background: rgba(56,189,248,.06);
+      border: 1px solid rgba(56,189,248,.25);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .ref-box-title {
+      font-size: 14px; font-weight: 700; color: #38bdf8;
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .ref-links {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
+    }
+    .ref-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .ref-btn:hover {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(56,189,248,.4);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ TOP HEADER & ROLE SWITCHER ═══════ -->
+<header class="top-nav">
+  <a href="/reglament" class="top-brand">
+    <div class="top-logo">MBF</div>
+    <div>
+      <div class="top-title">MindBodyFace · QC Регламент</div>
+      <div class="top-subtitle">База стандартов для команды креативов</div>
+    </div>
+  </a>
+
+  <!-- Главный переключатель между двумя регламентами -->
+  <div class="role-switcher">
+    <a href="/reglament/editor" class="role-btn active" title="Текущий документ: для видеомонтажёров">
+      🎬 Регламент Монтажа
+    </a>
+    <a href="/reglament/scripts" class="role-btn inactive" title="Перейти к регламенту для сценаристов">
+      ✍️ Регламент Сценариев →
+    </a>
+  </div>
+
+  <div class="top-actions">
+    <a href="/" class="top-link">← Creative QC App</a>
+  </div>
+</header>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-badge">🎬 Для видеомонтажёров</div>
+  <h1>Регламент <span>видеомонтажа</span> креативов</h1>
+  <p>
+    Пошаговый пайплайн сборки, база футажей с доктором Алесем на Google Drive, динамика кадров 3–5 сек, субтитры Montserrat 48px, инструментальная музыка, экспорт 4 обязательных файлов и QC чек-лист.
+  </p>
+
+  <!-- Баннер-связка с регламентом сценариев -->
+  <div class="role-callout-banner">
+    <span>💡 Монтируешь по готовому сценарию?</span>
+    <strong>Правила структуры, Meta Personal Attributes и стоп-слов находятся в части для сценаристов:</strong>
+    <a href="/reglament/scripts" class="role-callout-btn">Открыть Регламент Сценариев ↗</a>
+  </div>
+</section>
+
+<!-- ═══════ IN-PAGE SUBNAV ═══════ -->
+<nav class="subnav">
+  <a href="#drive">📂 Google Drive материалы</a>
+  <a href="#pipeline">🚀 Пайплайн монтажа (10 шагов)</a>
+  <a href="#subtitles">💬 Субтитры Montserrat 48px</a>
+  <a href="#audio">🎵 Звук и музыка</a>
+  <a href="#cta">📱 Концовка и CTA</a>
+  <a href="#naming">🏷️ Нейминг 4 файлов</a>
+  <a href="#meta-visual">🛡️ Meta & Бренд для монтажа</a>
+  <a href="#specs">📐 Технические параметры</a>
+  <a href="#traffic">🚦 Светофор</a>
+  <a href="#checklist">✓ Экспресс-чеклист</a>
+</nav>
+
+<main class="container">
+
+  <!-- Быстрый поиск по регламенту -->
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="ruleSearch" class="search-input" placeholder="Быстрый поиск по регламенту монтажа (футажи, субтитры, нейминг, аватар, safe zone, Drive...)" oninput="filterRules()">
+  </div>
+
+  <!-- ═══════ БАЗА GOOGLE DRIVE ═══════ -->
+  <div class="card" id="drive" style="border-color: rgba(56,189,248,.3);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">📂</span>
+      <h2>База рабочих материалов на Google Drive</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        Основная папка со всеми рабочими материалами: 
+        <a href="https://drive.google.com/drive/folders/130JHG_knBuzQnwCwQT1FwkoyyJ0dnSlX" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">МОНТАЖ МАТЕРИАЛЫ (Google Drive) ↗</a><br>
+        Здесь собраны треки без слов, футажи с доктором Алесем по курсам, анатомия и примеры хуков для насмотренности.
+      </div>
+
+      <div class="folder-grid">
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 BODY SECRET</div>
+            <div class="folder-desc">Футажи с Алесем, демонстрации техник и практические уроки курса BodySecret.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 CELLULITE</div>
+            <div class="folder-desc">Материалы, упражнения и демонстрации техник по антицеллюлитному курсу.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 LIFTING</div>
+            <div class="folder-desc">Техники лифтинга лица, самомассажи и демонстрации Алеся на моделях.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 MAXILLA</div>
+            <div class="folder-desc">Анатомические разборы максиллы (на доске и на себе), приёмы работы со средней трети.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">📂 RESET</div>
+            <div class="folder-desc">Футажи и практики по комплексной программе оздоровления и осанки Reset.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="folder-name">🎵 МУЗЫКА</div>
+            <div class="folder-desc">Официальный пак купленной лицензионной музыки строго БЕЗ слов.</div>
+          </div>
+          <div class="folder-action">Открыть на Drive ↗</div>
+        </a>
+
+        <a class="folder-card" href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
+          <div>
+            <div class="folder-name">👁️ ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</div>
+            <div class="folder-desc">Большая база лучших роликов: хуки, разборы кейсов и примеры оформления для тренировки насмотренности.</div>
+          </div>
+          <div class="folder-action">Открыть примеры на Drive ↗</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ПАЙПЛАЙН МОНТАЖА ═══════ -->
+  <div class="card" id="pipeline" style="border-color: rgba(56,189,248,.3); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🚀</span>
+      <h2>Пошаговый пайплайн монтажа крео (10 золотых стандартов)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <!-- Референсы -->
+      <div class="ref-box">
+        <div class="ref-box-title">
+          <span>🎬</span>
+          <span>Эталонные примеры креативов (брать за основу):</span>
+        </div>
+        <p style="font-size:13px; color:var(--text-2); margin-bottom:6px;">
+          Посмотри перед монтажом, как выстроены хук с доктором, темп, субтитры и концовка:
+        </p>
+        <div class="ref-links">
+          <a class="ref-btn" href="https://drive.google.com/file/d/1odG-ekthg46pfYy79Te2ZvqoaayuW6w4/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <span style="font-size:16px;">▶️</span>
+            <div>
+              <div>Показательный креатив #1</div>
+              <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
+            </div>
+          </a>
+          <a class="ref-btn" href="https://drive.google.com/file/d/1aZ8sQjXDclAt4ZIpn3utecfTf6TBouXA/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <span style="font-size:16px;">▶️</span>
+            <div>
+              <div>Показательный креатив #2</div>
+              <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 1. Аватар -->
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 1 · Обязательно</span> ИИ-аватар доктора Алеся в начале и середине</div>
+          <div class="rule-hint">
+            Озвученный готовый ИИ-аватар выдаётся тебе в ТЗ.
+            <strong>В хук (первые 0–3 секунды) ОБЯЗАТЕЛЬНО ставим аватара</strong>, а также периодически показываем его в кадре на 1–2 секунды в середине ролика, чтобы удерживать зрителя живым человеческим контактом.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Футажи Алеся -->
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 2 · Основа</span> Живые футажи с доктором Алесем и моделями</div>
+          <div class="rule-hint">
+            <strong>Первостепенно вставлять кадры самого Алеся</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Бери их из соответствующих папок Google Drive: <code style="color:#38bdf8;">BODY SECRET</code>, <code style="color:#38bdf8;">CELLULITE</code>, <code style="color:#38bdf8;">LIFTING</code>, <code style="color:#38bdf8;">MAXILLA</code>, <code style="color:#38bdf8;">RESET</code>.
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Запрет стоков и нейрослопа -->
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 3 · Табу</span> НЕТ стоку и дешевому нейрослопу</div>
+          <div class="exs">
+            <div class="ex bad">Фальшивые улыбающиеся стоковые лица, мыльный пластиковый нейрослоп</div>
+            <div class="ex good">Живые кадры Алеся, реальные модели, проверенные анатомические 3D-анимации</div>
+          </div>
+          <div class="rule-hint" style="margin-top:6px;">
+            <strong>Сток не используем вообще.</strong> Никакого пластикового мыла. Если генерации — то только высочайшего качества, неотличимые от жизни.
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Динамика 3-5 сек -->
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Шаг 4 · Темп</span> Динамика: смена кадров каждые 3–5 секунд</div>
+          <div class="rule-hint">
+            Видео не должно зависать на одной статичной картинке дольше 5 секунд. Меняй крупность планов: общий → средний → крупный на руки/лицо → анатомическая врезка → аватар.
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Визуализация боли с 1 секунды -->
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 5 · Хук</span> Визуализация проблемы с 1-й же секунды</div>
+          <div class="rule-hint">
+            Никаких заставок и пустых титров! С первых долей секунды зритель видит проблему: напряжение шеи, холку, отёчность, морщины, второй подбородок или анатомическую модель.
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Микро-анимации -->
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Шаг 6 · Акценты</span> Плавные микро-анимации проблемных зон</div>
+          <div class="rule-hint">
+            Используй круги, стрелочки, плавные зумы и маркеры на проблемных зонах.
+            <strong>Важно:</strong> анимации должны быть мягкими и сглаженными (ease-in-out), НИКАКИХ резких дерганых рывков.
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ СУБТИТРЫ ═══════ -->
+      <div class="rule" id="subtitles">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 7 · Субтитры</span> Montserrat SemiBold Italic CAPS 48px</div>
+          <div class="rule-hint">
+            Субтитры оформляем строго по стандарту:
+            <ul style="margin:6px 0 6px 18px; line-height:1.6;">
+              <li><strong>Шрифт:</strong> <code style="color:#38bdf8;">Montserrat</code>, начертание <strong>SemiBold</strong> или <strong>Bold</strong>, курсив (<em>Italic</em>), все буквы <strong>ЗАГЛАВНЫЕ (CAPS)</strong>.</li>
+              <li><strong>Размер:</strong> базовый кегль <strong>48 px</strong> (для разрешения 1080×1920).</li>
+              <li><strong>Длина строки:</strong> 1–3 слова в один момент (динамичные субтитры).</li>
+              <li><strong>Читаемость:</strong> мягкое тёмное размытое пятно/градиентная подложка позади текста.</li>
+              <li><strong>Цветовые акценты:</strong> ключевые слова подсвечиваем (<span style="color:#f43f5e; font-weight:700;">🔴 боль</span> или <span style="color:#38bdf8; font-weight:700;">🟢🟡 результат</span>).</li>
+            </ul>
+          </div>
+
+          <!-- Интерактивный предпросмотр субтитров -->
+          <div class="sub-preview-box">
+            <div class="sub-preview-bg"></div>
+            <div class="sub-preview-glow"></div>
+            <div class="sub-preview-text">
+              МЫШЦЫ ШЕИ <br>
+              <span class="highlight-pain">ТЯНУТ ОВАЛ</span> <br>
+              <span class="highlight-benefit">ВНИЗ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ МУЗЫКА И ЗВУК ═══════ -->
+      <div class="rule" id="audio">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 8 · Аудио</span> Музыка строго БЕЗ слов + чистый войсовер</div>
+          <div class="rule-hint">
+            <strong>Музыка:</strong> фоновая, ритмичная, строго инструментальная БЕЗ вокала и слов. Бери треки из официальной папки Drive <code style="color:#38bdf8;">🎵 МУЗЫКА</code>.<br>
+            <strong>Баланс звука:</strong> голос доктора — четкий, громкий (-6 dB). Музыкальная подложка — фоновая (-18...-20 dB), не должна заглушать речь.<br>
+            <strong>Темп:</strong> плотный монтаж голоса, вырезай длинные паузы и вздохи.
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ КОНЦОВКА И CTA ═══════ -->
+      <div class="rule" id="cta">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Шаг 9 · Концовка</span> Скролл приложения, тапы и CTA · ЦЕНЫ НЕ ДОБАВЛЯЕМ</div>
+          <div class="rule-hint">
+            В финале ролика показываем интерфейс приложения MindBodyFace: красивый скроллинг уроков, анимированные тапы/стрелочки, приглашение попробовать 7-дневный период.<br>
+            <strong style="color:var(--red);">⛔ СТРОГОЕ ПРАВИЛО: ПЛАШКИ С ЦЕНАМИ НЕ ДОБАВЛЯЕМ!</strong><br>
+            Никаких плашек "$1", "$47", "скидка 90%". Цифры цен на креативах запрещены — только показ продукта и призыв перейти по ссылке.
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Аспект и safe zone -->
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Шаг 10 · Сейф-зоны</span> Safe Zones Instagram и 2 формата</div>
+          <div class="rule-hint">
+            Отступ сверху ~14% (140px) и снизу ~20% (250px) в Stories/Reels. Никакого текста, стрелок или лиц в этих зонах — их перекроют кнопки лайков, профиль и описание.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ НЕЙМИНГ ФАЙЛОВ ═══════ -->
+  <div class="card" id="naming">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🏷️</span>
+      <h2>Обязательный стандарт нейминга файлов (4 файла на каждый крео)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        При сдаче каждого креатива из ТЗ монтажёр обязан экспортировать ровно <strong>4 файла</strong>. Например, если в таблице указано базовое имя <code style="color:#38bdf8; font-family:'JetBrains Mono',monospace;">BDY_VID_BD123_DanD</code>:
+      </div>
+
+      <div class="naming-grid">
+        <div class="naming-file-card">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">1 · Stories/Reels полная</div>
+          <strong style="color:#fff;">BDY_VID_S_BD123_DanD.mp4</strong>
+          <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · со звуком и сабами</div>
+        </div>
+        <div class="naming-file-card">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">2 · Stories/Reels чистая</div>
+          <strong style="color:#fff;">M_BDY_VID_S_BD123_DanD.mp4</strong>
+          <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · БЕЗ музыки и субтитров</div>
+        </div>
+        <div class="naming-file-card">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">3 · Feed полная</div>
+          <strong style="color:#fff;">BDY_VID_F_BD123_DanD.mp4</strong>
+          <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · со звуком и сабами</div>
+        </div>
+        <div class="naming-file-card">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">4 · Feed чистая</div>
+          <strong style="color:#fff;">M_BDY_VID_F_BD123_DanD.mp4</strong>
+          <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · БЕЗ музыки и субтитров</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; font-size:12.5px; font-weight:600; color:var(--text-2);">Расшифровка схемы нейминга:</div>
+      <div class="naming-legend">
+        <div class="naming-tag"><span>M_</span> Префикс в начале = без музыки и сабов (чистый мастер под перевод)</div>
+        <div class="naming-tag"><span>BDY</span> Продукт (BDY = BodySecret, CEL = Cellulite, LFT = Lifting, MAX = Maxilla, RST = Reset, MBF = Membership)</div>
+        <div class="naming-tag"><span>VID</span> Видео-формат</div>
+        <div class="naming-tag"><span>S</span> Формат 1080×1920 (Stories / Reels 9:16)</div>
+        <div class="naming-tag"><span>F</span> Формат 1080×1350 (Feed / Лента 4:5)</div>
+        <div class="naming-tag"><span>BD123</span> Порядковый ID креатива из таблицы ТЗ</div>
+        <div class="naming-tag"><span>DanD</span> Инициалы авторов / монтажёров</div>
+      </div>
+
+      <!-- Интерактивный генератор имен файлов -->
+      <div class="tool-box">
+        <strong style="font-size:13px; color:var(--text); display:flex; align-items:center; gap:6px; margin-bottom:8px;">
+          ⚡ Интерактивный генератор нейминга 4 файлов:
+        </strong>
+        <div class="tool-inputs">
+          <div class="tool-input-group">
+            <label>Продукт:</label>
+            <select id="toolProduct" onchange="generateNames()">
+              <option value="BDY">BDY (BodySecret)</option>
+              <option value="CEL">CEL (Cellulite)</option>
+              <option value="LFT">LFT (Lifting)</option>
+              <option value="MAX">MAX (Maxilla)</option>
+              <option value="RST">RST (Reset)</option>
+              <option value="MBF">MBF (Membership)</option>
+            </select>
+          </div>
+          <div class="tool-input-group">
+            <label>ID креатива:</label>
+            <input type="text" id="toolId" value="BD123" placeholder="напр. BD123" oninput="generateNames()">
+          </div>
+          <div class="tool-input-group">
+            <label>Инициалы авторов:</label>
+            <input type="text" id="toolAuthor" value="DanD" placeholder="напр. DanD" oninput="generateNames()">
+          </div>
+        </div>
+
+        <div class="tool-results">
+          <div class="tool-result-row">
+            <span id="nameS" style="color:var(--green);">BDY_VID_S_BD123_DanD.mp4</span>
+            <button class="copy-btn" onclick="copyName('nameS')">Копировать</button>
+          </div>
+          <div class="tool-result-row">
+            <span id="nameMS" style="color:var(--orange);">M_BDY_VID_S_BD123_DanD.mp4</span>
+            <button class="copy-btn" onclick="copyName('nameMS')">Копировать</button>
+          </div>
+          <div class="tool-result-row">
+            <span id="nameF" style="color:var(--green);">BDY_VID_F_BD123_DanD.mp4</span>
+            <button class="copy-btn" onclick="copyName('nameF')">Копировать</button>
+          </div>
+          <div class="tool-result-row">
+            <span id="nameMF" style="color:var(--orange);">M_BDY_VID_F_BD123_DanD.mp4</span>
+            <button class="copy-btn" onclick="copyName('nameMF')">Копировать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ META & БРЕНД ДЛЯ МОНТАЖА ═══════ -->
+  <div class="card" id="meta-visual">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🛡️</span>
+      <h2>Визуальные границы Meta Ads & Бренд (что важно монтажёру)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        Даже если сценарий идеален, монтажёр может словить бан от Meta из-за визуальных ошибок.
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Критично</span> Запрет сверхкрупного плана дефекта со стрелкой</div>
+          <div class="exs">
+            <div class="ex bad">Зум на 100% экрана на морщины/целлюлит со стрелкой «это твоя проблема»</div>
+            <div class="ex good">Общий план лица/тела, доктор показывает анатомическую взаимосвязь</div>
+          </div>
+          <div class="rule-hint" style="margin-top:6px;">Meta считает зум в интимные зоны и дефекты унижением пользователя и банит аккаунт.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Важно</span> До/После: естественный и правдоподобный результат</div>
+          <div class="rule-hint">
+            Не ставь неестественный фотошоп-блюр «после». Результаты должны быть реальными кейсами студентов курсов Алеся.
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Критично</span> Точные названия эксперта и продукта</div>
+          <div class="terms" style="margin-top:6px;">
+            <div class="term-card"><div class="term-label">Эксперт в титрах</div>Dr. Ales Ulishchenko<br><small>НЕ Alex, НЕ Ayles</small></div>
+            <div class="term-card"><div class="term-label">Методика</div>Faceplastica® <small>(всегда знак ®)</small></div>
+            <div class="term-card"><div class="term-label">Продукт</div>MindBodyFace Membership</div>
+            <div class="term-card"><div class="term-label">Оффер в титрах</div>7-day trial <small>(БЕЗ указания цен!)</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ТЕХНИЧЕСКИЕ ПАРАМЕТРЫ ═══════ -->
+  <div class="card" id="specs">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">📐</span>
+      <h2>Технические параметры экспорта</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="rule">
+        <div class="pip info"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip info">Спецификация</span> Настройки рендера в Premiere / CapCut / DaVinci</div>
+          <ul style="margin:6px 0 0 18px; font-size:13px; line-height:1.6; color:var(--text-2);">
+            <li><strong>Кодек:</strong> H.264 (.mp4), профиль High</li>
+            <li><strong>Частота кадров:</strong> 30 fps (постоянный битрейт)</li>
+            <li><strong>Битрейт:</strong> VBR 2-pass или CBR 12–16 Mbps</li>
+            <li><strong>Аудио:</strong> AAC stereo, 320 kbps, 48 kHz</li>
+            <li><strong>Цветовое пространство:</strong> Rec. 709</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ СВЕТОФОР ═══════ -->
+  <div class="card" id="traffic">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🚦</span>
+      <h2>Светофор монтажа: выпускаем или на доработку?</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="traffic">
+        <div class="tl-col red">
+          <h3>Красный · Переделать</h3>
+          <ul>
+            <li>Добавлена плашка с ценой ($1, $47 и т.д.)</li>
+            <li>Нет аватара доктора в первые 3 секунды</li>
+            <li>Использован сток или мыльный нейрослоп</li>
+            <li>Кадр висит неподвижно более 6 секунд</li>
+            <li>Ошиблись в имени Dr. Ales или нет знака ® у Faceplastica®</li>
+          </ul>
+        </div>
+        <div class="tl-col yellow">
+          <h3>Жёлтый · Поправить</h3>
+          <ul>
+            <li>Музыка слишком громкая (глушит голос)</li>
+            <li>Субтитры залезли в нижнюю зону 250px (safe zone)</li>
+            <li>Резкая, дерганая анимация стрелки</li>
+            <li>Не хватает чистого мастера без сабов (M_)</li>
+          </ul>
+        </div>
+        <div class="tl-col green">
+          <h3>Зелёный · В релиз ✓</h3>
+          <ul>
+            <li>Все 4 файла экспортированы по неймингу</li>
+            <li>Аватар + живые футажи Алеся и моделей</li>
+            <li>Монсеррат 48px CAPS с подсвеченными словами</li>
+            <li>Музыка без слов, плотный чистый звук</li>
+            <li>Скролл приложения в конце БЕЗ цен</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ЧЕК-ЛИСТ МОНТАЖЁРА ═══════ -->
+  <div class="check-card" id="checklist">
+    <div class="check-top">
+      <div class="check-title">
+        <h2>✓ Экспресс-проверка монтажёра перед сдачей</h2>
+        <p id="checkSub">0 / 16 пунктов</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-ring">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle class="ring-bg" cx="28" cy="28" r="24" fill="none" stroke-width="4"/>
+            <circle class="ring-fg" id="ringFg" cx="28" cy="28" r="24" fill="none" stroke-width="4" stroke-dasharray="150.8" stroke-dashoffset="150.8" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-text" id="ringPct">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chk-list">
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук с 0–3 сек: аватар доктора Алеся + визуализация боли/проблемы</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Использованы живые футажи Алеся (на себе, моделях, доске) из папок Drive</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ банального стока (сток не используем вообще)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ нейрослопа, мыльных текстур и пластиковых лиц</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Динамика: планы и ракурсы меняются каждые 3–5 секунд</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Анимации плавные и сглаженные (ease-in-out, без резких рывков)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры: Montserrat SemiBold/Bold Italic CAPS 48px с мягкой подложкой</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В субтитрах подсвечены ключевые слова (красный / синий-зеленый)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Музыка строго БЕЗ слов/вокала из папки 🎵 МУЗЫКА</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Баланс звука: голос -6 dB, музыка -18...-20 dB, пауз в речи нет</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Концовка: скролл приложения MBF + тапы и переход по ссылке</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">ПЛАШЕК С ЦЕНАМИ НЕТ (цены на креативах запрещены!)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Соблюдены Safe Zones Instagram (отступ 14% сверху, 20% снизу)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Правильное написание: Dr. Ales Ulishchenko и Faceplastica®</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по стандарту нейминга (_S, M__S, _F, M__F)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + проверил последние 15 секунд</span></label>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function toggle(h){ h.parentElement.classList.toggle('shut'); }
+function chk(el){
+  const cb = el.querySelector('input');
+  cb.checked = !cb.checked;
+  el.classList.toggle('done', cb.checked);
+  updRing();
+}
+function updRing(){
+  const t = document.querySelectorAll('.chk').length;
+  const d = document.querySelectorAll('.chk.done').length;
+  const p = Math.round(d / t * 100);
+  const circ = 150.8;
+  document.getElementById('ringFg').style.strokeDashoffset = circ - (circ * p / 100);
+  document.getElementById('ringPct').textContent = p + '%';
+  document.getElementById('checkSub').textContent = d + ' / ' + t + ' пунктов';
+}
+
+function generateNames(){
+  const prod = document.getElementById('toolProduct').value.trim();
+  const id = document.getElementById('toolId').value.trim() || 'BD123';
+  const auth = document.getElementById('toolAuthor').value.trim() || 'DanD';
+
+  document.getElementById('nameS').textContent = `${prod}_VID_S_${id}_${auth}.mp4`;
+  document.getElementById('nameMS').textContent = `M_${prod}_VID_S_${id}_${auth}.mp4`;
+  document.getElementById('nameF').textContent = `${prod}_VID_F_${id}_${auth}.mp4`;
+  document.getElementById('nameMF').textContent = `M_${prod}_VID_F_${id}_${auth}.mp4`;
+}
+
+function copyName(elemId){
+  const text = document.getElementById(elemId).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = event.target;
+    const oldText = btn.textContent;
+    btn.textContent = 'Скопировано!';
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    setTimeout(()=>{
+      btn.textContent = oldText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1200);
+  });
+}
+
+function filterRules(){
+  const q = document.getElementById('ruleSearch').value.toLowerCase().trim();
+  const rules = document.querySelectorAll('.rule, .naming-box, .ref-box, .folder-card');
+  rules.forEach(r => {
+    if(!q){ r.style.display = ''; return; }
+    const match = r.textContent.toLowerCase().includes(q);
+    r.style.display = match ? '' : 'none';
+  });
+}
+
+document.querySelectorAll('nav.subnav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+</script>
+
+</body>
+</html>

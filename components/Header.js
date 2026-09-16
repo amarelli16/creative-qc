@@ -12,14 +12,24 @@ export default function Header({ onSettingsClick }) {
       </div>
       <div className="header-actions">
         <a
-          href="/reglament"
+          href="/reglament/editor"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-secondary btn-sm"
-          style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-          title="Открыть интерактивный регламент QC"
+          style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px' }}
+          title="Открыть регламент для видеомонтажёров"
         >
-          📋 Регламент
+          🎬 Монтаж
+        </a>
+        <a
+          href="/reglament/scripts"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-secondary btn-sm"
+          style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px' }}
+          title="Открыть регламент для сценаристов"
+        >
+          ✍️ Сценарии
         </a>
         <button className="btn btn-ghost btn-icon" onClick={onSettingsClick} title="Настройки">
           ⚙️

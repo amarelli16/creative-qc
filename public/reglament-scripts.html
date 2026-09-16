@@ -1,0 +1,1061 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MBF · Регламент сценариев креативов (Scriptwriter Guide)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08090d;
+      --surface: rgba(255,255,255,.04);
+      --surface-hover: rgba(255,255,255,.07);
+      --border: rgba(255,255,255,.08);
+      --text: #f0f1f5;
+      --text-2: #a0a4b8;
+      --text-3: #636882;
+      --accent: #ec4899;
+      --accent-2: #f472b6;
+      --accent-glow: rgba(236,72,153,.18);
+      --red: #f43f5e;
+      --orange: #f59e0b;
+      --green: #10b981;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+      --red-glow: rgba(244,63,94,.12);
+      --orange-glow: rgba(245,158,11,.10);
+      --green-glow: rgba(16,185,129,.10);
+      --blue-glow: rgba(59,130,246,.10);
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* Top Sticky Navigation */
+    .top-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,9,13,.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .top-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: inherit;
+    }
+    .top-logo {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(135deg, #db2777, #ec4899);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; color: #fff;
+      box-shadow: 0 0 14px rgba(236,72,153,.4);
+    }
+    .top-title { font-weight: 700; font-size: 13.5px; color: var(--text); }
+    .top-subtitle { font-size: 11px; color: var(--text-3); }
+
+    /* Role Switcher Pills */
+    .role-switcher {
+      display: inline-flex; align-items: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 3px;
+      gap: 4px;
+    }
+    .role-btn {
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12.5px; font-weight: 600;
+      text-decoration: none; color: var(--text-2);
+      transition: all .2s ease;
+      display: inline-flex; align-items: center; gap: 6px;
+      white-space: nowrap;
+    }
+    .role-btn:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .role-btn.active {
+      background: linear-gradient(135deg, #db2777, #ec4899);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(236,72,153,.35);
+    }
+    .role-btn.inactive {
+      color: #38bdf8;
+    }
+    .role-btn.inactive:hover {
+      background: rgba(56,189,248,.15);
+      color: #fff;
+    }
+
+    .top-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .top-link {
+      padding: 6px 12px; border-radius: 8px;
+      font-size: 12px; font-weight: 500;
+      color: var(--text-2); text-decoration: none;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: all .2s ease;
+    }
+    .top-link:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 48px 24px 32px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%; transform: translateX(-50%);
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, rgba(236,72,153,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(236,72,153,.2), rgba(236,72,153,.05));
+      border: 1px solid rgba(236,72,153,.35);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11.5px; font-weight: 600;
+      color: #f472b6;
+      letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4.5vw, 40px);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff 30%, #ec4899 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(14px, 1.8vw, 16.5px);
+      color: var(--text-2);
+      max-width: 680px;
+      margin: 0 auto 20px;
+      font-weight: 400;
+    }
+
+    /* Sub-nav in Hero to switch pages */
+    .role-callout-banner {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      margin: 0 auto 16px;
+      max-width: 720px;
+      font-size: 13px;
+      color: var(--text-2);
+      flex-wrap: wrap;
+    }
+    .role-callout-banner strong { color: var(--text); }
+    .role-callout-btn {
+      padding: 5px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+      text-decoration: none; color: #fff;
+      background: rgba(56,189,248,.25);
+      border: 1px solid rgba(56,189,248,.4);
+      transition: all .2s ease;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .role-callout-btn:hover { background: rgba(56,189,248,.4); }
+
+    /* Sticky In-page anchors */
+    nav.subnav {
+      position: sticky; top: 53px; z-index: 90;
+      background: rgba(8,9,13,.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      display: flex; gap: 6px;
+      overflow-x: auto;
+      justify-content: center;
+    }
+    nav.subnav a {
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    nav.subnav a:hover { color: var(--text); background: var(--surface-hover); }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: rgba(255,255,255,.14); }
+    .card-head {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .card-head:hover { background: var(--surface-hover); }
+    .card-head .emoji { font-size: 20px; flex-shrink: 0; }
+    .card-head h2 {
+      font-size: 16px; font-weight: 700;
+      letter-spacing: -.01em; flex: 1;
+    }
+    .card-head .arrow {
+      width: 18px; height: 18px; color: var(--text-3);
+      transition: transform .25s ease;
+      flex-shrink: 0;
+    }
+    .card.shut .card-body { display: none; }
+    .card.shut .arrow { transform: rotate(-90deg); }
+    .card-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    /* Rules */
+    .rule {
+      display: flex; gap: 12px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: background .15s;
+    }
+    .rule:hover { background: rgba(255,255,255,.035); }
+    .pip {
+      width: 4px; border-radius: 2px;
+      flex-shrink: 0; align-self: stretch;
+      min-height: 24px;
+    }
+    .pip.crit { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+    .pip.warn { background: var(--orange); }
+    .pip.info { background: var(--accent); }
+    .pip.ok   { background: var(--green); }
+
+    .rule-body { flex: 1; min-width: 0; }
+    .rule-title {
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 4px;
+    }
+    .rule-hint { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      color: var(--text-3);
+      background: rgba(255,255,255,.06);
+      padding: 1px 6px; border-radius: 4px;
+    }
+    .chip {
+      font-size: 10.5px; font-weight: 700;
+      padding: 1px 7px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: .03em;
+    }
+    .chip.crit { background: var(--red-glow); color: var(--red); }
+    .chip.warn { background: var(--orange-glow); color: var(--orange); }
+    .chip.info { background: rgba(236,72,153,.15); color: #f472b6; }
+    .chip.ok   { background: var(--green-glow); color: var(--green); }
+
+    /* Examples */
+    .exs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      margin-top: 8px;
+    }
+    @media(max-width: 580px){ .exs { grid-template-columns: 1fr; } }
+    .ex {
+      padding: 8px 12px; border-radius: 8px;
+      font-size: 12.5px; line-height: 1.45;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .ex.bad { background: var(--red-glow); border: 1px solid rgba(244,63,94,.2); color: #fda4af; }
+    .ex.good { background: var(--green-glow); border: 1px solid rgba(16,185,129,.2); color: #6ee7b7; }
+    .ex::before { font-size: 13px; flex-shrink: 0; line-height: 1.3; }
+    .ex.bad::before { content: '✕'; color: var(--red); font-weight: 800; }
+    .ex.good::before { content: '✓'; color: var(--green); font-weight: 800; }
+
+    /* Notes */
+    .note {
+      border-radius: 10px; padding: 14px 16px;
+      font-size: 13px; line-height: 1.6;
+    }
+    .note.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.25); color: #fda4af; }
+    .note.orange { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.25); color: #fde68a; }
+    .note.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.25); color: #a7f3d0; }
+    .note.blue { background: rgba(59,130,246,.08); border: 1px solid rgba(59,130,246,.25); color: #bfdbfe; }
+    .note.pink { background: rgba(236,72,153,.08); border: 1px solid rgba(236,72,153,.25); color: #fbcfe8; }
+
+    .ctx {
+      font-size: 13.5px; color: var(--text-2);
+      line-height: 1.6; margin-bottom: 6px;
+    }
+
+    /* Terms */
+    .terms {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;
+    }
+    @media(max-width: 580px){ .terms { grid-template-columns: 1fr; } }
+    .term-card {
+      background: rgba(255,255,255,.03); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; font-size: 13px;
+    }
+    .term-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+      color: var(--text-3); font-weight: 700; margin-bottom: 2px;
+    }
+
+    /* 2-Column Script Format */
+    .script-table {
+      width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px;
+    }
+    .script-table th {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      padding: 8px 12px; text-align: left; font-size: 11.5px;
+      color: var(--text-2); font-weight: 700; text-transform: uppercase;
+    }
+    .script-table td {
+      border: 1px solid var(--border);
+      padding: 10px 12px; vertical-align: top; line-height: 1.5;
+    }
+    .script-table tr:nth-child(even) { background: rgba(255,255,255,.015); }
+
+    /* Checklist */
+    .check-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .check-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 16px;
+    }
+    .check-title h2 { font-size: 18px; font-weight: 800; }
+    .check-title p  { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+    .progress-wrap { display: flex; align-items: center; gap: 12px; }
+    .progress-ring { position: relative; width: 56px; height: 56px; }
+    .progress-ring svg { transform: rotate(-90deg); }
+    .ring-bg { stroke: rgba(255,255,255,.08); }
+    .ring-fg { stroke: var(--green); transition: stroke-dashoffset .35s; }
+    .ring-text {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+    }
+    .chk-list { display: flex; flex-direction: column; gap: 6px; }
+    .chk {
+      display: flex; align-items: center; gap: 12px;
+      padding: 9px 12px; border-radius: 8px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid transparent;
+      cursor: pointer; user-select: none;
+      transition: all .15s;
+    }
+    .chk:hover { background: rgba(255,255,255,.04); }
+    .chk.done {
+      background: var(--green-glow);
+      border-color: rgba(16,185,129,.2);
+    }
+    .chk.done .chk-text { color: #a7f3d0; text-decoration: line-through; opacity: .75; }
+    .chk input { display: none; }
+    .chk-box {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 1.5px solid var(--text-3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .15s;
+    }
+    .chk.done .chk-box {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .chk-box svg { display: none; }
+    .chk.done .chk-box svg { display: block; }
+    .chk-text { font-size: 13.5px; color: var(--text); }
+
+    /* Traffic Light */
+    .traffic {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px; margin-top: 10px;
+    }
+    .tl-col {
+      border-radius: 10px; padding: 14px;
+      border: 1px solid var(--border);
+    }
+    .tl-col.red    { background: var(--red-glow);    border-color: rgba(244,63,94,.25); }
+    .tl-col.yellow { background: var(--orange-glow); border-color: rgba(245,158,11,.25); }
+    .tl-col.green  { background: var(--green-glow);  border-color: rgba(16,185,129,.25); }
+    .tl-col h3 {
+      font-size: 13px; font-weight: 800;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+    }
+    .tl-col.red h3    { color: var(--red); }
+    .tl-col.yellow h3 { color: var(--orange); }
+    .tl-col.green h3  { color: var(--green); }
+    .tl-col ul { list-style: none; font-size: 12px; line-height: 1.55; }
+    .tl-col ul li { position: relative; padding-left: 14px; margin-bottom: 5px; }
+    .tl-col.red ul li::before    { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+    .tl-col.yellow ul li::before { content: '△'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+    .tl-col.green ul li::before  { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    /* Search Box */
+    .search-box {
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px 10px 38px;
+      font-size: 13.5px;
+      color: var(--text);
+      outline: none;
+      transition: all .2s ease;
+    }
+    .search-input:focus {
+      border-color: rgba(236,72,153,.4);
+      background: rgba(255,255,255,.08);
+    }
+    .search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      font-size: 14px; color: var(--text-3); pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ TOP HEADER & ROLE SWITCHER ═══════ -->
+<header class="top-nav">
+  <a href="/reglament" class="top-brand">
+    <div class="top-logo">MBF</div>
+    <div>
+      <div class="top-title">MindBodyFace · QC Регламент</div>
+      <div class="top-subtitle">База стандартов для команды креативов</div>
+    </div>
+  </a>
+
+  <!-- Главный переключатель между двумя регламентами -->
+  <div class="role-switcher">
+    <a href="/reglament/editor" class="role-btn inactive" title="Перейти к регламенту для видеомонтажёров">
+      🎬 Регламент Монтажа →
+    </a>
+    <a href="/reglament/scripts" class="role-btn active" title="Текущий документ: для сценаристов">
+      ✍️ Регламент Сценариев
+    </a>
+  </div>
+
+  <div class="top-actions">
+    <a href="/" class="top-link">← Creative QC App</a>
+  </div>
+</header>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-badge">✍️ Для сценаристов и копирайтеров</div>
+  <h1>Регламент <span>сценариев</span> креативов</h1>
+  <p>
+    Политика Meta Ads (Personal Attributes, Stop-Words), экспертный тон доктора Алеся, 5-шаговая структура сценария, анализ 140 креативов с лучшими хуками, составление ТЗ под реальные футажи и запрет цен.
+  </p>
+
+  <!-- Баннер-связка с регламентом монтажа -->
+  <div class="role-callout-banner">
+    <span>🎬 Ищешь базу Google Drive, субтитры Montserrat или правила нейминга 4 файлов?</span>
+    <strong>Это относится к техническому продакшену монтажёра:</strong>
+    <a href="/reglament/editor" class="role-callout-btn">Открыть Регламент Монтажа ↗</a>
+  </div>
+</section>
+
+<!-- ═══════ IN-PAGE SUBNAV ═══════ -->
+<nav class="subnav">
+  <a href="#brand">✨ Бренд и эксперт</a>
+  <a href="#ban">🛡️ Meta Personal Attributes</a>
+  <a href="#medical">⚕️ Стоп-слова и клеймы</a>
+  <a href="#ba">🔄 До / После</a>
+  <a href="#prices">⛔ ЗАПРЕТ ЦЕН</a>
+  <a href="#structure">🧱 Архитектура сценария</a>
+  <a href="#hooks">🎣 ТОП-хуки из 140 крео</a>
+  <a href="#tz">📋 ТЗ для монтажёра</a>
+  <a href="#timing">⏱️ Тайминг и языки</a>
+  <a href="#traffic">🚦 Светофор</a>
+  <a href="#checklist">✓ Экспресс-чеклист</a>
+</nav>
+
+<main class="container">
+
+  <!-- Быстрый поиск по правилам сценария -->
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="ruleSearch" class="search-input" placeholder="Поиск по регламенту сценариев (Personal Attributes, стоп-слова, хуки, тайминг, оффер, EN, ES, TR...)" oninput="filterRules()">
+  </div>
+
+  <!-- ═══════ БРЕНД И ЭКСПЕРТ ═══════ -->
+  <div class="card" id="brand" style="border-color: rgba(236,72,153,.3);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">✨</span>
+      <h2>Бренд, тон и терминология</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        <strong>Кто мы:</strong> MindBodyFace — научно обоснованная экосистема естественного оздоровления и омоложения. Образовательный продукт, НЕ медицинская клиника.<br>
+        <strong>Голос бренда:</strong> уверенный, доказательный, спокойный, дружелюбный. Доктор Алесь — эксперт-партнёр, а не ментор. Без агрессии, без запугивания возрастом, без «ШОК» и инфоцыганства.
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Важно</span> Тон текста — экспертный, без крика и капслока</div>
+          <div class="exs">
+            <div class="ex bad">SHOCKING SECRET!!! 🔥🔥🔥 YOU MUST DO THIS TODAY TO NOT GET OLD!</div>
+            <div class="ex good">Why traditional neck massage fails, and how fascial tension actually shapes your jawline</div>
+          </div>
+          <div class="rule-hint" style="margin-top:6px;">Мы пишем для осознанных взрослых людей 30–55 лет. Уважение к зрителю — основа доверия к продукту.</div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Критично</span> Канонические названия и регалии</div>
+          <div class="terms" style="margin-top:6px;">
+            <div class="term-card"><div class="term-label">Эксперт</div>Dr. Ales Ulishchenko<br><small>MD, PhD · НЕ Alex, НЕ Ayles</small></div>
+            <div class="term-card"><div class="term-label">Методика</div>Faceplastica®<br><small>всегда с символом ®</small></div>
+            <div class="term-card"><div class="term-label">О докторе в EN/ES/TR</div>MD, PhD, Integrative Longevity Doctor<br><small>НЕ Surgeon, НЕ Physician (требование Meta для США)</small></div>
+            <div class="term-card"><div class="term-label">Продукт и клуб</div>MindBodyFace Membership<br><small>Программы: BodySecret, Cellulite, Lifting, Maxilla, Reset</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ЗОНА БАНА: PERSONAL ATTRIBUTES ═══════ -->
+  <div class="card" id="ban" style="border-color: rgba(244,63,94,.3);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🛡️</span>
+      <h2>Зона бана №1: Personal Attributes (Политика Meta)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        <strong>Главная причина банов в Meta Ads:</strong> алгоритмы Meta строго запрещают рекламе утверждать или прямо намекать, что она «знает о личных недостатках или дефектах конкретного зрителя».
+      </div>
+
+      <div class="note green">
+        <strong>✅ Обращение на «ты» / «you» / «tú» / «sen» — САМО ПО СЕБЕ РАЗРЕШЕНО.</strong><br>
+        Бан наступает <strong>ТОЛЬКО ТОГДА</strong>, когда «ты» сочетается с указанием на физический дефект внешности, возраст или проблему тела!
+      </div>
+
+      <!-- Правило PA-001 -->
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">pa-001</span><span class="chip crit">Критично</span> Запрет связки «ТЫ + ДЕФЕКТ ВНЕШНОСТИ»</div>
+          <div class="rule-hint">Сравни формулировки в скриптах на разных языках:</div>
+
+          <!-- EN -->
+          <div style="margin-top:8px; font-weight:700; font-size:12px; color:var(--accent-2);">🇺🇸 English (EN):</div>
+          <div class="exs">
+            <div class="ex bad">Are you ashamed of your saggy neck and double chin?</div>
+            <div class="ex good">Why the double chin rarely responds to diets alone: the fascial link</div>
+          </div>
+
+          <!-- ES -->
+          <div style="margin-top:8px; font-weight:700; font-size:12px; color:var(--accent-2);">🇪🇸 Español (ES):</div>
+          <div class="exs">
+            <div class="ex bad">¿Tus arrugas te hacen lucir mayor? ¿Cansada de tu papada?</div>
+            <div class="ex good">La verdadera razón anatómica de la tensión en el cuello y la papada</div>
+          </div>
+
+          <!-- TR -->
+          <div style="margin-top:8px; font-weight:700; font-size:12px; color:var(--accent-2);">🇹🇷 Türkçe (TR):</div>
+          <div class="exs">
+            <div class="ex bad">Gıdından ve kırışıklıklarından mı utanıyorsun?</div>
+            <div class="ex good">Gıdının asıl nedeni ve boyun kaslarını rahatlatma yöntemi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note blue">
+        <strong>💡 Формула безопасного хука для сценариста:</strong>
+        <ol style="margin:6px 0 0 18px; line-height:1.6;">
+          <li><strong>Через анатомию:</strong> «Почему овал лица плывет не от старости, а из-за спазма шеи?»</li>
+          <li><strong>Через наблюдение:</strong> «Замечали, что кремы не убирают носогубки? Вот почему...»</li>
+          <li><strong>Через развенчание мифа:</strong> «Главная ошибка при борьбе с брылями — массировать щёки вместо шеи».</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ МЕДИЦИНСКИЕ КЛЕЙМЫ ═══════ -->
+  <div class="card" id="medical">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">⚕️</span>
+      <h2>Медицинские клеймы и словарь стоп-слов (FTC & Meta)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        Мы продаём образовательный клуб и самомассажи, а НЕ медицинское лечение. FTC (Федеральная торговая комиссия США) и Meta строго блокируют обещания медицинского характера.
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="tag">mc-001</span><span class="chip crit">Критично</span> Никаких обещаний «излечения» и 100% гарантий</div>
+          <div class="exs">
+            <div class="ex bad">Cures wrinkles permanently / Eliminates joint pain / Surgery replacement</div>
+            <div class="ex good">Natural self-care practice / Helps relieve neck tension / Faceplastica method</div>
+          </div>
+          <div class="exs" style="margin-top:6px;">
+            <div class="ex bad">«Вылечит холку навсегда» / «Гарантия 100% за 3 дня»</div>
+            <div class="ex good">«Упражнения для улучшения подвижности и естественного лифтинга»</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Таблица стоп-слов -->
+      <div class="note pink" style="margin-top:8px;">
+        <strong>⛔ СТОП-СЛОВА, КОТОРЫЕ ЗАПРЕЩЕНО ПИСАТЬ В СЦЕНАРИИ:</strong>
+        <p style="font-family:'JetBrains Mono',monospace; font-size:12px; margin-top:6px; color:#fbcfe8; line-height:1.6;">
+          cure · cures · eliminate · eliminated · treat · treatment · heals · fixes forever · permanent fix · guaranteed results · 100% effective · works for everyone · surgery equivalent · replaces plastic surgery · lecura · tedavi
+        </p>
+      </div>
+
+      <div class="note green" style="margin-top:6px;">
+        <strong>✅ РАЗРЕШЕННЫЕ СЛОВА И ФОРМУЛИРОВКИ ДЛЯ СЦЕНАРИЯ:</strong>
+        <p style="font-family:'JetBrains Mono',monospace; font-size:12px; margin-top:6px; color:#a7f3d0; line-height:1.6;">
+          practice · technique · self-care · holistic approach · supports natural posture · tension relief · many students report · osteopathic approach · Faceplastica® method
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ДО / ПОСЛЕ ═══════ -->
+  <div class="card" id="ba">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🔄</span>
+      <h2>Правила описания «До / После» в сценариях</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Важно</span> Результат — это плод регулярной практики, а не чудо за 3 дня</div>
+          <div class="exs">
+            <div class="ex bad">Look 20 years younger in just 3 days without effort!</div>
+            <div class="ex good">Consistent 10-minute daily practice helps restore natural facial balance</div>
+          </div>
+          <div class="rule-hint" style="margin-top:6px;">
+            В тексте сценария всегда подчеркивай, что результат достигается через понимание биомеханики и ежедневные короткие уроки в приложении.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ СТРОГИЙ ЗАПРЕТ ЦЕН ═══════ -->
+  <div class="card" id="prices" style="border-color: rgba(244,63,94,.4); background: linear-gradient(180deg, rgba(244,63,94,.06) 0%, rgba(255,255,255,.015) 100%);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">⛔</span>
+      <h2>СТРОГИЙ ЗАПРЕТ: Цены в сценариях НЕ пишем и НЕ озвучиваем</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="note red">
+        <strong>🚫 ЦЕНЫ НА КРЕАТИВАХ СТРОГО ЗАПРЕЩЕНЫ:</strong><br>
+        Сценарист <strong>НЕ имеет права</strong> писать в сценарии фразы со стоимостью, скидками или ценниками! Ни в закадровом тексте, ни в подсказках для титров на экране!
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">Критично</span> Примеры запрещенных и разрешенных CTA</div>
+          <div class="exs">
+            <div class="ex bad">«Попробуй всего за $1!» / «Всего за $47 в месяц» / «Скидка 90% только сегодня»</div>
+            <div class="ex good">«Начни 7-дневный пробный период по ссылке» / «Открой первый урок в клубе MindBodyFace»</div>
+          </div>
+          <div class="exs" style="margin-top:6px;">
+            <div class="ex bad">"Try for only $1" / "Subscribe for $47/month"</div>
+            <div class="ex good">"Start your 7-day free trial today" / "Join MindBodyFace Membership"</div>
+          </div>
+          <div class="rule-hint" style="margin-top:8px;">
+            <strong>Почему это критично:</strong> цены тестируются командой медиабайинга отдельно, валюты в разных странах (EN, ES, TR) отличаются, а алгоритмы Meta занижают охваты креативам с агрессивным демпингом.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ АРХИТЕКТУРА СЦЕНАРИЯ ═══════ -->
+  <div class="card" id="structure">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🧱</span>
+      <h2>5-шаговая архитектура сценария видео (0–45 секунд)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        Каждый видео-креатив должен следовать строго выверенной психологической структуре:
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">0–3 сек</span> Блок 1: ХУК (Зацепка внимания)</div>
+          <div class="rule-hint">
+            Визуальный триггер боли или разрыв шаблона. Вопрос без Personal Attributes. В кадре аватар доктора + анатомическая проблема.
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">3–12 сек</span> Блок 2: ПРОБЛЕМА / МИФ (Почему привычные методы не работают)</div>
+          <div class="rule-hint">
+            «Вы можете наносить дорогие кремы или ходить на массаж лица, но если шея зажата — второй подбородок вернется». Показываем бесполезность маскировки симптомов.
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip info"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip info">12–25 сек</span> Блок 3: АНАТОМИЯ ОТ ДОКТОРА АЛЕСЯ (Корень проблемы)</div>
+          <div class="rule-hint">
+            Доктор Алесь объясняет анатомическую взаимосвязь: платизма, фасции, кости черепа, лимфоток. Зритель получает инсайт: «Вот в чём дело!».
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip ok"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip ok">25–35 сек</span> Блок 4: МЕТОД И ДЕМОНСТРАЦИЯ (Практика Faceplastica®)</div>
+          <div class="rule-hint">
+            Показ конкретного 10–15 секундного движения или самомассажа из программы. Мгновенная практическая ценность ролика.
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip crit"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip crit">35–45 сек</span> Блок 5: CTA (Призыв в клуб MindBodyFace БЕЗ цен)</div>
+          <div class="rule-hint">
+            «Все пошаговые техники ждут вас в приложении MindBodyFace. Начните 7-дневный пробный период по ссылке в описании».
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ТОП-ХУКИ ИЗ 140 КРЕАТИВОВ ═══════ -->
+  <div class="card" id="hooks">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🎣</span>
+      <h2>ТОП-хуки из анализа 140 креативов (статистика и формулы)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        <strong>Анализ 140 креативов показал:</strong> идеальный hook retention составляет <strong>18–32%</strong>. Хуки выше 33% часто привлекают нецелевых зевак (высокий просмотр, но 0 покупок). Лучшие креативы конвертят в покупку с CR ≥ 2.2%.
+      </div>
+
+      <div class="rule">
+        <div class="pip ok"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip ok">Retention 28–32%</span> Направление 1: Осанка, шея и холка (RESET / LIFTING)</div>
+          <div class="rule-hint">
+            <strong>Формула:</strong> «Шея укорачивается не от возраста — вот спазмированная мышца, которая тянет овал вниз».<br>
+            <strong>EN:</strong> «Your neck muscles act like tight cords pulling your jawline down. Here is the anatomical release».
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip ok"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip ok">Retention 24–30%</span> Направление 2: Второй подбородок и угол молодости (BODY SECRET / LIFTING)</div>
+          <div class="rule-hint">
+            <strong>Формула:</strong> «Почему второй подбородок остается даже при весе 50 кг? Дело не в жире, а в подъязычной кости».<br>
+            <strong>EN:</strong> «Why a double chin is often not fat at all, but a dropped hyoid bone and tight platysma».
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip ok"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip ok">Retention 25–31%</span> Направление 3: Максилла и кости черепа (MAXILLA)</div>
+          <div class="rule-hint">
+            <strong>Формула:</strong> «Кость красоты, которая западает назад после 30 лет. Как остеопатически вернуть поддержку щекам».<br>
+            <strong>EN:</strong> «The central bone of facial beauty that recedes with age: the maxilla osteopathic approach».
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip ok"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip ok">Retention 22–27%</span> Направление 4: Утренние отёки и лимфоток (CELLULITE / RESET)</div>
+          <div class="rule-hint">
+            <strong>Формула:</strong> «Утреннее одутловатое лицо — это не плохой сон, а заблокированные надключичные лимфоузлы».<br>
+            <strong>EN:</strong> «Morning facial puffiness is simply stagnant lymph trapped above the clavicles. 2-minute drain».
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ КАК ПИСАТЬ ТЗ ДЛЯ МОНТАЖЁРА ═══════ -->
+  <div class="card" id="tz" style="border-color: rgba(236,72,153,.3);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">📋</span>
+      <h2>Как писать ТЗ для монтажёра (Связка «Сценарий ↔ Монтаж»)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="ctx">
+        Монтажёр монтирует строго по твоему сценарию. Чтобы видео получилось качественным, сценарист обязан оформлять ТЗ в <strong>двухколоночном формате</strong> и указывать доступные папки с живыми футажами Алеся.
+      </div>
+
+      <div class="note blue">
+        <strong>📌 Доступные папки на Google Drive для подсказок монтажёру:</strong><br>
+        <code>BODY SECRET</code> · <code>CELLULITE</code> · <code>LIFTING</code> · <code>MAXILLA</code> · <code>RESET</code> · <code>ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</code>.<br>
+        <span style="color:#fda4af;">⛔ ЗАПРЕЩЕНО заказывать в ТЗ стоки («счастливая девушка на пляже») или мыльный нейрослоп! Только кадры Алеся, моделей и анатомии!</span>
+      </div>
+
+      <table class="script-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Тайминг</th>
+            <th style="width:40%;">Текст голоса (Voiceover)</th>
+            <th style="width:38%;">Визуальный ряд для монтажёра</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>0:00 – 0:03</strong> (Хук)</td>
+            <td>«Почему второй подбородок не уходит от диет?»</td>
+            <td>ИИ-аватар Алеся на 1.5 сек → анимация платизмы и напряжение шеи со стрелкой</td>
+          </tr>
+          <tr>
+            <td><strong>0:03 – 0:12</strong> (Проблема)</td>
+            <td>«Большинство массирует подбородок, но корень проблемы — спазм грудино-ключичной мышцы».</td>
+            <td>Кадр из папки LIFTING: Алесь показывает на модели шейные тяги. Кадры сменяются каждые 3 сек!</td>
+          </tr>
+          <tr>
+            <td><strong>0:12 – 0:25</strong> (Анатомия)</td>
+            <td>«Посмотрите на биомеханику: зажатая фасция тянет ткани лица вниз».</td>
+            <td>Анатомический разбор Алеся у доски из папки BODY SECRET / MAXILLA</td>
+          </tr>
+          <tr>
+            <td><strong>0:25 – 0:35</strong> (Практика)</td>
+            <td>«Попробуйте это простое движение: мягкий захват мышцы и глубокое дыхание».</td>
+            <td>Алесь показывает технику на себе крупным планом из папки RESET. Субтитры Montserrat 48px</td>
+          </tr>
+          <tr>
+            <td><strong>0:35 – 0:42</strong> (CTA)</td>
+            <td>«Полный пошаговый комплекс ждёт вас в приложении MindBodyFace. Попробуйте 7 дней по ссылке».</td>
+            <td>Скролл мобильного приложения MBF, анимация тапа по экрану. ПЛАШЕК С ЦЕНАМИ НЕТ!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════ ТАЙМИНГ И ЯЗЫКИ ═══════ -->
+  <div class="card" id="timing">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">⏱️</span>
+      <h2>Тайминг, хронометраж и специфика языков (EN, ES, TR)</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="rule">
+        <div class="pip info"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip info">Лимиты</span> Скорость речи и количество слов</div>
+          <div class="rule-hint">
+            Нормальный темп экспертной речи: <strong>130–145 слов в минуту</strong>. Не перегружай текст словами — монтажёру нужно место для демонстрации упражнений!
+            <ul style="margin:6px 0 0 18px; line-height:1.6;">
+              <li><strong>Формат 30 секунд:</strong> максимум 65–75 слов.</li>
+              <li><strong>Формат 45 секунд:</strong> максимум 95–110 слов.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="pip warn"></div>
+        <div class="rule-body">
+          <div class="rule-title"><span class="chip warn">Языки</span> Специфика локализации на EN, ES, TR</div>
+          <div class="rule-hint">
+            <strong>Испанский (ES):</strong> длиннее английского на 15–20%. Сокращай придаточные предложения, иначе диктор будет тараторить.<br>
+            <strong>Турецкий (TR):</strong> сказуемое всегда в конце предложения. Следи за естественным ритмом фраз и понятными терминами для женской аудитории 35+.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ СВЕТОФОР СЦЕНАРИЯ ═══════ -->
+  <div class="card" id="traffic">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🚦</span>
+      <h2>Светофор сценария: в озвучку или на доработку?</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="traffic">
+        <div class="tl-col red">
+          <h3>Красный · Переписать</h3>
+          <ul>
+            <li>В сценарии есть цены ($1, $47, «скидка 90%»)</li>
+            <li>Прямой Personal Attributes («У тебя второй подбородок?»)</li>
+            <li>Медицинские стоп-слова (Cure, eliminate, 100% гарантия)</li>
+            <li>В ТЗ заказаны стоки или мыльный нейрослоп</li>
+            <li>Ошибки в имени Dr. Ales или нет знака Faceplastica®</li>
+          </ul>
+        </div>
+        <div class="tl-col yellow">
+          <h3>Жёлтый · Сократить</h3>
+          <ul>
+            <li>Слишком много слов (диктор будет тараторить)</li>
+            <li>Не указаны конкретные папки футажей Алеся</li>
+            <li>Хук длиннее 3 секунд</li>
+            <li>Слишком сложный научный термин без пояснения</li>
+          </ul>
+        </div>
+        <div class="tl-col green">
+          <h3>Зелёный · В озвучку ✓</h3>
+          <ul>
+            <li>Хук цепляет за 0–3 сек без нарушения правил Meta</li>
+            <li>Понятное анатомическое объяснение от доктора Алеся</li>
+            <li>Показана техника Faceplastica® из программ MBF</li>
+            <li>CTA на 7-дневный пробный период БЕЗ цен</li>
+            <li>Хронометраж укладывается в 30–45 секунд</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ ЧЕК-ЛИСТ СЦЕНАРИСТА ═══════ -->
+  <div class="check-card" id="checklist">
+    <div class="check-top">
+      <div class="check-title">
+        <h2>✓ Экспресс-проверка сценариста перед сдачей ТЗ</h2>
+        <p id="checkSub">0 / 16 пунктов</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-ring">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle class="ring-bg" cx="28" cy="28" r="24" fill="none" stroke-width="4"/>
+            <circle class="ring-fg" id="ringFg" cx="28" cy="28" r="24" fill="none" stroke-width="4" stroke-dasharray="150.8" stroke-dashoffset="150.8" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-text" id="ringPct">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chk-list">
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ прямого указания «ты + дефект внешности» (Personal Attributes проверен)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ медицинских обещаний (cure, eliminate, heals, treatment, 100% guarantee)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">СТРОГИЙ ЗАПРЕТ ЦЕН: ни в войсовере, ни в титрах нет $1, $47 или скидок</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук укладывается в 0–3 секунды и сразу визуализирует проблему</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В хуке заложен ИИ-аватар доктора Алеся + анатомия</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Объяснена анатомическая первопричина (шея, фасции, платизма, максилла)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Включена демонстрация практической техники Faceplastica®</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">ТЗ оформлено в 2 колонки: «Тайминг + Голос» vs «Визуал для монтажёра»</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В ТЗ указаны конкретные папки с Алесем (BODY SECRET, LIFTING, RESET...)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ запросов на стоки и дешевый нейрослоп — только живые съемки Алеся</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Количество слов соответствует хронометражу (до 75 слов на 30 сек, до 110 на 45 сек)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Правильное имя эксперта: Dr. Ales Ulishchenko (MD, PhD)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Правильное название методики: Faceplastica® со знаком ®</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Тон спокойный, взрослый, доказательный (без КАПСЛОКА и !!!)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Четкий CTA: 7-дневный пробный период в клубе MindBodyFace</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Текст вычитан носителем на целевом языке (EN, ES, TR)</span></label>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function toggle(h){ h.parentElement.classList.toggle('shut'); }
+function chk(el){
+  const cb = el.querySelector('input');
+  cb.checked = !cb.checked;
+  el.classList.toggle('done', cb.checked);
+  updRing();
+}
+function updRing(){
+  const t = document.querySelectorAll('.chk').length;
+  const d = document.querySelectorAll('.chk.done').length;
+  const p = Math.round(d / t * 100);
+  const circ = 150.8;
+  document.getElementById('ringFg').style.strokeDashoffset = circ - (circ * p / 100);
+  document.getElementById('ringPct').textContent = p + '%';
+  document.getElementById('checkSub').textContent = d + ' / ' + t + ' пунктов';
+}
+
+function filterRules(){
+  const q = document.getElementById('ruleSearch').value.toLowerCase().trim();
+  const rules = document.querySelectorAll('.rule, .note, .script-table tr');
+  rules.forEach(r => {
+    if(!q){ r.style.display = ''; return; }
+    const match = r.textContent.toLowerCase().includes(q);
+    r.style.display = match ? '' : 'none';
+  });
+}
+
+document.querySelectorAll('nav.subnav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+</script>
+
+</body>
+</html>

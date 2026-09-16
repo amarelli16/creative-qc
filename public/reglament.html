@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MBF · Регламент QC видео-креативов</title>
+  <title>MBF · Регламенты QC креативов (Монтаж и Сценарии)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,20 +17,12 @@
       --text: #f0f1f5;
       --text-2: #a0a4b8;
       --text-3: #636882;
-      --accent: #8b5cf6;
-      --accent-2: #a78bfa;
-      --red: #f43f5e;
-      --orange: #f59e0b;
-      --green: #10b981;
-      --blue: #3b82f6;
-      --red-glow: rgba(244,63,94,.12);
-      --orange-glow: rgba(245,158,11,.10);
-      --green-glow: rgba(16,185,129,.10);
-      --blue-glow: rgba(59,130,246,.10);
-      --radius: 14px;
+      --editor-accent: #38bdf8;
+      --editor-glow: rgba(56,189,248,.18);
+      --script-accent: #ec4899;
+      --script-glow: rgba(236,72,153,.18);
+      --radius: 16px;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
@@ -39,11 +31,37 @@
       line-height: 1.65;
       font-size: 15px;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+
+    header.top-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,9,13,.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .top-brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+    }
+    .top-logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, #8b5cf6, #38bdf8);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; color: #fff;
+      box-shadow: 0 0 16px rgba(139,92,246,.4);
+    }
+    .top-title { font-weight: 700; font-size: 14px; color: var(--text); }
+    .top-subtitle { font-size: 11.5px; color: var(--text-3); }
 
     .hero {
       position: relative;
-      padding: 64px 24px 48px;
+      padding: 60px 24px 36px;
       text-align: center;
       overflow: hidden;
     }
@@ -51,1357 +69,277 @@
       content: '';
       position: absolute;
       top: -120px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(139,92,246,.18) 0%, transparent 70%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(139,92,246,.15) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
       background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(139,92,246,.05));
-      border: 1px solid rgba(139,92,246,.25);
-      padding: 6px 16px; border-radius: 100px;
-      font-size: 12px; font-weight: 600; color: var(--accent-2);
-      letter-spacing: .5px; text-transform: uppercase;
-      margin-bottom: 20px;
+      border: 1px solid rgba(139,92,246,.35);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11.5px; font-weight: 600;
+      color: #a78bfa;
+      letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 14px;
     }
     .hero h1 {
       font-size: clamp(28px, 5vw, 44px);
       font-weight: 900;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #fff 30%, var(--accent-2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -.03em;
+      line-height: 1.15;
       margin-bottom: 12px;
     }
-    .hero p { color: var(--text-2); font-size: 16px; max-width: 560px; margin: 0 auto; }
-    .hero .date { margin-top: 20px; font-size: 13px; color: var(--text-3); }
-
-    .summary-strip {
-      display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
-      padding: 20px 24px; margin: 0 auto;
-      max-width: 600px;
+    .hero h1 span {
+      background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 50%, #ec4899 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .summary-item { text-align: center; }
-    .summary-num {
-      font-size: 32px; font-weight: 900;
-      font-family: 'JetBrains Mono', monospace;
+    .hero p {
+      font-size: clamp(14px, 1.8vw, 17px);
+      color: var(--text-2);
+      max-width: 680px;
+      margin: 0 auto;
     }
-    .summary-num.c-red { color: var(--red); }
-    .summary-num.c-orange { color: var(--orange); }
-    .summary-num.c-blue { color: var(--blue); }
-    .summary-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: .8px; margin-top: 2px; }
 
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(8,9,13,.75);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 20px;
-      overflow-x: auto; white-space: nowrap;
-      display: flex; justify-content: center; gap: 4px;
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px 20px 60px;
+      flex: 1;
     }
-    nav a {
-      display: inline-block; color: var(--text-3); text-decoration: none;
-      font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 8px;
-      transition: all .2s;
+
+    /* 2 Role Hub Cards */
+    .hub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
     }
-    nav a:hover { color: var(--text); background: var(--surface-hover); }
+    @media(max-width: 760px){
+      .hub-grid { grid-template-columns: 1fr; }
+    }
 
-    .wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
-
-    .card {
+    .hub-card {
+      position: relative;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      margin-bottom: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
       overflow: hidden;
-      transition: border-color .3s;
+      transition: all .25s cubic-bezier(.16,1,.3,1);
     }
-    .card:hover { border-color: rgba(255,255,255,.12); }
-    .card-head {
-      padding: 18px 22px;
-      display: flex; align-items: center; gap: 14px;
-      cursor: pointer; user-select: none;
+    .hub-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      transition: opacity .25s ease;
     }
-    .card-head .emoji { font-size: 22px; }
-    .card-head h2 { font-size: 17px; font-weight: 700; flex: 1; }
-    .card-head .arrow {
-      width: 18px; height: 18px; color: var(--text-3);
-      transition: transform .25s;
-    }
-    .card.shut .card-body { display: none; }
-    .card.shut .arrow { transform: rotate(-90deg); }
-    .card-body { padding: 0 22px 22px; }
 
-    .ctx {
-      padding: 14px 16px;
-      background: linear-gradient(135deg, rgba(139,92,246,.06), rgba(59,130,246,.04));
-      border: 1px solid rgba(139,92,246,.12);
-      border-radius: 10px;
-      font-size: 14px; color: var(--text-2);
-      margin-bottom: 18px;
+    /* Card Editor */
+    .hub-card.editor:hover {
+      border-color: rgba(56,189,248,.45);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(56,189,248,.12);
     }
-    .ctx strong { color: var(--text); }
+    .hub-card.editor::before {
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+    }
+    .hub-card.editor .role-tag {
+      color: #38bdf8; background: rgba(56,189,248,.1); border-color: rgba(56,189,248,.3);
+    }
+    .hub-card.editor .hub-btn {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      box-shadow: 0 4px 14px rgba(56,189,248,.3);
+    }
 
-    .rule {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
+    /* Card Scriptwriter */
+    .hub-card.scripts:hover {
+      border-color: rgba(236,72,153,.45);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(236,72,153,.12);
     }
-    .rule:last-child { border-bottom: none; }
-    .pip {
-      width: 10px; height: 10px; border-radius: 50%;
-      margin-top: 5px; flex-shrink: 0;
+    .hub-card.scripts::before {
+      background: linear-gradient(90deg, #db2777, #ec4899);
     }
-    .pip.crit { background: var(--red); box-shadow: 0 0 10px var(--red-glow); }
-    .pip.warn { background: var(--orange); box-shadow: 0 0 10px var(--orange-glow); }
-    .pip.info { background: var(--blue); box-shadow: 0 0 10px var(--blue-glow); }
-    .rule-body { flex: 1; }
-    .rule-title { font-weight: 600; font-size: 14px; margin-bottom: 3px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; color: var(--text-3);
-      background: rgba(255,255,255,.06); padding: 2px 7px; border-radius: 4px;
+    .hub-card.scripts .role-tag {
+      color: #f472b6; background: rgba(236,72,153,.1); border-color: rgba(236,72,153,.3);
     }
-    .chip {
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
-      padding: 2px 8px; border-radius: 4px;
+    .hub-card.scripts .hub-btn {
+      background: linear-gradient(135deg, #db2777, #ec4899);
+      box-shadow: 0 4px 14px rgba(236,72,153,.3);
     }
-    .chip.crit { color: var(--red); background: var(--red-glow); }
-    .chip.warn { color: var(--orange); background: var(--orange-glow); }
-    .chip.info { color: var(--blue); background: var(--blue-glow); }
-    .rule-hint { font-size: 13px; color: var(--text-2); margin-top: 4px; }
 
-    .exs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
-    @media (max-width: 560px) { .exs { grid-template-columns: 1fr; } }
-    .ex {
-      font-size: 12.5px; padding: 8px 12px; border-radius: 8px;
+    .role-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      border: 1px solid transparent;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+    .hub-card h2 {
+      font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hub-card p {
+      font-size: 14px; color: var(--text-2); line-height: 1.6; margin-bottom: 20px;
+    }
+
+    .hub-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 9px;
+      margin-bottom: 28px;
+    }
+    .hub-features li {
+      font-size: 13px; color: var(--text);
+      display: flex; align-items: flex-start; gap: 8px;
       line-height: 1.45;
     }
-    .ex.bad { background: var(--red-glow); color: #fda4af; border-left: 3px solid var(--red); }
-    .ex.good { background: var(--green-glow); color: #6ee7b7; border-left: 3px solid var(--green); }
-    .ex.bad::before { content: '✗ '; font-weight: 700; }
-    .ex.good::before { content: '✓ '; font-weight: 700; }
-
-    .note {
-      padding: 14px 18px; border-radius: 10px;
-      font-size: 14px; line-height: 1.55;
-      margin-bottom: 16px;
-    }
-    .note.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.15); }
-    .note.orange { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.15); }
-    .note.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.15); }
-    .note.blue { background: var(--blue-glow); border: 1px solid rgba(59,130,246,.15); }
-    .note strong { display: block; margin-bottom: 3px; }
-
-    .terms { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-    @media (max-width: 560px) { .terms { grid-template-columns: 1fr; } }
-    .term-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
-      padding: 12px 14px; border-radius: 10px;
-    }
-    .term-label {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .8px; color: var(--accent-2); margin-bottom: 4px;
-    }
-    .term-card small { color: var(--text-3); }
-
-    .traffic {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      margin-bottom: 16px;
-    }
-    .traffic h2 {
-      font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 24px;
-    }
-    .tl-row {
-      display: flex; gap: 16px; align-items: flex-start;
-      padding: 16px 18px; border-radius: 12px;
-      margin-bottom: 10px;
-    }
-    .tl-row.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.12); }
-    .tl-row.yellow { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.12); }
-    .tl-row.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.12); }
-    .tl-dot {
-      width: 34px; height: 34px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
-    }
-    .tl-row.red .tl-dot { background: var(--red); }
-    .tl-row.yellow .tl-dot { background: var(--orange); }
-    .tl-row.green .tl-dot { background: var(--green); }
-    .tl-row h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
-    .tl-row p { font-size: 13px; color: var(--text-2); }
-
-    .big-rule {
-      text-align: center; padding: 20px;
-      font-size: 15px; font-weight: 700;
-      background: var(--red-glow); border: 1px solid rgba(244,63,94,.15);
-      border-radius: var(--radius); margin-bottom: 16px;
-    }
-    .big-rule u { text-decoration-color: var(--red); }
-
-    .checklist-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      margin-bottom: 16px;
-    }
-    .checklist-header { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
-    .ring-wrap {
-      position: relative; width: 56px; height: 56px; flex-shrink: 0;
-    }
-    .ring-wrap svg { transform: rotate(-90deg); }
-    .ring-bg { stroke: rgba(255,255,255,.06); }
-    .ring-fg { stroke: var(--green); transition: stroke-dashoffset .5s ease; }
-    .ring-pct {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .checklist-header h2 { font-size: 18px; font-weight: 700; }
-    .checklist-header .sub { font-size: 13px; color: var(--text-3); }
-
-    .chk {
-      display: flex; align-items: center; gap: 12px;
-      padding: 11px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer; user-select: none;
-      transition: opacity .2s;
-    }
-    .chk:last-child { border-bottom: none; }
-    .chk input { display: none; }
-    .chk-box {
-      width: 20px; height: 20px; border-radius: 6px;
-      border: 2px solid var(--text-3);
-      display: flex; align-items: center; justify-content: center;
-      transition: all .2s; flex-shrink: 0;
-    }
-    .chk-box svg { opacity: 0; transition: opacity .15s; }
-    .chk.done .chk-box {
-      background: var(--green); border-color: var(--green);
-    }
-    .chk.done .chk-box svg { opacity: 1; }
-    .chk.done .chk-text { color: var(--text-3); text-decoration: line-through; }
-    .chk-text { font-size: 14px; flex: 1; }
-
-    details { margin-top: 6px; }
-    details summary {
-      font-size: 12px; color: var(--accent-2); cursor: pointer; font-weight: 500;
-    }
-    details[open] summary { margin-bottom: 6px; }
-
-    @media print {
-      body { background: #fff; color: #111; }
-      nav { display: none; }
-      .card, .traffic, .checklist-wrap, .note { border-color: #ddd; background: #fafafa; break-inside: avoid; }
-      .card-body { display: block !important; }
-      .hero::before { display: none; }
+    .hub-features li span {
+      font-size: 14px; flex-shrink: 0; line-height: 1.2;
     }
 
-    /* Pipeline & Reference Styles */
-    .flow-banner {
-      display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
-      background: rgba(139,92,246,.08); border: 1px dashed rgba(139,92,246,.3);
-      border-radius: 10px; padding: 12px 16px; margin: 16px 0;
-      font-size: 13.5px; font-weight: 600; color: var(--accent-2);
-    }
-    .flow-step {
-      background: rgba(255,255,255,.06); padding: 4px 10px; border-radius: 6px;
-      color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    }
-    .flow-arrow { color: var(--text-3); font-weight: 800; }
-    
-    .ref-box {
-      background: linear-gradient(135deg, rgba(59,130,246,.08), rgba(139,92,246,.08));
-      border: 1px solid rgba(59,130,246,.25);
-      border-radius: 12px; padding: 16px 18px; margin-bottom: 16px;
-    }
-    .ref-box-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-    .ref-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-    @media(max-width: 560px) { .ref-links { grid-template-columns: 1fr; } }
-    .ref-btn {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 8px; padding: 10px 14px; color: var(--text);
-      text-decoration: none; font-size: 13px; font-weight: 600;
-      transition: all .2s;
-    }
-    .ref-btn:hover { background: rgba(59,130,246,.18); border-color: rgba(59,130,246,.4); transform: translateY(-1px); color: #fff; }
-    
-    .step-card {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 16px 0; border-bottom: 1px solid var(--border);
-    }
-    .step-card:last-child { border-bottom: none; }
-    .step-num {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(139,92,246,.2); color: var(--accent-2);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 13px; flex-shrink: 0; margin-top: 2px;
-    }
-    .step-content { flex: 1; }
-    .step-title { font-weight: 700; font-size: 14.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .step-desc { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
-    .step-badge {
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-      background: rgba(255,255,255,.08); padding: 2px 7px; border-radius: 4px; color: var(--text-2);
-    }
-    .sub-demo {
-      display: inline-flex; gap: 6px; align-items: center; background: rgba(0,0,0,.4);
-      padding: 6px 10px; border-radius: 6px; font-family: Arial, sans-serif; font-weight: 700;
-      font-size: 12.5px; border: 1px solid rgba(255,255,255,.08);
-    }
-    .sub-bad { color: #f43f5e; }
-    .sub-good { color: #10b981; }
-
-    /* Naming Styles */
-    .naming-box {
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-top: 18px;
-    }
-    .naming-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 10px; margin: 14px 0;
-    }
-    .naming-file-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-    }
-    .naming-file-card strong { color: var(--accent-2); display: block; font-size: 13px; margin-bottom: 2px; }
-    .naming-legend {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
-    }
-    .naming-tag {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 6px;
-      padding: 5px 9px;
-      font-size: 12px;
-    }
-    .naming-tag span {
-      font-family: 'JetBrains Mono', monospace;
+    .hub-btn {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 13.5px;
       font-weight: 700;
-      color: var(--accent-2);
-      margin-right: 4px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: opacity .2s ease, transform .2s ease;
+      border: none;
+      cursor: pointer;
     }
+    .hub-btn:hover { opacity: .95; transform: scale(1.01); }
 
-    /* Subtitle & Production Standards */
-    .sub-spec-box {
-      background: rgba(0,0,0,.5);
-      border: 1px solid rgba(139,92,246,.3);
-      border-radius: 12px;
-      padding: 16px 18px;
-      margin: 12px 0 6px;
+    /* Comparison Table / Shared Values */
+    .shared-box {
+      margin-top: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
     }
-    .sub-live-preview {
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px 14px;
-      background: #090a10;
-      border: 1px dashed rgba(255,255,255,.1);
-      border-radius: 8px;
-      margin: 10px 0;
-      text-align: center;
-    }
-    .sub-gradient-bg {
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%);
-      padding: 10px 24px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-    .sub-montserrat {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-style: italic;
-      text-transform: uppercase;
-      font-size: 20px;
-      letter-spacing: 0.6px;
-      color: #ffffff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 16px rgba(255,255,255,0.25);
-    }
-    .sub-params {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
-    }
-    .sub-param {
-      background: rgba(255,255,255,.06);
-      padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--text-2);
-    }
-    .sub-param strong { color: var(--accent-2); }
-
-    .mood-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 8px; margin: 10px 0;
-    }
-    .mood-card {
-      background: rgba(255,255,255,.04); border: 1px solid var(--border);
-      padding: 8px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 600;
-      text-align: center; color: var(--text);
-    }
-
-    .team-tasks-box {
-      background: linear-gradient(135deg, rgba(139,92,246,.1), rgba(59,130,246,.08));
-      border: 1px solid rgba(139,92,246,.25);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-top: 12px;
-    }
-
-    .bad-list {
-      background: var(--red-glow);
-      border: 1px solid rgba(244,63,94,.2);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin: 16px 0;
-    }
-    .bad-list-title {
-      font-weight: 700; color: #fda4af; font-size: 14px; margin-bottom: 8px;
+    .shared-box h3 {
+      font-size: 16px; font-weight: 800; margin-bottom: 14px;
       display: flex; align-items: center; gap: 8px;
     }
-    .bad-list ul {
-      padding-left: 20px; font-size: 13px; color: var(--text-2); line-height: 1.6;
+    .shared-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13px;
     }
-    .bad-list li strong { color: var(--text); }
-
-    /* Folder Grid Styles */
-    .folder-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 10px; margin: 12px 0 6px;
-    }
-    .folder-card {
-      background: rgba(255,255,255,.04);
+    @media(max-width: 640px){ .shared-grid { grid-template-columns: 1fr; } }
+    .shared-item {
+      background: rgba(255,255,255,.02);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 12px 14px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      text-decoration: none;
-      color: var(--text);
-      transition: all .2s;
+      padding: 14px;
     }
-    .folder-card:hover {
-      background: rgba(139,92,246,.12);
-      border-color: rgba(139,92,246,.35);
-      transform: translateY(-2px);
-      color: #fff;
-    }
-    .folder-name {
-      font-weight: 700; font-size: 13.5px; display: flex; align-items: center; gap: 8px;
-    }
-    .folder-desc {
-      font-size: 11.5px; color: var(--text-2); margin-top: 4px; line-height: 1.4;
-    }
-    .folder-action {
-      font-size: 11px; font-weight: 600; color: var(--accent-2); margin-top: 8px; display: flex; align-items: center; gap: 4px;
-    }
+    .shared-item strong { display: block; margin-bottom: 4px; color: var(--text); }
+    .shared-item p { color: var(--text-2); line-height: 1.5; }
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-badge">📋 Регламент</div>
-  <h1>QC видео-креативов</h1>
-  <p>Что проверять перед выпуском видео в Meta Ads.<br>Для монтажёров и ревьюеров.</p>
-  <div class="date">Обновлено: 16.09.2026 · Полный регламент монтажа, стандарты QC и нейминг</div>
-</div>
-
-<div class="summary-strip">
-  <div class="summary-item"><div class="summary-num c-red">6</div><div class="summary-label">🔴 Критичных</div></div>
-  <div class="summary-item"><div class="summary-num c-orange">15</div><div class="summary-label">🟡 Важных</div></div>
-  <div class="summary-item"><div class="summary-num c-blue">4</div><div class="summary-label">🔵 Рекомендаций</div></div>
-</div>
-
-<nav>
-  <a href="#materials" style="color:#38bdf8; font-weight:700;">📁 Материалы Drive</a>
-  <a href="#pipeline" style="color:var(--accent-2); font-weight:700;">🚀 Пайплайн</a>
-  <a href="#brand">Бренд</a>
-  <a href="#ban">Зона бана</a>
-  <a href="#ba">До/После</a>
-  <a href="#med">Мед. клеймы</a>
-  <a href="#hook">Хук и монтаж</a>
-  <a href="#vo">Озвучка и оффер</a>
-  <a href="#tech">Техтребования и нейминг</a>
-  <a href="#light">Светофор</a>
-  <a href="#check">Финал-чек</a>
-</nav>
-
-<div class="wrap">
-
-  <!-- ═══════ БАЗА МАТЕРИАЛОВ (GOOGLE DRIVE) ═══════ -->
-  <div class="card" id="materials" style="border-color: rgba(56,189,248,.3); background: linear-gradient(180deg, rgba(56,189,248,.05) 0%, rgba(255,255,255,.02) 100%);">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">📁</span>
-      <h2>База рабочих материалов на Google Drive</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+<header class="top-nav">
+  <a href="/" class="top-brand">
+    <div class="top-logo">MBF</div>
+    <div>
+      <div class="top-title">MindBodyFace · База регламентов QC</div>
+      <div class="top-subtitle">Единый центр стандартов видео-продакшена</div>
     </div>
-    <div class="card-body">
-      <div class="ctx" style="border-color:rgba(56,189,248,.2); background:rgba(56,189,248,.06);">
-        <strong>📂 Главная папка всех исходников:</strong> 
-        <a href="https://drive.google.com/drive/folders/130JHG_knBuzQnwCwQT1FwkoyyJ0dnSlX" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">МОНТАЖ МАТЕРИАЛЫ (Google Drive) ↗</a><br>
-        Здесь собраны все лицензионные треки, футажи с доктором Алесем по курсам, анатомия и примеры хуков для насмотренности.
-      </div>
-
-      <div class="folder-grid">
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 BODY SECRET</div>
-            <div class="folder-desc">Футажи с Алесем, демонстрации техник и практические уроки курса BodySecret.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
-
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 CELLULITE</div>
-            <div class="folder-desc">Материалы, упражнения и демонстрации техник по антицеллюлитному курсу.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
-
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 LIFTING</div>
-            <div class="folder-desc">Техники лифтинга лица, самомассажи и демонстрации Алеся на моделях.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
-
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 MAXILLA</div>
-            <div class="folder-desc">Анатомические разборы максиллы (на доске и на себе), приёмы работы со средней трети.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
-
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 RESET</div>
-            <div class="folder-desc">Футажи и практики по комплексной программе оздоровления и осанки Reset.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
-
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">🎵 МУЗЫКА</div>
-            <div class="folder-desc">Официальный пак купленной лицензионной музыки строго БЕЗ слов.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
-
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
-          <div>
-            <div class="folder-name">👁️ ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</div>
-            <div class="folder-desc">Большая база лучших роликов: хуки, разборы кейсов и примеры оформления для тренировки насмотренности.</div>
-          </div>
-          <div class="folder-action">Открыть примеры на Drive ↗</div>
-        </a>
-      </div>
-    </div>
+  </a>
+  <div>
+    <a href="/" style="color:var(--text-2); font-size:12.5px; text-decoration:none; padding:6px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px;">← Creative QC App</a>
   </div>
+</header>
 
-  <!-- ═══════ ПАЙПЛАЙН МОНТАЖА ═══════ -->
-  <div class="card" id="pipeline" style="border-color: rgba(139,92,246,.25); background: linear-gradient(180deg, rgba(139,92,246,.04) 0%, rgba(255,255,255,.02) 100%);">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">🚀</span>
-      <h2>Общий регламент монтажа крео (пайплайн и стандарты)</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <!-- Референсы -->
-      <div class="ref-box">
-        <div class="ref-box-title">
-          <span>🎬</span>
-          <span>Эталонные примеры креативов (сделаны лично лидом — брать за основу):</span>
-        </div>
-        <p style="font-size:13px; color:var(--text-2); margin-bottom:6px;">
-          Посмотри перед монтажом, как выстроены хук с доктором, темп, субтитры и концовка:
+<section class="hero">
+  <div class="hero-badge">Командный хаб стандартов</div>
+  <h1>Два регламента — <span>одна цель</span></h1>
+  <p>
+    Монтируют видео и пишут сценарии два разных человека. Выберите нужный регламент под вашу роль:
+  </p>
+</section>
+
+<main class="container">
+  <div class="hub-grid">
+    
+    <!-- КАРТОЧКА МОНТАЖЁРА -->
+    <a href="/reglament/editor" class="hub-card editor">
+      <div>
+        <div class="role-tag">🎬 Роль: Видеомонтажёр</div>
+        <h2>🎬 Регламент монтажа</h2>
+        <p>
+          Всё о сборке видео, работе с исходниками доктора Алеся, визуальной динамике, субтитрах и сдаче файлов.
         </p>
-        <div class="ref-links">
-          <a class="ref-btn" href="https://drive.google.com/file/d/1odG-ekthg46pfYy79Te2ZvqoaayuW6w4/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-            <span style="font-size:16px;">▶️</span>
-            <div>
-              <div>Показательный креатив #1</div>
-              <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
-            </div>
-          </a>
-          <a class="ref-btn" href="https://drive.google.com/file/d/1aZ8sQjXDclAt4ZIpn3utecfTf6TBouXA/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-            <span style="font-size:16px;">▶️</span>
-            <div>
-              <div>Показательный креатив #2</div>
-              <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Главные проблемы / Зона брака -->
-      <div class="bad-list">
-        <div class="bad-list-title">
-          <span>⚠️</span>
-          <span>С чем обычно проблемы (главные ошибки монтажа — не допускать!):</span>
-        </div>
-        <ul>
-          <li><strong>Много стока в первом блоке видео:</strong> сток в начале — главная беда. <u>Сток не используем вообще</u>, он убивает доверие и конверсию!</li>
-          <li><strong>Жёсткий нейрослоп вместо качественных исходников:</strong> пластиковые лица, мыльные картинки, артефакты. Если генерации — то только очень высокого качества, неотличимые от реала.</li>
-          <li><strong>Неравномерные анимации:</strong> жесткие, несглаженные keyframes, когда кадр дергается, останавливается и опять двигается. Анимация должна быть плавной и приятной глазу!</li>
-          <li><strong>Зависание одного кадра:</strong> нельзя держать 6 секунд одну и ту же картинку. Динамика — смена кадров каждые 3–5 секунд.</li>
+        <ul class="hub-features">
+          <li><span>📂</span> <strong>База Google Drive:</strong> 7 папок (BODY SECRET, CELLULITE, LIFTING, MAXILLA, RESET, МУЗЫКА, ХУКИ).</li>
+          <li><span>🚀</span> <strong>10-шаговый пайплайн:</strong> аватар Алеся в хуке, динамика 3–5 сек, микро-анимации боли.</li>
+          <li><span>💬</span> <strong>Субтитры:</strong> Montserrat 48px CAPS Italic с подсветкой и подложкой.</li>
+          <li><span>🎵</span> <strong>Звук:</strong> музыка строго БЕЗ слов, баланс речи -6 dB и музыки -18 dB.</li>
+          <li><span>⛔</span> <strong>Без цен:</strong> плашки со стоимостью на экран НЕ добавляем.</li>
+          <li><span>🏷️</span> <strong>Нейминг:</strong> обязательный экспорт 4 файлов (_S, M__S, _F, M__F) + генератор.</li>
+          <li><span>✓</span> <strong>Чек-лист монтажа:</strong> 16 пунктов экспресс-проверки перед рендером.</li>
         </ul>
       </div>
+      <div class="hub-btn">Открыть Регламент Монтажа →</div>
+    </a>
 
-      <!-- Краткая формула -->
-      <div class="flow-banner">
-        <span style="color:var(--text-2); font-weight:500;">Экспресс-формула:</span>
-        <span class="flow-step">1. Субтитры</span>
-        <span class="flow-arrow">➔</span>
-        <span class="flow-step">2. Хук с Алесем</span>
-        <span class="flow-arrow">➔</span>
-        <span class="flow-step">3. Футажи и анатомия</span>
-        <span class="flow-arrow">➔</span>
-        <span class="flow-step">4. Музыка без слов</span>
-        <span class="flow-arrow">➔</span>
-        <span class="flow-step">5. Концовка без цен</span>
-        <span class="flow-arrow">➔</span>
-        <span class="flow-step">6. Экспорт 4 файлов</span>
-      </div>
-
-      <!-- 10 Шагов монтажа -->
-      <div class="pipeline-list">
-        
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <div class="step-title">
-              ИИ-аватар доктора (базовый исходник)
-              <span class="step-badge">Основа</span>
-            </div>
-            <div class="step-desc">
-              Озвученный готовый аватар доктора выдаётся монтажёру. Вставляем его <strong>в начале видео в хук</strong> и периодически показываем в кадре дальше по ходу ролика, чтобы удерживать зрителя и сохранять ощущение личного контакта с экспертом.
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <div class="step-title">
-              Автосубтитры — сразу на таймлайн
-              <span class="step-badge">Шаг 1 монтажа</span>
-            </div>
-            <div class="step-desc">
-              Сразу как закинули аватара и озвучку на таймлайн — <strong>делаем автосубтитры</strong>. Не откладываем на конец: сразу режем и вычищаем там, где распозналось криво или слова съехались.
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <div class="step-title">
-              Хук (0–3 сек) — визуализация боли с первых кадров
-              <span class="chip crit" style="font-size:10px;">Критично</span>
-            </div>
-            <div class="step-desc">
-              • <strong>С 0–1 секунды:</strong> визуализация боли на экране (до/после или анатомия).<br>
-              • ⚠️ <strong>В хуках — не только аватар, но и живые футажи с Алесем!</strong> Наш доктор обязан быть в хуке.<br>
-              • <strong>Мини-анимации:</strong> выделение проблемных зон (стрелочки, круги, обводки), плавные и приятные глазу.<br>
-              • <strong>Без нейрослопа:</strong> анатомия, живая съёмка (генерации — только идеального качества).<br>
-              • <strong>Динамика:</strong> смена кадров каждые 3–5 сек (не зависать на 6 сек на одном плане).<br>
-              • 💡 <em>База хуков для тренировки насмотренности:</em> <a href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" style="color:var(--accent-2); font-weight:600; text-decoration:underline;">Папка «ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)» ↗</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <div class="step-title">
-              Футажи: Алесь, модели, анатомия — первостепенное требование!
-              <span class="chip crit" style="font-size:10px;">Приоритет №1</span>
-            </div>
-            <div class="step-desc">
-              • <strong>Футажи с Алесем и моделями — первостепенное требование:</strong> используем кадры по данному курсу, где Алесь что-то показывает на себе, на моделях или показывает анатомию на доске.<br>
-              • 📂 <em>Папки по направлениям:</em> <a href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" style="color:var(--accent-2);">BODY SECRET</a> · <a href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" style="color:var(--accent-2);">CELLULITE</a> · <a href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" style="color:var(--accent-2);">LIFTING</a> · <a href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" style="color:var(--accent-2);">MAXILLA</a> · <a href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" style="color:var(--accent-2);">RESET</a><br>
-              • <strong>Анатомические футажи:</strong> наглядный разбор причин проблемы (<em>«это максилла, она отвечает за..., из-за неё у вас...»</em>).<br>
-              • 🚫 <strong>Сток не используем вообще:</strong> стоки в начале и банальные клише больше всего вредят креативу. В идеале находить реальные живые кадры на <strong>YouTube и Pinterest</strong>.<br>
-              • <strong>Запрет низкосортных исходников:</strong> никакого мыла, пластиковых лиц и корявых генераций.
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">5</div>
-          <div class="step-content">
-            <div class="step-title">
-              Динамика и плавная анимация (сглаживание)
-              <span class="step-badge">Динамика</span>
-            </div>
-            <div class="step-desc">
-              • <strong>Смена кадров:</strong> каждые <strong>3–5 секунд</strong>. Ролик должен дышать и держать внимание.<br>
-              • <strong>Анимация:</strong> плавные, аккуратно сглаженные анимации (обводящие стрелочки, кружки). В CapCut используй готовую <strong>библиотеку стикеров</strong>.<br>
-              • 🚫 <strong>Неравномерная анимация — брак:</strong> когда кадр дергается, останавливается и снова едет рывками. Все keyframes должны иметь плавный ease-in/ease-out.
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">6</div>
-          <div class="step-content">
-            <div class="step-title">
-              Кадры из курсов (демонстрация продукта)
-              <span class="step-badge">Продукт</span>
-            </div>
-            <div class="step-desc">
-              Реальные практические уроки: вставляем в момент, когда доктор начинает говорить про сам курс, либо где наглядно показывается упражнение / методика.
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">7</div>
-          <div class="step-content">
-            <div class="step-title">
-              Концовка: красивый скроллинг + тапы и стрелочки
-              <span class="chip warn" style="font-size:10px;">CTA</span>
-            </div>
-            <div class="step-desc">
-              • <strong>Визуал:</strong> классный плавный «скроллинг» лендинга, анимации тапов (нажатия пальцем на кнопку), направляющие стрелочки.<br>
-              • ⛔ <strong>ПЛАШКИ С ЦЕНАМИ НЕ УКАЗЫВАЕМ (цены на крео запрещены):</strong> цены на креативах не добавляем вообще ни в каком виде — ни плашками, ни цифрами, ни перечёркнутыми скидками. Фокус только на действии (переходи / регистрируйся / пробуй бесплатный trial).
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">8</div>
-          <div class="step-content">
-            <div class="step-title">
-              Субтитры: утверждённый стандарт команды
-              <span class="chip crit" style="font-size:10px;">Стандарт</span>
-            </div>
-            <div class="step-desc">
-              Единый утверждённый стандарт для всех монтажёров:
-              
-              <!-- Интерактивное превью субтитров -->
-              <div class="sub-spec-box">
-                <div style="font-size:11px; font-weight:700; color:var(--accent-2); text-transform:uppercase; letter-spacing:.6px;">
-                  Превью утверждённого стиля субтитров:
-                </div>
-                <div class="sub-live-preview">
-                  <div class="sub-gradient-bg">
-                    <span class="sub-montserrat">УБЕРИ МОРЩИНЫ И ЗАЛОМЫ</span>
-                  </div>
-                </div>
-                <div class="sub-params">
-                  <span class="sub-param"><strong>Шрифт:</strong> Montserrat SemiBold Italic</span>
-                  <span class="sub-param"><strong>Регистр:</strong> ПОЛНОСТЬЮ КАПСОМ</span>
-                  <span class="sub-param"><strong>Размер:</strong> 48px дефолтный (регулируется под кадр)</span>
-                  <span class="sub-param"><strong>Подложка:</strong> полупрозрачная плашка / градиентное темное пятно в прозрачность</span>
-                  <span class="sub-param"><strong>Эффекты:</strong> Glow / Drop Shadow</span>
-                </div>
-              </div>
-
-              • <strong>Формат:</strong> комфортные фразы по <strong>1–2 строчки</strong> (<span style="color:var(--red);">НЕ по одному слову!</span>).<br>
-              • <strong>5 стилей на выбор:</strong> монтажёрам согласовать 5 типовых видов оформления из базы.<br>
-              • <strong>Цветовая подсветка за 5 минут:</strong> в финале пробежаться по ролику и подсветить ключевые слова:
-              <div style="display:flex; gap:8px; flex-wrap:wrap; margin:8px 0;">
-                <div class="sub-demo"><span class="sub-bad">КРАСНЫЙ</span> — негативные слова, боль, симптомы (морщины, заломы, папада)</div>
-                <div class="sub-demo"><span class="sub-good">ЖЁЛТЫЙ / ЗЕЛЁНЫЙ</span> — позитивные слова, методика, результат (молодость, техника)</div>
-              </div>
-              
-              <!-- Задачи команды -->
-              <div class="team-tasks-box">
-                <strong>📌 В работе:</strong><br>
-                • <strong>Семен:</strong> записывает скринкаст настройки этого стиля в <em>CapCut</em> и <em>Premiere Pro</em> + прикладывает 2–3 примера удачных субтитров.<br>
-                • <strong>Монтажёры:</strong> фиксируют утверждённые 5 видов оформления.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">9</div>
-          <div class="step-content">
-            <div class="step-title">
-              Фоновая музыка: строго БЕЗ слов
-              <span class="chip crit" style="font-size:10px;">Без вокала</span>
-            </div>
-            <div class="step-desc">
-              • <strong>Строго без слов:</strong> любой вокал отвлекает от доктора и снижает досматриваемость.<br>
-              • <strong>5 настроений треков под креатив:</strong>
-              <div class="mood-grid">
-                <div class="mood-card">🌿 Лёгкая</div>
-                <div class="mood-card">⚡ Энергичная</div>
-                <div class="mood-card">🔮 Загадочная</div>
-                <div class="mood-card">🔥 Нагнетающая</div>
-                <div class="mood-card">📈 Трендовая</div>
-              </div>
-              • <strong>Разрешённые источники музыки:</strong><br>
-              1) <strong>Пак музыки от Димы</strong> — <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" style="color:var(--accent-2); font-weight:600; text-decoration:underline;">скачать из папки «МУЗЫКА» на Drive ↗</a><br>
-              2) <strong>Magnific</strong> (Freepik Audio)<br>
-              3) <strong>Meta Sound Collection</strong> (библиотека коммерческих треков Meta)<br>
-              <small style="color:var(--orange); display:block; margin-top:6px;">⚠️ Примеры треков от команды служат только ориентиром по темпу — конкретно референсные треки брать нельзя.</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">10</div>
-          <div class="step-content">
-            <div class="step-title">
-              Экспорт и строгий нейминг файлов (4 обязательных файла)
-              <span class="chip crit" style="font-size:10px;">Обязательно</span>
-            </div>
-            <div class="step-desc">
-              Каждый готовый ролик обязательно экспортируется ровно в <strong>4 файлах</strong>:<br>
-              1) <code>BDY_VID_S_BD123_DanD</code> — 1080×1920 (со звуком и сабами)<br>
-              2) <code>M_BDY_VID_S_BD123_DanD</code> — 1080×1920 (чистый мастер: без музыки и сабов)<br>
-              3) <code>BDY_VID_F_BD123_DanD</code> — 1080×1350 (со звуком и сабами)<br>
-              4) <code>M_BDY_VID_F_BD123_DanD</code> — 1080×1350 (чистый мастер: без музыки и сабов)<br>
-              <a href="#naming" style="color:var(--accent-2); font-size:12.5px; font-weight:600; text-decoration:underline;">Смотреть подробную расшифровку схемы нейминга в техтребованиях ↓</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════ БРЕНД ═══════ -->
-  <div class="card" id="brand">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">✨</span>
-      <h2>Бренд, тон и терминология</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="ctx">
-        <strong>Кто мы:</strong> MindBodyFace — научно обоснованная система улучшения здоровья и внешности. Образовательный продукт, НЕ медицинская услуга.<br>
-        <strong>Голос бренда:</strong> спокойно, точно, с человеческим контактом. Эксперт и партнёр. Без заумия, без запугивания, без пустых слов.
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip warn">Важно</span> Тон — экспертный, тёплый, уважительный</div>
-          <div class="exs">
-            <div class="ex bad">INCREDIBLE OFFER!!! 🔥🔥🔥 DON'T MISS IT!!!</div>
-            <div class="ex good">Discover proven faceplastica techniques</div>
-          </div>
-          <div class="rule-hint">Никакого CAPS LOCK, !!!, агрессивного copy. Говорим со взрослым человеком.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip warn">Важно</span> Грамотность на языке креатива</div>
-          <div class="rule-hint">Орфография, согласование, пунктуация. Креативы могут быть на EN, ES, TR — проверяй на нужном языке. Ошибки = потеря доверия.</div>
-        </div>
-      </div>
-
-      <div class="note blue" style="margin-top:16px;">
-        <strong>📌 Правильные названия и термины</strong>
-        <div class="terms">
-          <div class="term-card"><div class="term-label">Эксперт</div>Dr. Ales Ulishchenko<br><small>НЕ «Alex», НЕ «Ayles», НЕ «Ale»</small></div>
-          <div class="term-card"><div class="term-label">Методика</div>Faceplastica® <small>(всегда с ®)</small></div>
-          <div class="term-card"><div class="term-label">Об Алесе в видео</div>MD, PhD, Integrative Longevity Doctor<br><small>НЕ Surgeon, НЕ Physician</small></div>
-          <div class="term-card"><div class="term-label">Продукт</div>MindBodyFace Membership<br><small>7-day free trial, $47/мес</small></div>
-        </div>
-      </div>
-
-      <div class="note red">
-        <strong>🚫 Зоны нулевой терпимости:</strong>
-        Имя эксперта, название продукта, условия trial. Одна ошибка здесь = ролик не выпускаем.<br>
-        <strong>⛔ Цены на креативах НЕ добавляем:</strong> плашки с ценами и цифры стоимости на креативах строго запрещены.
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ ЗОНА БАНА ═══════ -->
-  <div class="card" id="ban">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">🛡️</span>
-      <h2>Зона бана: Personal Attributes (Meta)</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="ctx">
-        Причина №1 бана наших объявлений. Реклама НЕ должна утверждать или подразумевать, что Meta «знает что-то личное» о зрителе.
-      </div>
-
-      <div class="note green">
-        <strong>✅ Обращение на «ты» / «tú» / «you» / «sen» — ДОПУСТИМО.</strong>
-        Нарушение — только когда обращение <strong>сочетается</strong> с указанием на физический дефект внешности.
-      </div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">pa-001</span><span class="chip crit">Критично</span> Нет обращения к зрителю + указание на дефект</div>
-          <div class="exs">
-            <div class="ex bad">Your wrinkles are showing your age</div>
-            <div class="ex good">Many women notice changes as they age</div>
-          </div>
-          <div class="exs" style="margin-top:4px;">
-            <div class="ex bad">Tus arrugas te delatan / ¿Cansada de tu papada?</div>
-            <div class="ex good">Here's a natural approach to facial care</div>
-          </div>
-          <div class="exs" style="margin-top:4px;">
-            <div class="ex bad">Gıdından mı şikayetçisin? / Kırışıklıkların seni yaşlı mı gösteriyor?</div>
-            <div class="ex good">Doğal yüz bakım ve gençleşme teknikleri</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">pa-002</span><span class="chip crit">Критично</span> Нет крупного плана «проблемной зоны» + стрелка/текст «это твоя проблема»</div>
-          <div class="exs">
-            <div class="ex bad">Крупный план морщин со стрелкой и текстом</div>
-            <div class="ex good">Общий план лица с демонстрацией техники</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ ДО/ПОСЛЕ ═══════ -->
-  <div class="card" id="ba">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">🔄</span>
-      <h2>Правила «До / После»</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="ctx">Meta допускает до/после только при соблюдении условий. Мы — образовательный продукт, не клиника.</div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">ba-001</span><span class="chip crit">Критично</span> Нет гарантированных результатов</div>
-          <div class="exs">
-            <div class="ex bad">Guaranteed results / 100% effective / Works for everyone</div>
-            <div class="ex good">Results may vary / Many students notice improvements</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">ba-002</span><span class="chip warn">Важно</span> Контраст реалистичный, не экстремальный</div>
-          <div class="rule-hint">Не должно быть «ужасного фото до» и «фотошоп-идеала после». Натуральные фото с видимым, но правдоподобным улучшением.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">ba-003</span><span class="chip warn">Важно</span> Позиционирование: результат обучения, НЕ лечения</div>
-          <div class="exs">
-            <div class="ex bad">Wrinkle treatment results / Procedure eliminated the defect</div>
-            <div class="ex good">Student's result after faceplastica course</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ МЕД. КЛЕЙМЫ ═══════ -->
-  <div class="card" id="med">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">⚕️</span>
-      <h2>Медицинские клеймы</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="ctx">Мы продаём образование, не медицинские услуги. FTC и Meta следят за этим жёстко.</div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">mc-001</span><span class="chip crit">Критично</span> Нет медицинских обещаний</div>
-          <div class="exs">
-            <div class="ex bad">Cure your wrinkles / Eliminate double chin without surgery</div>
-            <div class="ex good">Natural facial care techniques / Learn self-massage methods</div>
-          </div>
-          <div class="exs" style="margin-top:4px;">
-            <div class="ex bad">"treatment" / "fixes" / "doesn't come back"</div>
-            <div class="ex good">"practice" / "technique" / "many students notice changes"</div>
-          </div>
-          <details>
-            <summary>Стоп-слова →</summary>
-            <p style="font-size:12px;color:var(--text-3);margin-top:4px;font-family:'JetBrains Mono',monospace;">cure · eliminate · treat · treatment · fixes · heals · guaranteed results · surgery equivalent · doesn't come back · permanent</p>
-          </details>
-        </div>
-      </div>
-
-      <div class="note orange" style="margin-top:14px;">
-        <strong>⚠️ Про доктора Алеся в видео:</strong>
-        Используем: <strong>MD, PhD, Integrative Longevity Doctor, practicing in UAE</strong>.<br>
-        Нельзя: Surgeon, Physician, и всё, что создаёт впечатление практики в США.
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ ХУК И МОНТАЖ ═══════ -->
-  <div class="card" id="hook">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">🎬</span>
-      <h2>Хук, монтаж и видео-продакшн</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="ctx">
-        <strong>Данные из анализа 140 креативов (июль–сентябрь 2026):</strong><br>
-        Идеальный hook rate: 18–32%. Выше 33% — чаще всего кликбейт (зеваки кликают, но не покупают). У лучших креативов CR клик→покупка ≥ 2.2%.
-      </div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">vp-001</span><span class="chip crit">Критично</span> Хук (0–3 сек): боль/проблема показана сразу</div>
-          <div class="exs">
-            <div class="ex bad">Первые 3 сек — логотип или текст без визуала</div>
-            <div class="ex good">С 0 сек — до/после или визуал проблемы</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">vp-009</span><span class="chip warn">Важно</span> Хук не кликбейтный — цепляет ICP, а не зевак</div>
-          <div class="rule-hint">Хук должен показывать реальную боль нашей аудитории (женщины 35+, уход за лицом и телом). Шок ради вау-эффекта = высокий hook rate, но нулевые продажи.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">vp-010</span><span class="chip warn">Важно</span> Середина удерживает внимание</div>
-          <div class="rule-hint">После хука: ценность → соц. доказательство → CTA. Не пустое заполнение. У провальных крео — резкий обвал retention к середине.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-002</span><span class="chip warn">Важно</span> Хук: без анимаций «выезжания» объектов</div></div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-003</span><span class="chip warn">Важно</span> Хук НЕ тёмный — яркий, хорошо освещённый</div></div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-004</span><span class="chip warn">Важно</span> AI-генерация в хуке — только если неотличима от реала</div></div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-005</span><span class="chip warn">Важно</span> Сток минимизирован, не выглядит наигранным</div></div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-006</span><span class="chip warn">Важно</span> Кадры вертикальные, на весь экран (нет леттербоксинга)</div></div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-008</span><span class="chip warn">Важно</span> Объекты в кадре не перекрывают друг друга</div></div>
-      </div>
-
-      <div class="rule">
-        <div class="pip info"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">vp-007</span><span class="chip info">Инфо</span> AI-генерации — лучшее качество, нечасто, аккуратно с лицами</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ ОЗВУЧКА И ОФФЕР ═══════ -->
-  <div class="card" id="vo">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">🎙</span>
-      <h2>Озвучка, оффер и финальная сборка</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="ctx">Монтаж — это не только картинка. Перед экспортом проверяй озвучку, оффер, имена и CTA.</div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip crit">Критично</span> Оффер единый во всём ролике</div>
-          <div class="rule-hint">Число курсов, условия trial, срок доступа — совпадают в речи, субтитрах и тексте на экране. <strong>Плашки с ценами на экран НЕ добавляем.</strong></div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-                <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip crit">Критично</span> Плашки с ценами НЕ указываем (цены на крео запрещены)</div>
-          <div class="rule-hint">Цены на креативах не добавляем вообще: ни в озвучке, ни титрами, ни плашками в концовке. Только оффер (бесплатный пробный период 7 дней, доступ к курсу, регистрация) без цифр стоимости.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip crit">Критично</span> Имена и названия — точные</div>
-          <div class="rule-hint">Dr. Ales (не Alex, не Ayles), MindBodyFace, Faceplastica® (с ®). Неверное имя = ролик не выпускаем.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip warn">Важно</span> Озвучка чистая</div>
-          <div class="rule-hint">Без петель, обрывов, TTS-мусора. Нет смысловых дублей (одна мысль дважды). Нет посторонних вставок (чужой URL, YouTube-аутро).</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">bc-004</span><span class="chip warn">Важно</span> CTA понятен и завершён</div>
-          <div class="rule-hint">Зритель слышит/видит, что делать дальше. CTA не оборван. Соответствует цели рекламы (вебинар / trial / курс).</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">ac-003</span><span class="chip warn">Важно</span> Оффер в рекламе = оффер на лендинге</div>
-          <div class="rule-hint">Хук, тело и CTA — единая цепочка к одному офферу. Хук обещает одно, CTA ведёт к другому = кликбейт = плохой CR.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">ac-001</span><span class="chip warn">Важно</span> Нет sensational claims без обоснования</div>
-          <div class="exs">
-            <div class="ex bad">This will change your life in 24 hours!</div>
-            <div class="ex good">Thousands of students already practice these techniques</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip info"></div>
-        <div class="rule-body"><div class="rule-title"><span class="tag">ac-002</span><span class="chip info">Инфо</span> Нет избыточных CAPS и 🔥🔥🔥 в заголовках</div></div>
-      </div>
-
-      <div class="note green" style="margin-top:14px;">
-        <strong>⏱ Финальный контроль:</strong> прослушай ролик целиком в наушниках и отдельно пересмотри последние 10–15 секунд.
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ ТЕХТРЕБОВАНИЯ ═══════ -->
-  <div class="card" id="tech">
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">📐</span>
-      <h2>Технические требования</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="rule">
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">tr-001</span><span class="chip crit">Критично</span> Аспект соответствует плейсменту</div>
-          <div class="rule-hint">Feed: 1:1 или 4:5 · Stories/Reels: 9:16 · Горизонтальное видео в Stories = сломанный креатив.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">tr-002</span><span class="chip warn">Важно</span> Субтитры есть (авто-play без звука)</div>
-          <div class="rule-hint">85% пользователей смотрят без звука. Субтитры обязательны для Reels, рекомендуются для Feed.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip warn"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">tr-003</span><span class="chip warn">Важно</span> Текст не в safe zone (Stories/Reels)</div>
-          <div class="rule-hint">Верхние ~14% и нижние ~20% перекрываются интерфейсом Instagram. Никакого текста/CTA там.</div>
-        </div>
-      </div>
-
-      <div class="rule">
-        <div class="pip info"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="tag">tr-004</span><span class="chip info">Инфо</span> Оптимальная длительность</div>
-          <div class="rule-hint">Feed: 15–30 сек · Stories: до 60 сек · Reels: до 90 сек.</div>
-        </div>
-      </div>
-      <!-- ═══════ СТАНДАРТ НЕЙМИНГА ФАЙЛОВ ═══════ -->
-      <div class="naming-box" id="naming">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-          <span style="font-size:18px;">🏷️</span>
-          <strong style="font-size:15px; color:var(--text);">Стандарт нейминга файлов при экспорте (4 обязательных файла)</strong>
-        </div>
-        <p style="font-size:13px; color:var(--text-2); line-height:1.55;">
-          В таблице с ТЗ указано базовое имя креатива (например, <code style="color:var(--accent-2); background:rgba(255,255,255,.08); padding:2px 6px; border-radius:4px; font-family:'JetBrains Mono',monospace;">BDY_VID_BD123_DanD</code>). <br>
-          По нему монтажёр обязан сдать ровно <strong>4 файла</strong> с корректными суффиксами и префиксами:
+    <!-- КАРТОЧКА СЦЕНАРИСТА -->
+    <a href="/reglament/scripts" class="hub-card scripts">
+      <div>
+        <div class="role-tag">✍️ Роль: Сценарист / Копирайтер</div>
+        <h2>✍️ Регламент сценариев</h2>
+        <p>
+          Всё о текстах, политике Meta Ads, структуре ролика, лучших хуках и составлении ТЗ для монтажёра.
         </p>
-
-        <div class="naming-grid">
-          <div class="naming-file-card">
-            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">1 · Stories/Reels полная</div>
-            <strong>BDY_VID_S_BD123_DanD</strong>
-            <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · со звуком и сабами</div>
-          </div>
-          <div class="naming-file-card">
-            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">2 · Stories/Reels чистая</div>
-            <strong>M_BDY_VID_S_BD123_DanD</strong>
-            <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · БЕЗ музыки и субтитров</div>
-          </div>
-          <div class="naming-file-card">
-            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">3 · Feed полная</div>
-            <strong>BDY_VID_F_BD123_DanD</strong>
-            <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · со звуком и сабами</div>
-          </div>
-          <div class="naming-file-card">
-            <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">4 · Feed чистая</div>
-            <strong>M_BDY_VID_F_BD123_DanD</strong>
-            <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · БЕЗ музыки и субтитров</div>
-          </div>
-        </div>
-
-        <div style="margin-top:14px; font-size:12.5px; font-weight:600; color:var(--text-2);">Расшифровка схемы нейминга:</div>
-        <div class="naming-legend">
-          <div class="naming-tag"><span>M_</span> Префикс в начале = без музыки и сабов (чистый мастер)</div>
-          <div class="naming-tag"><span>BDY</span> Сокращение продукта (тут BodySecret, MBF = Membership)</div>
-          <div class="naming-tag"><span>VID</span> Видео</div>
-          <div class="naming-tag"><span>S</span> Формат 1080×1920 (Stories / Reels 9:16)</div>
-          <div class="naming-tag"><span>F</span> Формат 1080×1350 (Feed / Лента 4:5)</div>
-          <div class="naming-tag"><span>BD123</span> Порядковый ID креатива из таблицы ТЗ</div>
-          <div class="naming-tag"><span>DanD</span> Инициалы авторов / монтажёров (Даниил Dan, Дима D)</div>
-        </div>
+        <ul class="hub-features">
+          <li><span>🛡️</span> <strong>Meta Personal Attributes:</strong> строгий запрет «ты + дефект» на EN, ES, TR.</li>
+          <li><span>⚕️</span> <strong>Стоп-слова FTC:</strong> таблица замен (cure, eliminate, 100% guarantee).</li>
+          <li><span>⛔</span> <strong>СТРОГИЙ ЗАПРЕТ ЦЕН:</strong> никаких $1, $47 и скидок в сценарии и сабах.</li>
+          <li><span>🧱</span> <strong>5 блоков сценария:</strong> Хук → Проблема → Анатомия → Метод → CTA на 7 дней.</li>
+          <li><span>🎣</span> <strong>140 креативов:</strong> проверенные хуки (осанка, овал, максилла, отеки, лимфоток).</li>
+          <li><span>📋</span> <strong>ТЗ для монтажа:</strong> 2 колонки под реальные папки Алеся (без стоков и нейрослопа).</li>
+          <li><span>✓</span> <strong>Чек-лист сценария:</strong> 16 пунктов проверки перед отправкой в озвучку.</li>
+        </ul>
       </div>
+      <div class="hub-btn">Открыть Регламент Сценариев →</div>
+    </a>
 
-    </div>
   </div>
 
-  <!-- ═══════ СВЕТОФОР ═══════ -->
-  <div class="traffic" id="light">
-    <h2>🚦 Светофор: выпускаем или переделываем?</h2>
-
-    <div class="tl-row red">
-      <div class="tl-dot">🔴</div>
-      <div>
-        <h3>Переделать. Не выпускаем.</h3>
-        <p>Неверное имя, оффер или trial · Добавлена цена на креативе (плашки с ценами запрещены) · Повтор фразы / TTS-мусор · Чужой URL · Оборванный CTA · Медицинское обещание · Обращение к зрителю + дефект внешности · Гарантированный результат · Неверный аспект</p>
+  <!-- Общие правила для обоих специалистов -->
+  <div class="shared-box">
+    <h3>🤝 Что важно и сценаристу, и монтажёру (Общие стандарты)</h3>
+    <div class="shared-grid">
+      <div class="shared-item">
+        <strong>⛔ Цены на креативах НЕ используем</strong>
+        <p>Ни сценарист в тексте, ни монтажёр в плашках не ставят цены ($1, $47 и т.д.). Оффер всегда звучит как «7-дневный пробный период в клубе MindBodyFace».</p>
       </div>
-    </div>
-
-    <div class="tl-row yellow">
-      <div class="tl-dot">🟡</div>
-      <div>
-        <h3>Точечно поправить. Доэкспортировать.</h3>
-        <p>Двойной CTA · Лишнее слово · Неудачная пауза · Языковая неточность · Слишком категоричная формулировка без искажения оффера · Нет субтитров · Текст в safe zone</p>
+      <div class="shared-item">
+        <strong>✨ Бренд и эксперт</strong>
+        <p>Эксперт: <strong>Dr. Ales Ulishchenko</strong> (MD, PhD, остеопат, создатель запатентованного метода <strong>Faceplastica®</strong>). Имя и знак ® пишутся без ошибок.</p>
       </div>
-    </div>
-
-    <div class="tl-row green">
-      <div class="tl-dot">🟢</div>
-      <div>
-        <h3>Можно выпускать. ✓</h3>
-        <p>Озвучка чистая · Оффер и имена верные · Плашки с ценами НЕ добавлены · Повторов и обрывов нет · CTA завершён · Аспект верный · Хук с 0 сек · Субтитры есть · Нет мед. клеймов · Нет Personal Attributes нарушений</p>
+      <div class="shared-item">
+        <strong>🚫 Запрет стоков и нейрослопа</strong>
+        <p>Сценарист пишет сцены под реальные движения Алеся, а монтажёр берёт только живые съемки из папок Drive. Стоки не используем вообще.</p>
+      </div>
+      <div class="shared-item">
+        <strong>⏱ Плотный хронометраж (30–45 сек)</strong>
+        <p>Сценарист не перегружает текст (до 110 слов на 45 сек), а монтажёр меняет крупность и ракурсы каждые 3–5 секунд, удерживая зрителя.</p>
       </div>
     </div>
   </div>
+</main>
 
-  <div class="big-rule">
-    Если зритель может услышать или увидеть <u>другое имя, цену на экране (цены запрещены), другой продукт или CTA</u> — ролик не сдаём.
-  </div>
-
-  <!-- ═══════ ФИНАЛ-ЧЕК ═══════ -->
-  <div class="checklist-wrap" id="check">
-    <div class="checklist-header">
-      <div class="ring-wrap">
-        <svg width="56" height="56" viewBox="0 0 56 56">
-          <circle class="ring-bg" cx="28" cy="28" r="24" fill="none" stroke-width="4"/>
-          <circle class="ring-fg" id="ringFg" cx="28" cy="28" r="24" fill="none" stroke-width="4"
-                  stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8"/>
-        </svg>
-        <div class="ring-pct" id="ringPct">0%</div>
-      </div>
-      <div>
-        <h2>Экспресс-проверка перед экспортом</h2>
-        <div class="sub" id="checkSub">0 / 22 пунктов</div>
-      </div>
-    </div>
-
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Имя эксперта — Dr. Ales (не Alex, не Ayles)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Faceplastica® со знаком ®</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Оффер и условия trial единые по всему ролику</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет обращения «ты / tú / you / sen» + дефект внешности</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет «guaranteed / 100% / works for everyone»</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет мед. обещаний (cure, eliminate, treatment, fixes)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук с 0 сек — визуализация боли (до/после или анатомия), не логотип</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В хуке (0–3 сек) ОБЯЗАТЕЛЬНО доктор (аватар + живые футажи с Алесем)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Футажи с Алесем на себе/моделях/доске — первостепенная основа видео</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ банального стока в начале (сток не используем вообще)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ нейрослопа, мыльных картинок и пластиковых лиц</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Динамика: кадры меняются каждые 3–5 секунд (не зависают на 6+ сек)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Анимации плавные и сглаженные (НЕТ дерганых/рваных анимаций)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры: Montserrat SemiBold Italic CAPS 48px с подложкой/пятном</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В субтитрах подсвечены ключевые слова (🔴 боль / 🟡🟢 польза)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Музыка строго БЕЗ слов (пак Димы / Freepik / Meta Sound Collection)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Концовка: красивый скроллинг + тапы и стрелочки (плашки с ценами НЕ добавлены)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Аспект верный (Feed 1080×1350 4:5 · Reels 1080×1920 9:16)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Текст не в safe zone (верх 14%, низ 20%)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Озвучка без петель, обрывов и TTS-мусора</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по стандарту нейминга (S, M_S, F, M_F)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + последние 15 сек</span></label>
-  </div>
-</div>
-
-<script>
-function toggle(h){h.parentElement.classList.toggle('shut')}
-function chk(el){
-  const cb=el.querySelector('input');
-  cb.checked=!cb.checked;
-  el.classList.toggle('done',cb.checked);
-  updRing();
-}
-function updRing(){
-  const t=document.querySelectorAll('.chk').length;
-  const d=document.querySelectorAll('.chk.done').length;
-  const p=Math.round(d/t*100);
-  const circ=150.8;
-  document.getElementById('ringFg').style.strokeDashoffset=circ-(circ*p/100);
-  document.getElementById('ringPct').textContent=p+'%';
-  document.getElementById('checkSub').textContent=d+' / '+t+' пунктов';
-}
-document.querySelectorAll('nav a').forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault();
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
-  });
-});
-</script>
 </body>
 </html>
