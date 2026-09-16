@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MBF · Регламент QC видео-креативов</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@1,600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -396,6 +396,82 @@
       color: var(--accent-2);
       margin-right: 4px;
     }
+
+    /* Subtitle & Production Standards */
+    .sub-spec-box {
+      background: rgba(0,0,0,.5);
+      border: 1px solid rgba(139,92,246,.3);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 12px 0 6px;
+    }
+    .sub-live-preview {
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px 14px;
+      background: #090a10;
+      border: 1px dashed rgba(255,255,255,.1);
+      border-radius: 8px;
+      margin: 10px 0;
+      text-align: center;
+    }
+    .sub-gradient-bg {
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%);
+      padding: 10px 24px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .sub-montserrat {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: 20px;
+      letter-spacing: 0.6px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 16px rgba(255,255,255,0.25);
+    }
+    .sub-params {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+    }
+    .sub-param {
+      background: rgba(255,255,255,.06);
+      padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--text-2);
+    }
+    .sub-param strong { color: var(--accent-2); }
+
+    .mood-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px; margin: 10px 0;
+    }
+    .mood-card {
+      background: rgba(255,255,255,.04); border: 1px solid var(--border);
+      padding: 8px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 600;
+      text-align: center; color: var(--text);
+    }
+
+    .team-tasks-box {
+      background: linear-gradient(135deg, rgba(139,92,246,.1), rgba(59,130,246,.08));
+      border: 1px solid rgba(139,92,246,.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-top: 12px;
+    }
+
+    .bad-list {
+      background: var(--red-glow);
+      border: 1px solid rgba(244,63,94,.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .bad-list-title {
+      font-weight: 700; color: #fda4af; font-size: 14px; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .bad-list ul {
+      padding-left: 20px; font-size: 13px; color: var(--text-2); line-height: 1.6;
+    }
+    .bad-list li strong { color: var(--text); }
   </style>
 </head>
 <body>
@@ -404,7 +480,7 @@
   <div class="hero-badge">📋 Регламент</div>
   <h1>QC видео-креативов</h1>
   <p>Что проверять перед выпуском видео в Meta Ads.<br>Для монтажёров и ревьюеров.</p>
-  <div class="date">Обновлено: 15.09.2026 · На основе анализа 140 креативов</div>
+  <div class="date">Обновлено: 16.09.2026 · Полный регламент монтажа, стандарты QC и нейминг</div>
 </div>
 
 <div class="summary-strip">
@@ -432,7 +508,7 @@
   <div class="card" id="pipeline" style="border-color: rgba(139,92,246,.25); background: linear-gradient(180deg, rgba(139,92,246,.04) 0%, rgba(255,255,255,.02) 100%);">
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🚀</span>
-      <h2>Общий регламент монтажа крео (пайплайн и референсы)</h2>
+      <h2>Общий регламент монтажа крео (пайплайн и стандарты)</h2>
       <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
     </div>
     <div class="card-body">
@@ -467,19 +543,37 @@
         </div>
       </div>
 
+      <!-- Главные проблемы / Зона брака -->
+      <div class="bad-list">
+        <div class="bad-list-title">
+          <span>⚠️</span>
+          <span>С чем обычно проблемы (главные ошибки монтажа — не допускать!):</span>
+        </div>
+        <ul>
+          <li><strong>Много стока в первом блоке видео:</strong> сток в начале — главная беда. <u>Сток не используем вообще</u>, он убивает доверие и конверсию!</li>
+          <li><strong>Жёсткий нейрослоп вместо качественных исходников:</strong> пластиковые лица, мыльные картинки, артефакты. Если генерации — то только очень высокого качества, неотличимые от реала.</li>
+          <li><strong>Неравномерные анимации:</strong> жесткие, несглаженные keyframes, когда кадр дергается, останавливается и опять двигается. Анимация должна быть плавной и приятной глазу!</li>
+          <li><strong>Зависание одного кадра:</strong> нельзя держать 6 секунд одну и ту же картинку. Динамика — смена кадров каждые 3–5 секунд.</li>
+        </ul>
+      </div>
+
       <!-- Краткая формула -->
       <div class="flow-banner">
         <span style="color:var(--text-2); font-weight:500;">Экспресс-формула:</span>
         <span class="flow-step">1. Субтитры</span>
         <span class="flow-arrow">➔</span>
-        <span class="flow-step">2. Хук</span>
+        <span class="flow-step">2. Хук с Алесем</span>
         <span class="flow-arrow">➔</span>
-        <span class="flow-step">3. Футажи по смыслу</span>
+        <span class="flow-step">3. Футажи и анатомия</span>
         <span class="flow-arrow">➔</span>
-        <span class="flow-step">4. Концовка</span>
+        <span class="flow-step">4. Музыка без слов</span>
+        <span class="flow-arrow">➔</span>
+        <span class="flow-step">5. Концовка без цен</span>
+        <span class="flow-arrow">➔</span>
+        <span class="flow-step">6. Экспорт 4 файлов</span>
       </div>
 
-      <!-- Шаги -->
+      <!-- 10 Шагов монтажа -->
       <div class="pipeline-list">
         
         <div class="step-card">
@@ -490,7 +584,7 @@
               <span class="step-badge">Основа</span>
             </div>
             <div class="step-desc">
-              Озвученный готовый аватар доктора выдаётся монтажёру. Вставляем его <strong>в начале видео в хук</strong> и периодически показываем в кадре дальше по ходу ролика, чтобы удерживать зрителя и сохранять ощущение личного контакта.
+              Озвученный готовый аватар доктора выдаётся монтажёру. Вставляем его <strong>в начале видео в хук</strong> и периодически показываем в кадре дальше по ходу ролика, чтобы удерживать зрителя и сохранять ощущение личного контакта с экспертом.
             </div>
           </div>
         </div>
@@ -503,7 +597,7 @@
               <span class="step-badge">Шаг 1 монтажа</span>
             </div>
             <div class="step-desc">
-              Сразу как закинули аватара и озвучку на таймлайн — <strong>делаем автосубтитры</strong>. Не откладываем на конец: сразу режем и правим там, где распозналось криво или слова съехались.
+              Сразу как закинули аватара и озвучку на таймлайн — <strong>делаем автосубтитры</strong>. Не откладываем на конец: сразу режем и вычищаем там, где распозналось криво или слова съехались.
             </div>
           </div>
         </div>
@@ -512,13 +606,15 @@
           <div class="step-num">3</div>
           <div class="step-content">
             <div class="step-title">
-              Хук (0–3 сек) — ключевой момент внимания
-              <span class="chip crit" style="font-size:10px;">Обязательно</span>
+              Хук (0–3 сек) — визуализация боли с первых кадров
+              <span class="chip crit" style="font-size:10px;">Критично</span>
             </div>
             <div class="step-desc">
-              Привлечь внимание зрителя в первые секунды и <strong>визуально показать проблему</strong>.<br>
-              ⚠️ <strong>Обязательно в этом хуке должен быть наш доктор!</strong><br>
-              Стоит проявить креативность, представить себя на месте зрителя, критически подумать, нормально ли выглядит кадр, и двигаться дальше.
+              • <strong>С 0–1 секунды:</strong> визуализация боли на экране (до/после или анатомия).<br>
+              • ⚠️ <strong>В хуках — не только аватар, но и живые футажи с Алесем!</strong> Наш доктор обязан быть в хуке.<br>
+              • <strong>Мини-анимации:</strong> выделение проблемных зон (стрелочки, круги, обводки), плавные и приятные глазу.<br>
+              • <strong>Без нейрослопа:</strong> анатомия, живая съёмка (генерации — только идеального качества).<br>
+              • <strong>Динамика:</strong> смена кадров каждые 3–5 сек (не зависать на 6 сек на одном плане).
             </div>
           </div>
         </div>
@@ -527,12 +623,14 @@
           <div class="step-num">4</div>
           <div class="step-content">
             <div class="step-title">
-              Футажи: передача всей проблемы и боли
-              <span class="step-badge">Визуал</span>
+              Футажи: Алесь, модели, анатомия — первостепенное требование!
+              <span class="chip crit" style="font-size:10px;">Приоритет №1</span>
             </div>
             <div class="step-desc">
-              Нужно передать всю проблему/боль с помощью стоковых или анатомических видео, картинок или гифок — вообще что угодно, лишь бы передать смысл текста.<br>
-              🎯 <strong>В идеале:</strong> находить не типичные стоковые видео, а <strong>прям реальные кадры на YouTube и Pinterest</strong> (по возможности).
+              • <strong>Футажи с Алесем и моделями — первостепенное требование:</strong> используем кадры по данному курсу, где Алесь что-то показывает на себе, на моделях или показывает анатомию на доске.<br>
+              • <strong>Анатомические футажи:</strong> наглядный разбор причин проблемы (<em>«это максилла, она отвечает за..., из-за неё у вас...»</em>).<br>
+              • 🚫 <strong>Сток не используем вообще:</strong> стоки в начале и банальные клише больше всего вредят креативу. В идеале находить реальные живые кадры на <strong>YouTube и Pinterest</strong>.<br>
+              • <strong>Запрет низкосортных исходников:</strong> никакого мыла, пластиковых лиц и корявых генераций.
             </div>
           </div>
         </div>
@@ -541,11 +639,13 @@
           <div class="step-num">5</div>
           <div class="step-content">
             <div class="step-title">
-              Моушн-элементы и направляющие анимации
-              <span class="step-badge">Акценты</span>
+              Динамика и плавная анимация (сглаживание)
+              <span class="step-badge">Динамика</span>
             </div>
             <div class="step-desc">
-              Добавлять всякие моушн-элементы или анимации (по типу стрелочек или кружочков обводящих) <em>желательно</em>, но не обязательно сильно утруждаться и затягивать с этим. Если монтируешь в CapCut — смело используй библиотеку стикеров (стрелочки и кружки).
+              • <strong>Смена кадров:</strong> каждые <strong>3–5 секунд</strong>. Ролик должен дышать и держать внимание.<br>
+              • <strong>Анимация:</strong> плавные, аккуратно сглаженные анимации (обводящие стрелочки, кружки). В CapCut используй готовую <strong>библиотеку стикеров</strong>.<br>
+              • 🚫 <strong>Неравномерная анимация — брак:</strong> когда кадр дергается, останавливается и снова едет рывками. Все keyframes должны иметь плавный ease-in/ease-out.
             </div>
           </div>
         </div>
@@ -555,10 +655,10 @@
           <div class="step-content">
             <div class="step-title">
               Кадры из курсов (демонстрация продукта)
-              <span class="step-badge">Курс</span>
+              <span class="step-badge">Продукт</span>
             </div>
             <div class="step-desc">
-              Те самые кадры из курсов: вставляем в момент, когда доктор начинает говорить про сам курс, либо где уместно усилить доверие к материалу.
+              Реальные практические уроки: вставляем в момент, когда доктор начинает говорить про сам курс, либо где наглядно показывается упражнение / методика.
             </div>
           </div>
         </div>
@@ -567,11 +667,12 @@
           <div class="step-num">7</div>
           <div class="step-content">
             <div class="step-title">
-              Концовка: скроллинг сайта и плашки с ценами
+              Концовка: красивый скроллинг + тапы и стрелочки
               <span class="chip warn" style="font-size:10px;">CTA</span>
             </div>
             <div class="step-desc">
-              Заканчивает креатив вставка со <strong>«скроллингом» сайта и плашками с ценами</strong>. Проще бери и повторяй, как в эталонных примерах, либо проявляй креативность в этом моменте и делай своё в аналогичном стиле.
+              • <strong>Визуал:</strong> классный плавный «скроллинг» лендинга, анимации тапов (нажатия пальцем на кнопку), направляющие стрелочки.<br>
+              • ⛔ <strong>ЦЕНЫ НЕ ДОБАВЛЯЕМ:</strong> в финале цены не пишем — фокус только на действии (переходи / регистрируйся / пробуй).
             </div>
           </div>
         </div>
@@ -580,26 +681,77 @@
           <div class="step-num">8</div>
           <div class="step-content">
             <div class="step-title">
-              Субтитры: стиль, шрифт и подсветка за 5 минут
-              <span class="step-badge">Текст</span>
+              Субтитры: утверждённый стандарт команды
+              <span class="chip crit" style="font-size:10px;">Стандарт</span>
             </div>
             <div class="step-desc">
-              • <strong>Формат:</strong> лёгкие, не грузящие кадр. <span style="color:var(--red);">НЕ по одному слову, которые вылезают</span>, а аккуратными блоками по <strong>1–2 строчки</strong>.<br>
-              • <strong>Шрифт:</strong> лёгкий нейтральный шрифт (<strong>Arial</strong> или похожий).<br>
-              • <strong>Анимация:</strong> плавное появление (примерно такое же, как в референсах).<br>
-              • <strong>Подсветка за 5 минут:</strong> в конце, как всё доделали, за 5 минут пробегись по креативу и покрась ключевые слова:
-              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-                <div class="sub-demo"><span class="sub-bad">КРАСНЫЙ</span> — негативные слова, боль, симптомы</div>
-                <div class="sub-demo"><span class="sub-good">ЖЁЛТЫЙ / ЗЕЛЁНЫЙ</span> — позитивные слова, решение, польза</div>
+              Единый утверждённый стандарт для всех монтажёров:
+              
+              <!-- Интерактивное превью субтитров -->
+              <div class="sub-spec-box">
+                <div style="font-size:11px; font-weight:700; color:var(--accent-2); text-transform:uppercase; letter-spacing:.6px;">
+                  Превью утверждённого стиля субтитров:
+                </div>
+                <div class="sub-live-preview">
+                  <div class="sub-gradient-bg">
+                    <span class="sub-montserrat">УБЕРИ МОРЩИНЫ И ЗАЛОМЫ</span>
+                  </div>
+                </div>
+                <div class="sub-params">
+                  <span class="sub-param"><strong>Шрифт:</strong> Montserrat SemiBold Italic</span>
+                  <span class="sub-param"><strong>Регистр:</strong> ПОЛНОСТЬЮ КАПСОМ</span>
+                  <span class="sub-param"><strong>Размер:</strong> 48px дефолтный (регулируется под кадр)</span>
+                  <span class="sub-param"><strong>Подложка:</strong> полупрозрачная плашка / градиентное темное пятно в прозрачность</span>
+                  <span class="sub-param"><strong>Эффекты:</strong> Glow / Drop Shadow</span>
+                </div>
               </div>
-              <small style="color:var(--text-3); display:block; margin-top:6px;">Не обязательно красить в каждом предложении — просто подчёркивай основные смысловые моменты.</small>
+
+              • <strong>Формат:</strong> комфортные фразы по <strong>1–2 строчки</strong> (<span style="color:var(--red);">НЕ по одному слову!</span>).<br>
+              • <strong>5 стилей на выбор:</strong> монтажёрам согласовать 5 типовых видов оформления из базы.<br>
+              • <strong>Цветовая подсветка за 5 минут:</strong> в финале пробежаться по ролику и подсветить ключевые слова:
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin:8px 0;">
+                <div class="sub-demo"><span class="sub-bad">КРАСНЫЙ</span> — негативные слова, боль, симптомы (морщины, заломы, папада)</div>
+                <div class="sub-demo"><span class="sub-good">ЖЁЛТЫЙ / ЗЕЛЁНЫЙ</span> — позитивные слова, методика, результат (молодость, техника)</div>
+              </div>
+              
+              <!-- Задачи команды -->
+              <div class="team-tasks-box">
+                <strong>📌 В работе:</strong><br>
+                • <strong>Семен:</strong> записывает скринкаст настройки этого стиля в <em>CapCut</em> и <em>Premiere Pro</em> + прикладывает 2–3 примера удачных субтитров.<br>
+                • <strong>Монтажёры:</strong> фиксируют утверждённые 5 видов оформления.
+              </div>
             </div>
           </div>
         </div>
 
-
         <div class="step-card">
           <div class="step-num">9</div>
+          <div class="step-content">
+            <div class="step-title">
+              Фоновая музыка: строго БЕЗ слов
+              <span class="chip crit" style="font-size:10px;">Без вокала</span>
+            </div>
+            <div class="step-desc">
+              • <strong>Строго без слов:</strong> любой вокал отвлекает от доктора и снижает досматриваемость.<br>
+              • <strong>5 настроений треков под креатив:</strong>
+              <div class="mood-grid">
+                <div class="mood-card">🌿 Лёгкая</div>
+                <div class="mood-card">⚡ Энергичная</div>
+                <div class="mood-card">🔮 Загадочная</div>
+                <div class="mood-card">🔥 Нагнетающая</div>
+                <div class="mood-card">📈 Трендовая</div>
+              </div>
+              • <strong>Разрешённые источники музыки:</strong><br>
+              1) <strong>Пак музыки от Димы</strong> (официально купленная лицензия)<br>
+              2) <strong>Magnific</strong> (Freepik Audio)<br>
+              3) <strong>Meta Sound Collection</strong> (библиотека коммерческих треков Meta)<br>
+              <small style="color:var(--orange); display:block; margin-top:6px;">⚠️ Примеры треков от команды служат только ориентиром по темпу — конкретно референсные треки брать нельзя.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">10</div>
           <div class="step-content">
             <div class="step-title">
               Экспорт и строгий нейминг файлов (4 обязательных файла)
@@ -615,9 +767,11 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
+
 
   <!-- ═══════ БРЕНД ═══════ -->
   <div class="card" id="brand">
@@ -1081,34 +1235,33 @@
       </div>
       <div>
         <h2>Экспресс-проверка перед экспортом</h2>
-        <div class="sub" id="checkSub">0 / 20 пунктов</div>
+        <div class="sub" id="checkSub">0 / 22 пунктов</div>
       </div>
     </div>
 
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Имя эксперта — Dr. Ales (не Alex, не Ayles)</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Faceplastica® со знаком ®</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Цена и условия trial единые по всему ролику</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Оффер и условия trial единые по всему ролику</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет обращения «ты / tú / you / sen» + дефект внешности</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет «guaranteed / 100% / works for everyone»</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Нет мед. обещаний (cure, eliminate, treatment, fixes)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук с 0 сек — проблема или до/после, не логотип</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Доктор обязательно в хуке (0–3 сек) + периодически в кадре</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры по 1–2 строчки (не по 1 слову) + ключевые слова подсвечены (🔴 боль / 🟡🟢 польза)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Футажи передают боль/смысл текста (живые кадры YouTube/Pinterest, не банальный сток)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Кадры курсов на упоминании программы + концовка со скроллингом и ценами</span></label>
-
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук яркий, не тёмный</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Середина видео даёт ценность (не пустое заполнение)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">CTA завершён, зритель знает, что делать</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры есть (если есть речь)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Аспект верный (Feed 1:1/4:5 · Reels 9:16)</span></label>
-    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по стандарту нейминга (S + M_S на 1080×1920, F + M_F на 1080×1350)</span></label>
-
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук с 0 сек — визуализация боли (до/после или анатомия), не логотип</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В хуке (0–3 сек) ОБЯЗАТЕЛЬНО доктор (аватар + живые футажи с Алесем)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Футажи с Алесем на себе/моделях/доске — первостепенная основа видео</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ банального стока в начале (сток не используем вообще)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ нейрослопа, мыльных картинок и пластиковых лиц</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Динамика: кадры меняются каждые 3–5 секунд (не зависают на 6+ сек)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Анимации плавные и сглаженные (НЕТ дерганых/рваных анимаций)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры: Montserrat SemiBold Italic CAPS 48px с подложкой/пятном</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">В субтитрах подсвечены ключевые слова (🔴 боль / 🟡🟢 польза)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Музыка строго БЕЗ слов (пак Димы / Freepik / Meta Sound Collection)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Концовка: красивый скроллинг + тапы и стрелочки (ЦЕНЫ НЕ ДОБАВЛЕНЫ)</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Аспект верный (Feed 1080×1350 4:5 · Reels 1080×1920 9:16)</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Текст не в safe zone (верх 14%, низ 20%)</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Озвучка без петель, обрывов и TTS-мусора</span></label>
+    <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по стандарту нейминга (S, M_S, F, M_F)</span></label>
     <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + последние 15 сек</span></label>
   </div>
-
 </div>
 
 <script>
