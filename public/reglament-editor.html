@@ -662,7 +662,7 @@
   <div class="hero-badge">🎬 Для видеомонтажёров</div>
   <h1>Регламент <span>видеомонтажа</span> креативов</h1>
   <p>
-    Пошаговый пайплайн сборки, база футажей с доктором Алесем на Google Drive, динамика кадров 3–5 сек, субтитры Montserrat органичного размера, музыка из официальной коллекции, экспорт 2 обязательных файлов (S и M_S) и QC чек-лист.
+    Пошаговый пайплайн сборки, база футажей с доктором Алесем на Google Drive, динамика кадров 3–5 сек, субтитры Montserrat органичного размера, музыка из официальной коллекции, экспорт 4 обязательных файлов (S, M_S, F, M_F) и QC чек-лист.
   </p>
 
   <!-- Баннер-связка с регламентом сценариев -->
@@ -680,7 +680,7 @@
   <a href="#subtitles">💬 Субтитры Montserrat</a>
   <a href="#audio">🎵 Звук и музыка</a>
   <a href="#cta">🌐 Лендинг и CTA</a>
-  <a href="#naming">🏷️ Нейминг 2 файлов</a>
+  <a href="#naming">🏷️ Нейминг 4 файлов</a>
   <a href="#meta-visual">🛡️ Meta & Бренд для монтажа</a>
   <a href="#specs">📐 Технические параметры</a>
   <a href="#traffic">🚦 Светофор</a>
@@ -947,30 +947,42 @@
     </div>
   </div>
 
-  <!-- ═══════ НЕЙМИНГ ФАЙЛОВ (2 ФАЙЛА) ═══════ -->
+  <!-- ═══════ НЕЙМИНГ ФАЙЛОВ (4 ОБЯЗАТЕЛЬНЫХ ФАЙЛА) ═══════ -->
   <div class="card" id="naming">
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🏷️</span>
-      <h2>Обязательный стандарт нейминга (2 файла на каждый крео)</h2>
+      <h2>Обязательный стандарт нейминга (4 файла на каждый крео)</h2>
       <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
     </div>
     <div class="card-body">
       <div class="ctx">
-        Формат F (лента 4:5) убран! Теперь на каждый креатив монтажёр экспортирует <strong>ровно 2 файла</strong> в вертикальном формате 1080×1920:
-        полная версия с сабами и музыкой (<code style="color:#38bdf8;">_S_</code>) и чистый мастер без музыки и субтитров (<code style="color:#f59e0b;">M_..._S_</code>).<br>
-        <strong>Новое правило:</strong> после ID креатива через нижнее подчеркивание обязательно указывается сокращенное имя продюсера или таргетолога!
+        На каждый креатив монтажёр экспортирует <strong>ровно 4 файла</strong>:
+        2 файла в вертикальном формате Stories/Reels (1080×1920) и 2 файла в формате Feed/Лента (1080×1350).<br>
+        Для каждого формата сдаётся полная версия со звуком и сабами и чистый мастер (<code style="color:#f59e0b;">M_</code>) без музыки и субтитров под перевод.<br>
+        <strong>После ID креатива</strong> через нижнее подчеркивание обязательно указывается сокращенное имя продюсера или таргетолога:
+        <code style="color:#38bdf8;">I</code> (Илья), <code style="color:#38bdf8;">A</code> (Андрей), <code style="color:#38bdf8;">Al</code> (Алексей), <code style="color:#38bdf8;">Ar</code> (Арианна).
       </div>
 
       <div class="naming-grid">
         <div class="naming-file-card">
-          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">1 · Вертикальная полная версия</div>
-          <strong style="color:#fff;" id="displayFullName">BDY_VID_S_BD123_I_DanD.mp4</strong>
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">1 · Stories/Reels полная</div>
+          <strong style="color:#fff;" id="displaySFullName">BDY_VID_S_BD123_I_DanD.mp4</strong>
           <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · со звуком и сабами</div>
         </div>
         <div class="naming-file-card">
-          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">2 · Вертикальный чистый мастер</div>
-          <strong style="color:#fff;" id="displayCleanName">M_BDY_VID_S_BD123_I_DanD.mp4</strong>
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">2 · Stories/Reels чистая</div>
+          <strong style="color:#fff;" id="displaySCleanName">M_BDY_VID_S_BD123_I_DanD.mp4</strong>
           <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · БЕЗ музыки и субтитров</div>
+        </div>
+        <div class="naming-file-card">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">3 · Feed (Лента) полная</div>
+          <strong style="color:#fff;" id="displayFFullName">BDY_VID_F_BD123_I_DanD.mp4</strong>
+          <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · со звуком и сабами</div>
+        </div>
+        <div class="naming-file-card">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">4 · Feed (Лента) чистая</div>
+          <strong style="color:#fff;" id="displayFCleanName">M_BDY_VID_F_BD123_I_DanD.mp4</strong>
+          <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · БЕЗ музыки и субтитров</div>
         </div>
       </div>
 
@@ -980,6 +992,7 @@
         <div class="naming-tag"><span>BDY</span> Код продукта (BDY, CEL, LFT, MAX, RST, MBF)</div>
         <div class="naming-tag"><span>VID</span> Видео-формат</div>
         <div class="naming-tag"><span>S</span> Формат Stories / Reels 1080×1920 (9:16)</div>
+        <div class="naming-tag"><span>F</span> Формат Feed / Лента 1080×1350 (4:5)</div>
         <div class="naming-tag"><span>BD123</span> Порядковый ID креатива из таблицы ТЗ</div>
         <div class="naming-tag"><span>I / A / Al / Ar</span> Продюсер/таргетолог: <b>I</b>=Илья, <b>A</b>=Андрей, <b>Al</b>=Алексей, <b>Ar</b>=Арианна</div>
         <div class="naming-tag"><span>DanD</span> Инициалы монтажёра / команды продакшена</div>
@@ -988,7 +1001,7 @@
       <!-- Интерактивный генератор имен файлов -->
       <div class="tool-box">
         <strong style="font-size:13px; color:var(--text); display:flex; align-items:center; gap:6px; margin-bottom:8px;">
-          ⚡ Интерактивный генератор нейминга 2 файлов:
+          ⚡ Интерактивный генератор нейминга 4 файлов:
         </strong>
         <div class="tool-inputs">
           <div class="tool-input-group">
@@ -1029,6 +1042,14 @@
           <div class="tool-result-row">
             <span id="nameMS" style="color:var(--orange);">M_BDY_VID_S_BD123_I_DanD.mp4</span>
             <button class="copy-btn" onclick="copyName('nameMS')">Копировать</button>
+          </div>
+          <div class="tool-result-row">
+            <span id="nameF" style="color:var(--green);">BDY_VID_F_BD123_I_DanD.mp4</span>
+            <button class="copy-btn" onclick="copyName('nameF')">Копировать</button>
+          </div>
+          <div class="tool-result-row">
+            <span id="nameMF" style="color:var(--orange);">M_BDY_VID_F_BD123_I_DanD.mp4</span>
+            <button class="copy-btn" onclick="copyName('nameMF')">Копировать</button>
           </div>
         </div>
       </div>
@@ -1097,7 +1118,12 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip info">Спецификация</span> Настройки рендера в Premiere / CapCut / DaVinci</div>
           <ul style="margin:6px 0 0 18px; font-size:13px; line-height:1.65; color:var(--text-2);">
-            <li><strong>Формат и разрешение (правило):</strong> 1080×1920 (9:16 вертикальный)</li>
+            <li><strong>Форматы и разрешения (правило):</strong>
+              <ul style="margin:4px 0 4px 18px;">
+                <li>Stories / Reels: 1080×1920 (9:16)</li>
+                <li>Feed / Лента: 1080×1350 (4:5)</li>
+              </ul>
+            </li>
             <li><strong>Кодек (правило):</strong> H.264 (.mp4), профиль High</li>
             <li><strong>Частота кадров (правило):</strong> 30 fps (постоянный битрейт)</li>
             <li><strong>Битрейт (правило):</strong> VBR 2-pass или CBR 12–16 Mbps</li>
@@ -1126,7 +1152,7 @@
             <li>Использован сток или мыльный нейрослоп</li>
             <li>Кадр висит неподвижно более 6 секунд</li>
             <li>Ошиблись в имени Dr. Ales</li>
-            <li>Не сдан чистый мастер без сабов (M_S)</li>
+            <li>Не сданы все 4 обязательных файла (S, M_S, F, M_F)</li>
           </ul>
         </div>
         <div class="tl-col yellow">
@@ -1141,7 +1167,7 @@
         <div class="tl-col green">
           <h3>Зелёный · В релиз ✓</h3>
           <ul>
-            <li>Экспортированы оба файла (S и M_S) с кодом продюсера</li>
+            <li>Экспортированы все 4 файла (S, M_S, F, M_F) с кодом продюсера</li>
             <li>Лицо Алеся в хуке и в середине ролика</li>
             <li>Монсеррат органичного размера в 2 строки с оранжевым/зеленым акцентом</li>
             <li>Музыка ТОЛЬКО из нашей коллекции (-18... -40 dB)</li>
@@ -1158,7 +1184,7 @@
     <div class="check-top">
       <div class="check-title">
         <h2>✓ Экспресс-проверка монтажёра перед сдачей</h2>
-        <p id="checkSub">0 / 15 пунктов</p>
+        <p id="checkSub">0 / 16 пунктов</p>
       </div>
       <div class="progress-wrap">
         <div class="progress-ring">
@@ -1185,7 +1211,8 @@
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Концовка: скролл лендинга курса + тапы и понятный CTA</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Соблюдены Safe Zones Instagram (отступ 14% сверху, 20% снизу)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Правильное написание: Dr. Ales Ulishchenko и Faceplastica (без значка ®)</span></label>
-      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы оба файла по неймингу: S и M_S с кодом продюсера (I, A, Al, Ar)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Соблюдены форматы: Stories/Reels (1080×1920 9:16) и Feed (1080×1350 4:5)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по неймингу: S, M_S, F, M_F с кодом продюсера (I, A, Al, Ar)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + проверил последние 15 секунд</span></label>
     </div>
   </div>
@@ -1216,15 +1243,24 @@ function generateNames(){
   const producer = document.getElementById('toolProducer').value.trim() || 'I';
   const auth = document.getElementById('toolAuthor').value.trim() || 'DanD';
 
-  const fullName = `${prod}_VID_S_${id}_${producer}_${auth}.mp4`;
-  const cleanName = `M_${prod}_VID_S_${id}_${producer}_${auth}.mp4`;
+  const sFull = `${prod}_VID_S_${id}_${producer}_${auth}.mp4`;
+  const sClean = `M_${prod}_VID_S_${id}_${producer}_${auth}.mp4`;
+  const fFull = `${prod}_VID_F_${id}_${producer}_${auth}.mp4`;
+  const fClean = `M_${prod}_VID_F_${id}_${producer}_${auth}.mp4`;
 
-  document.getElementById('nameS').textContent = fullName;
-  document.getElementById('nameMS').textContent = cleanName;
-  const dfn = document.getElementById('displayFullName');
-  const dcn = document.getElementById('displayCleanName');
-  if(dfn) dfn.textContent = fullName;
-  if(dcn) dcn.textContent = cleanName;
+  document.getElementById('nameS').textContent = sFull;
+  document.getElementById('nameMS').textContent = sClean;
+  document.getElementById('nameF').textContent = fFull;
+  document.getElementById('nameMF').textContent = fClean;
+
+  const dsFull = document.getElementById('displaySFullName');
+  const dsClean = document.getElementById('displaySCleanName');
+  const dfFull = document.getElementById('displayFFullName');
+  const dfClean = document.getElementById('displayFCleanName');
+  if(dsFull) dsFull.textContent = sFull;
+  if(dsClean) dsClean.textContent = sClean;
+  if(dfFull) dfFull.textContent = fFull;
+  if(dfClean) dfClean.textContent = fClean;
 }
 
 function copyName(elemId){
