@@ -720,10 +720,14 @@
     }
     .videobase-iframe {
       width: 100%;
-      height: 720px;
+      height: 380px;
       border: none;
       display: block;
       background: #021a1b;
+      transition: height .35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .videobase-frame-container.expanded .videobase-iframe {
+      height: 740px;
     }
     .videobase-frame-container.fullscreen {
       position: fixed;
@@ -736,7 +740,27 @@
       border: none;
     }
     .videobase-frame-container.fullscreen .videobase-iframe {
-      height: calc(100vh - 54px);
+      height: calc(100vh - 54px) !important;
+    }
+    .vb-bottom-bar {
+      background: rgba(8,9,13,.85);
+      border-top: 1px solid rgba(255,255,255,.08);
+      text-align: center;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #38bdf8;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      user-select: none;
+    }
+    .vb-bottom-bar:hover {
+      background: rgba(56,189,248,.15);
+      color: #fff;
     }
 
     /* Music Banner */
@@ -1425,6 +1449,9 @@
 
           <!-- Кнопки управления фреймом -->
           <div class="vb-frame-actions">
+            <button type="button" class="vb-action-btn" id="vbToggleExpandBtn" onclick="toggleVbExpand()" title="Развернуть/свернуть высоту окна">
+              ↕ Развернуть
+            </button>
             <button type="button" class="vb-action-btn" id="vbFsBtn" onclick="toggleVbFullscreen()" title="Развернуть на весь экран">
               ⛶ На весь экран
             </button>
@@ -1434,7 +1461,7 @@
           </div>
         </div>
 
-        <!-- Сам iframe с живой базой -->
+        <!-- Сам iframe с живой базой (по умолчанию компактный 380px, при выборе пункта разворачивается до 740px) -->
         <iframe 
           id="videobaseFrame" 
           class="videobase-iframe" 
@@ -1443,6 +1470,11 @@
           title="MBF Video Base"
           allow="clipboard-read; clipboard-write; fullscreen">
         </iframe>
+
+        <!-- Нижняя плашка-кнопка для быстрого раскрытия высоты -->
+        <div class="vb-bottom-bar" id="vbBottomExpandBtn" onclick="toggleVbExpand()">
+          ▼ Развернуть видеобазу (показать больше)
+        </div>
       </div>
 
       <!-- 🎵 КАРТОЧКА МУЗЫКИ (ОСТАВЛЯЕМ GOOGLE DRIVE, Т.К. В БАЗЕ ЕЁ НЕТ) -->
@@ -2136,6 +2168,29 @@ function copyName(elemId){
   });
 }
 
+function expandVbFrame(expand) {
+  const container = document.getElementById('vbFrameContainer');
+  const btn = document.getElementById('vbToggleExpandBtn');
+  const bottomBar = document.getElementById('vbBottomExpandBtn');
+  if (!container) return;
+  if (expand) {
+    container.classList.add('expanded');
+    if (btn) btn.innerHTML = '↕ Свернуть';
+    if (bottomBar) bottomBar.innerHTML = '▲ Свернуть в компактный вид';
+  } else {
+    container.classList.remove('expanded');
+    if (btn) btn.innerHTML = '↕ Развернуть';
+    if (bottomBar) bottomBar.innerHTML = '▼ Развернуть видеобазу (показать больше)';
+  }
+}
+
+function toggleVbExpand() {
+  const container = document.getElementById('vbFrameContainer');
+  if (!container) return;
+  const isExp = container.classList.contains('expanded');
+  expandVbFrame(!isExp);
+}
+
 function setVbTab(path, btn) {
   const frame = document.getElementById('videobaseFrame');
   if (frame) {
@@ -2143,6 +2198,14 @@ function setVbTab(path, btn) {
   }
   document.querySelectorAll('.vb-tab-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
+
+  // Автоматически разворачиваем окно при клике на любой подраздел
+  if (path !== '#') {
+    expandVbFrame(true);
+  } else {
+    // При клике на Главную можно оставить или аккуратно вернуть
+    // expandVbFrame(false);
+  }
 }
 
 function toggleVbFullscreen() {
@@ -2151,7 +2214,7 @@ function toggleVbFullscreen() {
   if (!container) return;
   const isFs = container.classList.toggle('fullscreen');
   if (btn) {
-    btn.innerHTML = isFs ? '✕ Свернуть' : '⛶ На весь экран';
+    btn.innerHTML = isFs ? '✕ Закрыть полный экран' : '⛶ На весь экран';
   }
 }
 
