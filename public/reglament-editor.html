@@ -805,6 +805,123 @@
       box-shadow: 0 6px 20px rgba(236,72,153,.5);
     }
 
+        /* Benchmark Video Cards with Previews */
+    .ref-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .ref-video-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(56,189,248,.25);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all .25s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .ref-video-card:hover {
+      border-color: rgba(56,189,248,.6);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(56,189,248,.18);
+      background: rgba(255,255,255,.05);
+    }
+    .ref-thumb-wrap {
+      width: 100%;
+      height: 250px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ref-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform .3s ease;
+      display: block;
+    }
+    .ref-video-card:hover .ref-thumb-img {
+      transform: scale(1.05);
+    }
+    .ref-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.7) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease;
+    }
+    .ref-play-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(56,189,248,.9);
+      color: #041017;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 20px rgba(56,189,248,.5);
+      transition: all .2s ease;
+      padding-left: 3px;
+    }
+    .ref-video-card:hover .ref-play-circle {
+      transform: scale(1.15);
+      background: #38bdf8;
+      box-shadow: 0 6px 26px rgba(56,189,248,.8);
+    }
+    .ref-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(8,9,13,.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(56,189,248,.45);
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+    .ref-info {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .ref-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .ref-desc {
+      font-size: 12.5px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+    .ref-desc strong { color: #f0f1f5; }
+    .ref-cta {
+      margin-top: auto;
+      padding-top: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* Subtitle Live Preview Box - 2 lines, organic size, orange & green highlights */
     .sub-preview-box {
       background: #000;
@@ -1230,37 +1347,80 @@
       <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
     </div>
     <div class="card-body">
-      <!-- Референсы -->
-      <div class="ref-box">
-        <div class="ref-box-title">
+      <!-- Референсы с визуальными превью -->
+      <div class="ref-box" style="background: rgba(56,189,248,.04); border-color: rgba(56,189,248,.35); padding: 18px 20px;">
+        <div class="ref-box-title" style="font-size: 16px;">
           <span>🎬</span>
           <span>Эталонные примеры креативов (брать за основу):</span>
         </div>
-        <p style="font-size:13px; color:var(--text-2); margin-bottom:6px;">
-          Посмотри перед монтажом, как выстроены хук с доктором, темп, субтитры и концовка:
+        <p style="font-size: 13.5px; color: var(--text-2); margin-bottom: 8px;">
+          Обязательно посмотри перед монтажом, как на практике выстроены динамика хука, субтитры Montserrat с плашкой градиента, Safe Zones и концовка:
         </p>
-        <div class="ref-links">
-          <a class="ref-btn" href="https://drive.google.com/file/d/1odG-ekthg46pfYy79Te2ZvqoaayuW6w4/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-            <span style="font-size:16px;">▶️</span>
-            <div>
-              <div>Показательный креатив #1</div>
-              <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
+
+        <!-- Сетка карточек с реальными превью роликов -->
+        <div class="ref-cards-grid">
+          
+          <!-- Эталон #1 -->
+          <a class="ref-video-card" href="https://drive.google.com/file/d/1odG-ekthg46pfYy79Te2ZvqoaayuW6w4/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <div class="ref-thumb-wrap">
+              <img src="/img/examples/benchmark-creative-1.jpg" alt="Показательный креатив #1" class="ref-thumb-img" loading="lazy">
+              <div class="ref-play-overlay">
+                <div class="ref-play-circle">▶</div>
+              </div>
+              <span class="ref-badge">⭐ Эталон #1 · Видео</span>
+            </div>
+            <div class="ref-info">
+              <div class="ref-title">Показательный креатив #1</div>
+              <div class="ref-desc">
+                • <strong>Хук 0–3 сек:</strong> лицо Алеся сразу на экране с живым обращением.<br>
+                • <strong>Темп:</strong> плотная смена ракурсов каждые 3–4 секунды.<br>
+                • <strong>Субтитры:</strong> двухстрочный Montserrat с подсветкой и плашкой.<br>
+                • <strong>Safe Zones:</strong> соблюдены все отступы под интерфейс Meta.
+              </div>
+              <div class="ref-cta">Смотреть ролик на Google Drive ↗</div>
             </div>
           </a>
-          <a class="ref-btn" href="https://drive.google.com/file/d/1aZ8sQjXDclAt4ZIpn3utecfTf6TBouXA/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-            <span style="font-size:16px;">▶️</span>
-            <div>
-              <div>Показательный креатив #2</div>
-              <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
+
+          <!-- Эталон #2 -->
+          <a class="ref-video-card" href="https://drive.google.com/file/d/1aZ8sQjXDclAt4ZIpn3utecfTf6TBouXA/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <div class="ref-thumb-wrap">
+              <img src="/img/examples/benchmark-creative-2.jpg" alt="Показательный креатив #2" class="ref-thumb-img" loading="lazy">
+              <div class="ref-play-overlay">
+                <div class="ref-play-circle">▶</div>
+              </div>
+              <span class="ref-badge">⭐ Эталон #2 · Видео</span>
+            </div>
+            <div class="ref-info">
+              <div class="ref-title">Показательный креатив #2</div>
+              <div class="ref-desc">
+                • <strong>Анатомия & Модель:</strong> живая демонстрация техник на модели.<br>
+                • <strong>Звуковой баланс:</strong> музыка фоном (-24 dB), голос чистый и плотный.<br>
+                • <strong>Концовка и CTA:</strong> скроллинг страницы и плашка спецпредложения.<br>
+                • <strong>Формат:</strong> чистый экспорт без стоков и перегруза.
+              </div>
+              <div class="ref-cta">Смотреть ролик на Google Drive ↗</div>
             </div>
           </a>
-          <a class="ref-btn" href="https://mbf-videobase.vercel.app/#f=Шортс+%2F+Reels+%28вертикаль%29" target="_blank" rel="noopener noreferrer" style="border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.08);">
-            <span style="font-size:16px;">🔥</span>
-            <div>
-              <div style="color:#38bdf8;">Рилсы и хуки доктора (Видеотека)</div>
-              <small style="color:var(--text-3); font-weight:400;">mbf-videobase · подборка вертикальных</small>
+
+          <!-- Карточка базы рилсов -->
+          <a class="ref-video-card" href="https://mbf-videobase.vercel.app/#f=Шортс+%2F+Reels+%28вертикаль%29" target="_blank" rel="noopener noreferrer" style="border-color: rgba(139,92,246,.35);">
+            <div class="ref-thumb-wrap" style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);">
+              <div style="font-size: 52px;">📱</div>
+              <div class="ref-play-overlay">
+                <div class="ref-play-circle" style="background: #a78bfa;">▶</div>
+              </div>
+              <span class="ref-badge" style="border-color: #a78bfa; color: #c4b5fd;">🌐 Видеотека</span>
+            </div>
+            <div class="ref-info">
+              <div class="ref-title">Рилсы и хуки доктора (База)</div>
+              <div class="ref-desc">
+                • Большая онлайн-подборка готовых вертикальных форматов и рилсов Алеся для насмотренности.<br>
+                • Фильтры по длительности и раскадровкам в Video Base.
+              </div>
+              <div class="ref-cta" style="color:#a78bfa;">Открыть подборку в Video Base ↗</div>
             </div>
           </a>
+
         </div>
       </div>
 
