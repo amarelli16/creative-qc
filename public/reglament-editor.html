@@ -639,6 +639,172 @@
       transform: translateY(-1px);
     }
 
+        /* Embedded Video Base Frame */
+    .videobase-frame-container {
+      background: #090a0f;
+      border: 1px solid rgba(56,189,248,.35);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 36px rgba(0,0,0,.45);
+      transition: all .2s ease;
+      position: relative;
+    }
+    .videobase-frame-header {
+      background: rgba(255,255,255,.03);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .vb-frame-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vb-frame-nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      overflow-x: auto;
+      max-width: 100%;
+      padding-bottom: 2px;
+    }
+    .vb-tab-btn {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-2);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .vb-tab-btn:hover, .vb-tab-btn.active {
+      background: rgba(56,189,248,.18);
+      border-color: rgba(56,189,248,.4);
+      color: #38bdf8;
+    }
+    .vb-frame-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vb-action-btn {
+      background: rgba(56,189,248,.12);
+      border: 1px solid rgba(56,189,248,.3);
+      color: #38bdf8;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all .2s;
+    }
+    .vb-action-btn:hover {
+      background: rgba(56,189,248,.25);
+      color: #fff;
+    }
+    .videobase-iframe {
+      width: 100%;
+      height: 720px;
+      border: none;
+      display: block;
+      background: #021a1b;
+    }
+    .videobase-frame-container.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      border-radius: 0;
+      border: none;
+    }
+    .videobase-frame-container.fullscreen .videobase-iframe {
+      height: calc(100vh - 54px);
+    }
+
+    /* Music Banner */
+    .music-banner {
+      margin-top: 14px;
+      background: linear-gradient(135deg, rgba(236,72,153,.08) 0%, rgba(139,92,246,.08) 100%);
+      border: 1px solid rgba(236,72,153,.3);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .music-banner-info {
+      flex: 1;
+      min-width: 260px;
+    }
+    .music-banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(236,72,153,.18);
+      border: 1px solid rgba(236,72,153,.35);
+      color: #f472b6;
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .music-banner-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .music-banner-desc {
+      font-size: 12.5px;
+      color: var(--text-2);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+    .music-banner-desc strong { color: #f0f1f5; }
+    .music-banner-btn {
+      background: linear-gradient(135deg, #ec4899, #db2777);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(236,72,153,.35);
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .music-banner-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(236,72,153,.5);
+    }
+
     /* Subtitle Live Preview Box - 2 lines, organic size, orange & green highlights */
     .sub-preview-box {
       background: #000;
@@ -958,8 +1124,8 @@
 
 <!-- ═══════ IN-PAGE SUBNAV ═══════ -->
 <nav class="subnav">
-  <a href="#videobase" style="color:#38bdf8; font-weight:700;">🌐 Онлайн-видеотека</a>
-  <a href="#drive">📂 Google Drive материалы</a>
+  <a href="#videobase" style="color:#38bdf8; font-weight:700;">🎬 База видеоматериалов</a>
+  <a href="#music" style="color:#ec4899; font-weight:600;">🎵 Музыка (Drive)</a>
   <a href="#pipeline">🚀 Пайплайн монтажа (10 шагов)</a>
   <a href="#subtitles">💬 Субтитры Montserrat</a>
   <a href="#audio">🎵 Звук и музыка</a>
@@ -980,163 +1146,79 @@
     <input type="text" id="ruleSearch" class="search-input" placeholder="Быстрый поиск по регламенту монтажа (футажи, субтитры, нейминг, лицо Алеся, safe zone, Drive...)" oninput="filterRules()">
   </div>
 
-  <!-- ═══════ БАЗА МАТЕРИАЛОВ: ВИДЕОТЕКА И GOOGLE DRIVE ═══════ -->
-  <div class="card" id="drive" style="border-color: rgba(56,189,248,.35); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
-    <div id="videobase" style="position:relative; top:-20px;"></div>
+  <!-- ═══════ БАЗА МАТЕРИАЛОВ: ИНТЕРАКТИВНАЯ ВИДЕОТЕКА И МУЗЫКА ═══════ -->
+  <div class="card" id="videobase" style="border-color: rgba(56,189,248,.35); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+    <div id="drive" style="position:relative; top:-20px;"></div>
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🎬</span>
-      <h2>Материалы для монтажа: Видеотека (MBF Video Base) & Google Drive</h2>
+      <h2>Материалы для монтажа: Интерактивная база (MBF Video Base) & Музыка</h2>
       <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
     </div>
     <div class="card-body">
 
-      <!-- 🌟 ГЛАВНЫЙ ИНСТРУМЕНТ: ОНЛАЙН-ВИДЕОТЕКА MBF -->
-      <div class="videobase-hero">
-        <div class="videobase-head">
-          <div>
-            <div class="videobase-badge">⚡️ Интерактивный онлайн-каталог · Быстрый поиск кадров</div>
-            <div class="videobase-title">
-              <span>▶️</span> MBF · Библиотека для монтажа
-            </div>
+      <div class="ctx" style="margin-bottom: 10px;">
+        Вся база контента собрана в единой интерактивной видеотеке <strong>mbf-videobase.vercel.app</strong>: исходники доктора Алеся, уроки курсов, фото тренеров, кейсы до/после, рилсы, раскадровки и анатомия. Монтируйте и ищите фрагменты прямо в интерфейсе ниже либо открывайте в отдельном окне.
+      </div>
+
+      <!-- ВСТРОЕННЫЙ ИНТЕРАКТИВНЫЙ ФРЕЙМ MBF VIDEO BASE -->
+      <div class="videobase-frame-container" id="vbFrameContainer">
+        <div class="videobase-frame-header">
+          <div class="vb-frame-title">
+            <span style="color:#38bdf8;">▶️</span> MBF Video Base
           </div>
-          <a href="https://mbf-videobase.vercel.app/" target="_blank" rel="noopener noreferrer" class="videobase-btn">
-            Открыть видеотеку (mbf-videobase) ↗
-          </a>
+
+          <!-- Быстрые разделы для переключения внутри фрейма -->
+          <div class="vb-frame-nav">
+            <button type="button" class="vb-tab-btn active" onclick="setVbTab('#', this)">Главная</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('#view=results', this)">🎯 Поиск по телу</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('storyboard', this)">🎬 Раскадровка</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('anatomy', this)">🦴 Анатомия</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('living-scenes', this)">🎥 Живые сцены</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('endings', this)">🏁 Концовки</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('#view=courses', this)">📚 Курсы</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('#view=photos', this)">📸 Фото</button>
+            <button type="button" class="vb-tab-btn" onclick="setVbTab('#view=cases', this)">⭐️ Кейсы</button>
+          </div>
+
+          <!-- Кнопки управления фреймом -->
+          <div class="vb-frame-actions">
+            <button type="button" class="vb-action-btn" id="vbFsBtn" onclick="toggleVbFullscreen()" title="Развернуть на весь экран">
+              ⛶ На весь экран
+            </button>
+            <a href="https://mbf-videobase.vercel.app/#" target="_blank" rel="noopener noreferrer" class="vb-action-btn" title="Открыть в новой вкладке">
+              ↗ В отдельной вкладке
+            </a>
+          </div>
         </div>
-        
-        <div class="videobase-desc">
-          Единый интерактивный веб-каталог исходников: видео Алеся, уроки всех курсов, фото тренеров, кейсы до/после, рилсы, анатомия Maxilla, живые сцены и AI-сборщик нарезки DeepSeek с мгновенным поиском по частям тела, упражнениям и словам Алеся.<br>
-          <strong style="color:#38bdf8;">🔄 Синхронизация с Google Drive:</strong> в эту же онлайн-базу сейчас добавляется и постоянно синхронизируется всё то же, что лежит в папках на Google Диске (<strong>хуки, футажи, музыка</strong>). Используйте видеобазу для быстрого просмотра раскадровок и отбора таймкодов, а оригиналы в 4K открывайте в Google Drive.
-        </div>
 
-        <!-- Сетка быстрого доступа по разделам видеобазы -->
-        <div class="vb-quick-grid">
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=results" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>🎯</span> Поиск по частям тела</div>
-            <div class="vb-quick-desc">Лицо, шея, челюсть, осанка, живот; фильтры: с речью, с моделью, в перчатке.</div>
-            <div class="vb-quick-action">Все видео каталога →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/storyboard" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>🎬</span> Раскадровка</div>
-            <div class="vb-quick-desc">Пошаговая визуальная раскадровка сцен под структуру рекламного сценария.</div>
-            <div class="vb-quick-action">Открыть раскадровку →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/anatomy" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>🦴</span> Анатомия Maxilla</div>
-            <div class="vb-quick-desc">3D-схемы, череп, остеопатическая анатомия для наглядных врезок в ролик.</div>
-            <div class="vb-quick-action">Анатомический блок →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/living-scenes" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>🎥</span> Живые сцены & B-roll</div>
-            <div class="vb-quick-desc">Динамичные жизненные фрагменты, перебивки, исходники и замена лиц.</div>
-            <div class="vb-quick-action">Живые кадры →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/endings" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>🏁</span> Концовки & CTA</div>
-            <div class="vb-quick-desc">Готовые записи скролла сайта, плашки с ценами и финальные переходы.</div>
-            <div class="vb-quick-action">Каталог концовок →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=courses" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>📚</span> Уроки курсов</div>
-            <div class="vb-quick-desc">Материалы программ MindBodyFace и уроки приглашённых экспертов.</div>
-            <div class="vb-quick-action">Уроки программ →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=photos" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>📸</span> Фото Алеся и тренеров</div>
-            <div class="vb-quick-desc">246 файлов: студия, кабинет, лайфстайл, вырезки на прозрачном фоне.</div>
-            <div class="vb-quick-action">Фотобанк →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=cases" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>⭐️</span> Кейсы До/После</div>
-            <div class="vb-quick-desc">Настоящие результаты участниц программ для блока социальных доказательств.</div>
-            <div class="vb-quick-action">Смотреть кейсы →</div>
-          </a>
-
-          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <div class="vb-quick-title"><span>✂️</span> AI-сборка нарезки</div>
-            <div class="vb-quick-desc">Инструмент на базе DeepSeek для автоматической сборки драфта нарезки по брифу.</div>
-            <div class="vb-quick-action">Собрать план нарезки →</div>
-          </a>
-        </div>
+        <!-- Сам iframe с живой базой -->
+        <iframe 
+          id="videobaseFrame" 
+          class="videobase-iframe" 
+          src="https://mbf-videobase.vercel.app/#" 
+          loading="lazy" 
+          title="MBF Video Base"
+          allow="clipboard-read; clipboard-write; fullscreen">
+        </iframe>
       </div>
 
-      <!-- 📁 ИСХОДНИКИ GOOGLE DRIVE -->
-      <div style="margin-top: 10px;">
-        <div style="font-size:14px; font-weight:700; color:#f0f1f5; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-          <span>📁</span>
-          <span>Оригиналы в исходном качестве на Google Drive (FullHD / 4K):</span>
+      <!-- 🎵 КАРТОЧКА МУЗЫКИ (ОСТАВЛЯЕМ GOOGLE DRIVE, Т.К. В БАЗЕ ЕЁ НЕТ) -->
+      <div class="music-banner" id="music">
+        <div class="music-banner-info">
+          <span class="music-banner-tag">🎵 Официальный аудиотрек-пак</span>
+          <div class="music-banner-title">
+            <span>🎧</span> Музыка для видео-креативов (Google Drive)
+          </div>
+          <div class="music-banner-desc">
+            В веб-библиотеке музыки пока нет — <strong>все треки для монтажа берём строго из этой официальной папки на Google Drive</strong>.<br>
+            Строгое правило: музыка <strong>строго БЕЗ слов и вокала</strong>. Любые сторонние треки использовать запрещено! Уровень в миксе: <strong>-18... -40 dB</strong>.
+          </div>
         </div>
-        <div class="ctx">
-          Основная папка со всеми рабочими исходниками: 
-          <a href="https://drive.google.com/drive/folders/130JHG_knBuzQnwCwQT1FwkoyyJ0dnSlX" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">МОНТАЖ МАТЕРИАЛЫ (Google Drive) ↗</a><br>
-          Все эти папки синхронизируются с онлайн-библиотекой выше. Скачивайте оригиналы напрямую:
-        </div>
-
-        <div class="folder-grid">
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" rel="noopener noreferrer">
-            <div>
-              <div class="folder-name">📂 BODY SECRET</div>
-              <div class="folder-desc">Футажи с Алесем, демонстрации техник и практические уроки курса BodySecret.</div>
-            </div>
-            <div class="folder-action">Открыть на Drive ↗</div>
-          </a>
-
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" rel="noopener noreferrer">
-            <div>
-              <div class="folder-name">📂 CELLULITE</div>
-              <div class="folder-desc">Материалы, упражнения и демонстрации техник по антицеллюлитному курсу.</div>
-            </div>
-            <div class="folder-action">Открыть на Drive ↗</div>
-          </a>
-
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" rel="noopener noreferrer">
-            <div>
-              <div class="folder-name">📂 LIFTING</div>
-              <div class="folder-desc">Техники лифтинга лица, самомассажи и демонстрации Алеся на моделях.</div>
-            </div>
-            <div class="folder-action">Открыть на Drive ↗</div>
-          </a>
-
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" rel="noopener noreferrer">
-            <div>
-              <div class="folder-name">📂 MAXILLA</div>
-              <div class="folder-desc">Анатомические разборы максиллы (на доске и на себе), приёмы работы со средней трети.</div>
-            </div>
-            <div class="folder-action">Открыть на Drive ↗</div>
-          </a>
-
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" rel="noopener noreferrer">
-            <div>
-              <div class="folder-name">📂 RESET</div>
-              <div class="folder-desc">Футажи и практики по комплексной программе оздоровления и осанки Reset.</div>
-            </div>
-            <div class="folder-action">Открыть на Drive ↗</div>
-          </a>
-
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer">
-            <div>
-              <div class="folder-name">🎵 МУЗЫКА (ТОЛЬКО НАША КОЛЛЕКЦИЯ)</div>
-              <div class="folder-desc">Официальный пак музыки строго БЕЗ слов. Добавляется в Video Base. Другие треки табу!</div>
-            </div>
-            <div class="folder-action">Открыть треки на Drive ↗</div>
-          </a>
-
-          <a class="folder-card" href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
-            <div>
-              <div class="folder-name">👁️ ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</div>
-              <div class="folder-desc">Большая база лучших роликов: хуки, разборы кейсов и примеры оформления для насмотренности.</div>
-            </div>
-            <div class="folder-action">Открыть примеры на Drive ↗</div>
-          </a>
-        </div>
+        <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" class="music-banner-btn">
+          🎵 Открыть папку с музыкой на Drive ↗
+        </a>
       </div>
+
     </div>
   </div>
 
@@ -1199,7 +1281,7 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 2 · Основа</span> Живые футажи с доктором Алесем и моделями</div>
           <div class="rule-hint">
-            <strong>Первостепенно вставлять кадры самого Алеся</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Быстро находи нужные планы по частям тела в интерактивной <a href="https://mbf-videobase.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">Видеотеке MBF ↗</a> (с фильтрами по зонам и раскадровками) либо скачивай напрямую из папок Google Drive: <code style="color:#38bdf8;">BODY SECRET</code>, <code style="color:#38bdf8;">CELLULITE</code>, <code style="color:#38bdf8;">LIFTING</code>, <code style="color:#38bdf8;">MAXILLA</code>, <code style="color:#38bdf8;">RESET</code>.
+            <strong>Первостепенно вставлять кадры самого Алеся</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Все необходимые футажи, демонстрации техник и раскадровки берём из интерактивной <a href="#videobase" style="color:#38bdf8; font-weight:700; text-decoration:underline;">Видеотеки MBF (mbf-videobase.vercel.app)</a> — в ней собраны все курсы, раскадровки сценариев и удобный поиск по частям тела, упражнениям и словам Алеся.
           </div>
         </div>
       </div>
@@ -1745,6 +1827,25 @@ function copyName(elemId){
       btn.style.color = '';
     }, 1200);
   });
+}
+
+function setVbTab(path, btn) {
+  const frame = document.getElementById('videobaseFrame');
+  if (frame) {
+    frame.src = 'https://mbf-videobase.vercel.app/' + path;
+  }
+  document.querySelectorAll('.vb-tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function toggleVbFullscreen() {
+  const container = document.getElementById('vbFrameContainer');
+  const btn = document.getElementById('vbFsBtn');
+  if (!container) return;
+  const isFs = container.classList.toggle('fullscreen');
+  if (btn) {
+    btn.innerHTML = isFs ? '✕ Свернуть' : '⛶ На весь экран';
+  }
 }
 
 function filterRules(){
