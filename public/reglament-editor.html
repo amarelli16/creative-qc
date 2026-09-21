@@ -439,6 +439,105 @@
       margin-top: 4px;
     }
 
+        /* Safe Zone Visual Gallery */
+    .safezone-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 860px) {
+      .safezone-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .safezone-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all .2s ease;
+    }
+    .safezone-card:hover {
+      border-color: rgba(56,189,248,.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    .safezone-card.good {
+      border-color: rgba(16,185,129,.35);
+      background: linear-gradient(180deg, rgba(16,185,129,.06) 0%, rgba(255,255,255,.02) 100%);
+    }
+    .safezone-card.bad {
+      border-color: rgba(244,63,94,.35);
+      background: linear-gradient(180deg, rgba(244,63,94,.06) 0%, rgba(255,255,255,.02) 100%);
+    }
+    .safezone-card-img-wrap {
+      width: 100%;
+      background: #090a0f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .safezone-card-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+    }
+    .safezone-card-content {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .safezone-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      border-radius: 6px;
+      padding: 3px 8px;
+      width: fit-content;
+      margin-bottom: 4px;
+    }
+    .safezone-card-badge.template { background: rgba(56,189,248,.18); color: #38bdf8; border: 1px solid rgba(56,189,248,.35); }
+    .safezone-card-badge.good { background: rgba(16,185,129,.18); color: #34d399; border: 1px solid rgba(16,185,129,.35); }
+    .safezone-card-badge.bad { background: rgba(244,63,94,.18); color: #f43f5e; border: 1px solid rgba(244,63,94,.35); }
+    .safezone-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .safezone-card-desc {
+      font-size: 12.5px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+    .safezone-card-desc strong { color: #f0f1f5; }
+    .safezone-download-link {
+      margin-top: auto;
+      padding-top: 10px;
+      font-size: 12px;
+      color: #38bdf8;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .safezone-download-link:hover {
+      text-decoration: underline;
+    }
+
     /* Subtitle Live Preview Box - 2 lines, organic size, orange & green highlights */
     .sub-preview-box {
       background: #000;
@@ -766,6 +865,7 @@
   <a href="#cta">🌐 Лендинг и CTA</a>
   <a href="#naming">🏷️ Нейминг 4 файлов</a>
   <a href="#meta-visual">🛡️ Meta & Бренд для монтажа</a>
+  <a href="#safezone">📐 Safe Zones (Сейф-зоны)</a>
   <a href="#specs">📐 Технические параметры</a>
   <a href="#traffic">🚦 Светофор</a>
   <a href="#checklist">✓ Экспресс-чеклист</a>
@@ -1112,12 +1212,73 @@
       </div>
 
       <!-- 10. Сейф-зоны -->
-      <div class="rule">
+      <div class="rule" id="safezone" style="background: rgba(255,255,255,.025); border-color: rgba(56,189,248,.3);">
         <div class="pip warn"></div>
         <div class="rule-body">
           <div class="rule-title"><span class="chip warn">Шаг 10 · Сейф-зоны</span> Safe Zones Instagram Stories & Reels (1080×1920)</div>
           <div class="rule-hint">
-            Отступ сверху ~14% (140px) и снизу ~20% (250px) в Stories/Reels. Никакого текста, стрелок или лиц в этих зонах — их перекроют кнопки лайков, профиль и описание.
+            <strong>Строго соблюдайте безопасные границы кадра 9:16:</strong>
+            любой смысловой элемент (лицо эксперта, субтитры, плашка цены, карточка оффера, стрелки) должен находиться строго внутри белой области. 
+            Оранжевые поля по краям перекрываются элементами интерфейса Meta Ads (аватар аккаунта сверху, рекламная кнопка и описание снизу, блок реакций справа).
+          </div>
+
+          <!-- Галерея наглядных примеров Safe Zone -->
+          <div class="safezone-grid">
+            
+            <!-- 1. Рамка Safe Zone -->
+            <div class="safezone-card">
+              <div class="safezone-card-img-wrap">
+                <img src="/img/safezone/safezone-template.jpg" alt="Рамка Safe Zone Instagram 9:16" class="safezone-card-img" loading="lazy">
+              </div>
+              <div class="safezone-card-content">
+                <span class="safezone-card-badge template">📐 Сетка / Трафарет</span>
+                <div class="safezone-card-title">1. Рамка Safe Zone (9:16)</div>
+                <div class="safezone-card-desc">
+                  • <strong>Белая область:</strong> 100% безопасное поле для текста, субтитров, лица спикера и оффера.<br>
+                  • <strong>Оранжевый верх (~14%):</strong> зона профиля и закрытия.<br>
+                  • <strong>Оранжевый низ (~20%):</strong> зона рекламной кнопки и текста объявления.<br>
+                  • <strong>Вырез справа внизу:</strong> зона кнопок Instagram (лайк, коммент, репост, звук).
+                </div>
+                <a href="/img/safezone/safezone-template.jpg" target="_blank" download="meta-safe-zone-overlay.jpg" class="safezone-download-link">
+                  ⬇️ Скачать сетку для монтажки (JPG)
+                </a>
+              </div>
+            </div>
+
+            <!-- 2. КАК НАДО -->
+            <div class="safezone-card good">
+              <div class="safezone-card-img-wrap">
+                <img src="/img/safezone/safezone-good.jpg" alt="Как правильно размещать субтитры и содержимое в Safe Zone" class="safezone-card-img" loading="lazy">
+              </div>
+              <div class="safezone-card-content">
+                <span class="safezone-card-badge good">✓ Как надо (Эталон)</span>
+                <div class="safezone-card-title">2. Правильное размещение</div>
+                <div class="safezone-card-desc">
+                  • <strong>Субтитры сверху:</strong> опущены ниже статус-бара и профиля.<br>
+                  • <strong>Карточка оффера:</strong> центрирована, читается целиком.<br>
+                  • <strong>Спикер и плашка цены:</strong> расположены по центру, не срезаются снизу.<br>
+                  • <strong>Правый нижний угол чист:</strong> важный контент не попадает под кнопки лайков и комментариев.
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. КАК НЕ НАДО -->
+            <div class="safezone-card bad">
+              <div class="safezone-card-img-wrap">
+                <img src="/img/safezone/safezone-bad.jpg" alt="Как НЕ надо размещать субтитры и лицо спикера" class="safezone-card-img" loading="lazy">
+              </div>
+              <div class="safezone-card-content">
+                <span class="safezone-card-badge bad">✕ Как не надо (Брак)</span>
+                <div class="safezone-card-title">3. Типичные ошибки монтажа</div>
+                <div class="safezone-card-desc">
+                  • <strong>Верхний заголовок:</strong> залезает в зону аватара и заголовка рекламы.<br>
+                  • <strong>Спикер прижат в правый угол:</strong> его лицо и плечо закрывают иконки Reels.<br>
+                  • <strong>Плашка цены и подпись:</strong> залезли в нижнюю зону — строка «365 DAYS OF ACCESS» обрезается кнопкой действия.<br>
+                  • <strong>Итог:</strong> потеря конверсии из-за нечитаемости оффера.
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
