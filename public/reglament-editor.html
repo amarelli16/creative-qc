@@ -356,6 +356,89 @@
       display: flex; align-items: center; gap: 4px;
     }
 
+        /* MBF Video Base Showcase */
+    .videobase-hero {
+      background: linear-gradient(135deg, rgba(56,189,248,.12) 0%, rgba(139,92,246,.08) 50%, rgba(2,58,59,.25) 100%);
+      border: 1px solid rgba(56,189,248,.35);
+      border-radius: 14px;
+      padding: 20px 22px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .videobase-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(56,189,248,.18);
+      border: 1px solid rgba(56,189,248,.4);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11px; font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .videobase-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .videobase-title {
+      font-size: 19px; font-weight: 800; color: #fff;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .videobase-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #041017;
+      font-weight: 800; font-size: 13.5px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(56,189,248,.35);
+      transition: all .2s;
+    }
+    .videobase-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(56,189,248,.5);
+      color: #000;
+    }
+    .videobase-desc {
+      font-size: 13px; color: var(--text-2); line-height: 1.6;
+      margin-bottom: 16px; max-width: 900px;
+    }
+    .vb-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+    .vb-quick-card {
+      background: rgba(8,9,13,.6);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-decoration: none;
+      color: inherit;
+      display: flex; flex-direction: column; justify-content: space-between;
+      gap: 4px;
+      transition: all .2s ease;
+    }
+    .vb-quick-card:hover {
+      background: rgba(56,189,248,.12);
+      border-color: rgba(56,189,248,.4);
+      transform: translateY(-2px);
+    }
+    .vb-quick-title {
+      font-size: 13px; font-weight: 700; color: #f0f1f5;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .vb-quick-desc {
+      font-size: 11.5px; color: var(--text-3); line-height: 1.35;
+    }
+    .vb-quick-action {
+      font-size: 11px; font-weight: 600; color: #38bdf8;
+      margin-top: 4px;
+    }
+
     /* Subtitle Live Preview Box - 2 lines, organic size, orange & green highlights */
     .sub-preview-box {
       background: #000;
@@ -675,6 +758,7 @@
 
 <!-- ═══════ IN-PAGE SUBNAV ═══════ -->
 <nav class="subnav">
+  <a href="#videobase" style="color:#38bdf8; font-weight:700;">🌐 Онлайн-видеотека</a>
   <a href="#drive">📂 Google Drive материалы</a>
   <a href="#pipeline">🚀 Пайплайн монтажа (10 шагов)</a>
   <a href="#subtitles">💬 Субтитры Montserrat</a>
@@ -695,76 +779,162 @@
     <input type="text" id="ruleSearch" class="search-input" placeholder="Быстрый поиск по регламенту монтажа (футажи, субтитры, нейминг, лицо Алеся, safe zone, Drive...)" oninput="filterRules()">
   </div>
 
-  <!-- ═══════ БАЗА GOOGLE DRIVE ═══════ -->
-  <div class="card" id="drive" style="border-color: rgba(56,189,248,.3);">
+  <!-- ═══════ БАЗА МАТЕРИАЛОВ: ВИДЕОТЕКА И GOOGLE DRIVE ═══════ -->
+  <div class="card" id="drive" style="border-color: rgba(56,189,248,.35); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+    <div id="videobase" style="position:relative; top:-20px;"></div>
     <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">📂</span>
-      <h2>База рабочих материалов на Google Drive</h2>
+      <span class="emoji">🎬</span>
+      <h2>Материалы для монтажа: Видеотека (MBF Video Base) & Google Drive</h2>
       <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
     </div>
     <div class="card-body">
-      <div class="ctx">
-        Основная папка со всеми рабочими материалами: 
-        <a href="https://drive.google.com/drive/folders/130JHG_knBuzQnwCwQT1FwkoyyJ0dnSlX" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">МОНТАЖ МАТЕРИАЛЫ (Google Drive) ↗</a><br>
-        Здесь собраны треки из нашей коллекции, футажи с доктором Алесем по курсам, анатомия и примеры хуков для насмотренности.
+
+      <!-- 🌟 ГЛАВНЫЙ ИНСТРУМЕНТ: ОНЛАЙН-ВИДЕОТЕКА MBF -->
+      <div class="videobase-hero">
+        <div class="videobase-head">
+          <div>
+            <div class="videobase-badge">⚡️ Интерактивный онлайн-каталог · Быстрый поиск кадров</div>
+            <div class="videobase-title">
+              <span>▶️</span> MBF · Библиотека для монтажа
+            </div>
+          </div>
+          <a href="https://mbf-videobase.vercel.app/" target="_blank" rel="noopener noreferrer" class="videobase-btn">
+            Открыть видеотеку (mbf-videobase) ↗
+          </a>
+        </div>
+        
+        <div class="videobase-desc">
+          Единый интерактивный веб-каталог исходников: видео Алеся, уроки всех курсов, фото тренеров, кейсы до/после, рилсы, анатомия Maxilla, живые сцены и AI-сборщик нарезки DeepSeek с мгновенным поиском по частям тела, упражнениям и словам Алеся.<br>
+          <strong style="color:#38bdf8;">🔄 Синхронизация с Google Drive:</strong> в эту же онлайн-базу сейчас добавляется и постоянно синхронизируется всё то же, что лежит в папках на Google Диске (<strong>хуки, футажи, музыка</strong>). Используйте видеобазу для быстрого просмотра раскадровок и отбора таймкодов, а оригиналы в 4K открывайте в Google Drive.
+        </div>
+
+        <!-- Сетка быстрого доступа по разделам видеобазы -->
+        <div class="vb-quick-grid">
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=results" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>🎯</span> Поиск по частям тела</div>
+            <div class="vb-quick-desc">Лицо, шея, челюсть, осанка, живот; фильтры: с речью, с моделью, в перчатке.</div>
+            <div class="vb-quick-action">Все видео каталога →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/storyboard" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>🎬</span> Раскадровка</div>
+            <div class="vb-quick-desc">Пошаговая визуальная раскадровка сцен под структуру рекламного сценария.</div>
+            <div class="vb-quick-action">Открыть раскадровку →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/anatomy" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>🦴</span> Анатомия Maxilla</div>
+            <div class="vb-quick-desc">3D-схемы, череп, остеопатическая анатомия для наглядных врезок в ролик.</div>
+            <div class="vb-quick-action">Анатомический блок →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/living-scenes" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>🎥</span> Живые сцены & B-roll</div>
+            <div class="vb-quick-desc">Динамичные жизненные фрагменты, перебивки, исходники и замена лиц.</div>
+            <div class="vb-quick-action">Живые кадры →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/endings" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>🏁</span> Концовки & CTA</div>
+            <div class="vb-quick-desc">Готовые записи скролла сайта, плашки с ценами и финальные переходы.</div>
+            <div class="vb-quick-action">Каталог концовок →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=courses" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>📚</span> Уроки курсов</div>
+            <div class="vb-quick-desc">Материалы программ MindBodyFace и уроки приглашённых экспертов.</div>
+            <div class="vb-quick-action">Уроки программ →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=photos" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>📸</span> Фото Алеся и тренеров</div>
+            <div class="vb-quick-desc">246 файлов: студия, кабинет, лайфстайл, вырезки на прозрачном фоне.</div>
+            <div class="vb-quick-action">Фотобанк →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/#view=cases" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>⭐️</span> Кейсы До/После</div>
+            <div class="vb-quick-desc">Настоящие результаты участниц программ для блока социальных доказательств.</div>
+            <div class="vb-quick-action">Смотреть кейсы →</div>
+          </a>
+
+          <a class="vb-quick-card" href="https://mbf-videobase.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <div class="vb-quick-title"><span>✂️</span> AI-сборка нарезки</div>
+            <div class="vb-quick-desc">Инструмент на базе DeepSeek для автоматической сборки драфта нарезки по брифу.</div>
+            <div class="vb-quick-action">Собрать план нарезки →</div>
+          </a>
+        </div>
       </div>
 
-      <div class="folder-grid">
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 BODY SECRET</div>
-            <div class="folder-desc">Футажи с Алесем, демонстрации техник и практические уроки курса BodySecret.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
+      <!-- 📁 ИСХОДНИКИ GOOGLE DRIVE -->
+      <div style="margin-top: 10px;">
+        <div style="font-size:14px; font-weight:700; color:#f0f1f5; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+          <span>📁</span>
+          <span>Оригиналы в исходном качестве на Google Drive (FullHD / 4K):</span>
+        </div>
+        <div class="ctx">
+          Основная папка со всеми рабочими исходниками: 
+          <a href="https://drive.google.com/drive/folders/130JHG_knBuzQnwCwQT1FwkoyyJ0dnSlX" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">МОНТАЖ МАТЕРИАЛЫ (Google Drive) ↗</a><br>
+          Все эти папки синхронизируются с онлайн-библиотекой выше. Скачивайте оригиналы напрямую:
+        </div>
 
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 CELLULITE</div>
-            <div class="folder-desc">Материалы, упражнения и демонстрации техник по антицеллюлитному курсу.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
+        <div class="folder-grid">
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1-mRnCr8EOjrUW4h_1_vTdPRjVa8eS_aR" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div class="folder-name">📂 BODY SECRET</div>
+              <div class="folder-desc">Футажи с Алесем, демонстрации техник и практические уроки курса BodySecret.</div>
+            </div>
+            <div class="folder-action">Открыть на Drive ↗</div>
+          </a>
 
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 LIFTING</div>
-            <div class="folder-desc">Техники лифтинга лица, самомассажи и демонстрации Алеся на моделях.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1tdkLs5qFL_D_QvWVL1wkclWMWNM6UW2G" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div class="folder-name">📂 CELLULITE</div>
+              <div class="folder-desc">Материалы, упражнения и демонстрации техник по антицеллюлитному курсу.</div>
+            </div>
+            <div class="folder-action">Открыть на Drive ↗</div>
+          </a>
 
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 MAXILLA</div>
-            <div class="folder-desc">Анатомические разборы максиллы (на доске и на себе), приёмы работы со средней трети.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1kb6gIVzwIf10AJtJsCfOJkN8M041_E1X" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div class="folder-name">📂 LIFTING</div>
+              <div class="folder-desc">Техники лифтинга лица, самомассажи и демонстрации Алеся на моделях.</div>
+            </div>
+            <div class="folder-action">Открыть на Drive ↗</div>
+          </a>
 
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">📂 RESET</div>
-            <div class="folder-desc">Футажи и практики по комплексной программе оздоровления и осанки Reset.</div>
-          </div>
-          <div class="folder-action">Открыть на Drive ↗</div>
-        </a>
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1I8tKqC7hdfJlpMGwPoqfRxrgES76ZeTG" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div class="folder-name">📂 MAXILLA</div>
+              <div class="folder-desc">Анатомические разборы максиллы (на доске и на себе), приёмы работы со средней трети.</div>
+            </div>
+            <div class="folder-action">Открыть на Drive ↗</div>
+          </a>
 
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer">
-          <div>
-            <div class="folder-name">🎵 МУЗЫКА (ТОЛЬКО НАША КОЛЛЕКЦИЯ)</div>
-            <div class="folder-desc">Официальный пак музыки строго БЕЗ слов. Другие источники треков использовать запрещено!</div>
-          </div>
-          <div class="folder-action">Открыть треки на Drive ↗</div>
-        </a>
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1NE8s4KlJdTTaIdUwZzHkkEmKbC7FYfXY" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div class="folder-name">📂 RESET</div>
+              <div class="folder-desc">Футажи и практики по комплексной программе оздоровления и осанки Reset.</div>
+            </div>
+            <div class="folder-action">Открыть на Drive ↗</div>
+          </a>
 
-        <a class="folder-card" href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
-          <div>
-            <div class="folder-name">👁️ ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</div>
-            <div class="folder-desc">Большая база лучших роликов: хуки, разборы кейсов и примеры оформления для тренировки насмотренности.</div>
-          </div>
-          <div class="folder-action">Открыть примеры на Drive ↗</div>
-        </a>
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer">
+            <div>
+              <div class="folder-name">🎵 МУЗЫКА (ТОЛЬКО НАША КОЛЛЕКЦИЯ)</div>
+              <div class="folder-desc">Официальный пак музыки строго БЕЗ слов. Добавляется в Video Base. Другие треки табу!</div>
+            </div>
+            <div class="folder-action">Открыть треки на Drive ↗</div>
+          </a>
+
+          <a class="folder-card" href="https://drive.google.com/drive/folders/1lxBQVnTS0ihKvjCDEpX4XotlOxGrqh6r" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
+            <div>
+              <div class="folder-name">👁️ ХУКИ (ДЛЯ НАСМОТРЕННОСТИ)</div>
+              <div class="folder-desc">Большая база лучших роликов: хуки, разборы кейсов и примеры оформления для насмотренности.</div>
+            </div>
+            <div class="folder-action">Открыть примеры на Drive ↗</div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -801,6 +971,13 @@
               <small style="color:var(--text-3); font-weight:400;">Google Drive · открыть видео</small>
             </div>
           </a>
+          <a class="ref-btn" href="https://mbf-videobase.vercel.app/#f=Шортс+%2F+Reels+%28вертикаль%29" target="_blank" rel="noopener noreferrer" style="border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.08);">
+            <span style="font-size:16px;">🔥</span>
+            <div>
+              <div style="color:#38bdf8;">Рилсы и хуки доктора (Видеотека)</div>
+              <small style="color:var(--text-3); font-weight:400;">mbf-videobase · подборка вертикальных</small>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -821,7 +998,7 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 2 · Основа</span> Живые футажи с доктором Алесем и моделями</div>
           <div class="rule-hint">
-            <strong>Первостепенно вставлять кадры самого Алеся</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Бери их из соответствующих папок Google Drive: <code style="color:#38bdf8;">BODY SECRET</code>, <code style="color:#38bdf8;">CELLULITE</code>, <code style="color:#38bdf8;">LIFTING</code>, <code style="color:#38bdf8;">MAXILLA</code>, <code style="color:#38bdf8;">RESET</code>.
+            <strong>Первостепенно вставлять кадры самого Алеся</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Быстро находи нужные планы по частям тела в интерактивной <a href="https://mbf-videobase.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700; text-decoration:underline;">Видеотеке MBF ↗</a> (с фильтрами по зонам и раскадровками) либо скачивай напрямую из папок Google Drive: <code style="color:#38bdf8;">BODY SECRET</code>, <code style="color:#38bdf8;">CELLULITE</code>, <code style="color:#38bdf8;">LIFTING</code>, <code style="color:#38bdf8;">MAXILLA</code>, <code style="color:#38bdf8;">RESET</code>.
           </div>
         </div>
       </div>
@@ -869,7 +1046,7 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip warn">Шаг 6 · Акценты</span> Плавные микро-анимации проблемных зон</div>
           <div class="rule-hint">
-            Используй круги, стрелочки, плавные зумы и маркеры на проблемных зонах.
+            Используй круги, стрелочки, плавные зумы и маркеры на проблемных зонах. Готовые анатомические схемы и 3D-врезки бери в разделе <a href="https://mbf-videobase.vercel.app/anatomy" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline; font-weight:600;">Анатомия Maxilla (Видеотека) ↗</a>.
             <strong>Важно:</strong> анимации должны быть мягкими и сглаженными (ease-in-out), НИКАКИХ резких дерганых рывков.
           </div>
         </div>
@@ -925,7 +1102,7 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 9 · Концовка</span> Скролл лендинга курса, тапы и CTA</div>
           <div class="rule-hint">
-            В финале ролика показываем <strong>интерфейс лендинга курса</strong>: красивый скроллинг страницы сайта, анимированные тапы/стрелочки, понятный призыв перейти по ссылке.<br>
+            В финале ролика показываем <strong>интерфейс лендинга курса</strong>: красивый скроллинг страницы сайта, анимированные тапы/стрелочки, понятный призыв перейти по ссылке. Готовые скринкасты и плашки для концовок собраны в каталоге <a href="https://mbf-videobase.vercel.app/endings" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline; font-weight:600;">Концовки & CTA (Видеотека) ↗</a>.<br>
             <div class="note blue" style="margin-top:8px;">
               <strong>ℹ️ Правило по указанию цены:</strong><br>
               Указание цены <strong>не строго регламентировано — это зависит от сценария</strong>. Если по сценарию заложена цена, спецпредложение или акция — показываем её на экране. Если в сценарии упор на бесплатный пробный период, тест-драйв или ценность — показываем лендинг без ценников.
@@ -1281,7 +1458,7 @@ function copyName(elemId){
 
 function filterRules(){
   const q = document.getElementById('ruleSearch').value.toLowerCase().trim();
-  const rules = document.querySelectorAll('.rule, .naming-box, .ref-box, .folder-card');
+  const rules = document.querySelectorAll('.rule, .naming-box, .ref-box, .folder-card, .vb-quick-card');
   rules.forEach(r => {
     if(!q){ r.style.display = ''; return; }
     const match = r.textContent.toLowerCase().includes(q);
