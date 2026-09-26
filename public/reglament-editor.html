@@ -1643,9 +1643,8 @@
 <nav class="subnav">
   <a href="#videobase" style="color:var(--flame); font-weight:700;">🎬 База видеоматериалов</a>
   <a href="#pipeline">🚀 Пайплайн монтажа (10 шагов)</a>
-  <a href="#music" style="color:var(--flame); font-weight:700;">🎵 Музыка & Источники</a>
   <a href="#subtitles">💬 Субтитры Montserrat</a>
-  <a href="#audio">🎵 Звук и музыка</a>
+  <a href="#audio" style="color:var(--flame); font-weight:700;">🎵 Музыка & Звук (Шаг 8)</a>
   <a href="#cta">🌐 Лендинг и CTA</a>
   <a href="#naming">🏷️ Нейминг 4 файлов</a>
   <a href="#meta-visual">🛡️ Meta & Бренд для монтажа</a>
@@ -1969,36 +1968,141 @@
         </div>
       </div>
 
-      <!-- ═══════ МУЗЫКА И ЗВУК (ШАГ 8) ═══════ -->
-      <div class="rule" id="audio" >
-        <div class="pip crit"></div>
-        <div class="rule-body">
-          <div class="rule-title"><span class="chip crit">Шаг 8 · Аудио</span> Музыка ТОЛЬКО из официальных источников + баланс звука</div>
-          <div class="rule-hint">
-            <ul style="margin:6px 0 6px 18px; line-height:1.65;">
-              <li><strong>Главное табу:</strong> Музыка <strong>строго БЕЗ слов и вокала</strong> (только инструментал). Вокал отвлекает от речи доктора и приводит к отклонению ролика модерацией.</li>
-              <li><strong>Характер музыки:</strong> лёгкая / энергичная / загадочная / нагнетающая / трендовая (соответствует настроению сценария).</li>
-              <li><strong>Громкость голоса доктора:</strong> разброс от <strong>+2 dB до -6 dB</strong> (чистый, плотный, без длинных пауз и вздохов).</li>
-              <li><strong>Громкость музыки в миксе:</strong> уровень <strong>-18... -40 dB</strong> (тихая фоновая подложка, ни в коем случае не заглушает речь).</li>
-              <li><strong>Официальные источники треков (сторонние брать запрещено):</strong>
-                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
-                  <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:var(--flame-light); border:1px solid var(--flame-soft); color:var(--flame); padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
-                    📁 1. Папка «МУЗЫКА» на Drive ↗
-                  </a>
-                  <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:var(--euc-light); border:1px solid #d2e2db; color:var(--euc); padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
-                    🎵 2. Meta Sound Collection ↗
-                  </a>
-                  <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:var(--euc-light); border:1px solid #d2e2db; color:var(--euc); padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
-                    🎧 3. Freepik Audio ↗
-                  </a>
-                  <a href="#music" style="display:inline-flex; align-items:center; gap:5px; background:#fff; border:1px solid var(--line); color:var(--ink-2); padding:5px 11px; border-radius:6px; font-weight:600; font-size:12px; text-decoration:none;">
-                    ↑ Подробнее о музыке в начале страницы
-                  </a>
-                </div>
-              </li>
-            </ul>
+            <!-- ═══════ МУЗЫКА И ЗВУК (ШАГ 8) ═══════ -->
+      <div class="rule" id="audio" style="flex-direction:column; gap:16px;">
+        <div id="music" style="position:relative; top:-50px;"></div>
+        <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+          <div class="pip crit"></div>
+          <div class="rule-body">
+            <div class="rule-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div>
+                <span class="chip crit">Шаг 8 · Аудио</span>
+                <strong style="font-size:15px; color:var(--euc);">Официальная музыка MBF, баланс звука и дБ</strong>
+              </div>
+              <span class="tag" style="background:var(--flame-light); color:var(--flame); border-color:var(--flame-soft); font-weight:700;">🚫 Строго без вокала</span>
+            </div>
+            <div class="rule-hint" style="margin-top:6px; font-size:13px; line-height:1.6; color:var(--ink-2);">
+              Музыка для роликов берётся <strong>ТОЛЬКО из официальных источников ниже</strong>. Любые треки из сторонних пабликов, личных плейлистов или стримингов использовать категорически запрещено — это ведёт к моментальному отклонению рекламы в Meta Ads или блокировке звуковой дорожки за авторские права.
+            </div>
           </div>
         </div>
+
+        <!-- Ключевые параметры микса (дБ и баланс) -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(195px, 1fr)); gap:10px;">
+          <div style="background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:4px; box-shadow:0 1px 2px rgba(14,36,30,.03);">
+            <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;">🗣️ Голос доктора / эксперта</div>
+            <div style="font-size:16px; font-weight:800; color:var(--euc);">+2 dB ... -6 dB</div>
+            <div style="font-size:11.5px; color:var(--muted); line-height:1.4;">Плотный, чистый звук в наушниках, без эха, длинных пауз и вздохов.</div>
+          </div>
+
+          <div style="background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:4px; box-shadow:0 1px 2px rgba(14,36,30,.03);">
+            <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;">🎵 Фоновая музыка в миксе</div>
+            <div style="font-size:16px; font-weight:800; color:var(--flame);">-18 dB ... -40 dB</div>
+            <div style="font-size:11.5px; color:var(--muted); line-height:1.4;">Тихая фоновая подложка, не перебивает и не маскирует слова Алеся.</div>
+          </div>
+
+          <div style="background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:4px; box-shadow:0 1px 2px rgba(14,36,30,.03);">
+            <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;">🚫 Главное табу</div>
+            <div style="font-size:14px; font-weight:800; color:var(--red);">100% Без вокала</div>
+            <div style="font-size:11.5px; color:var(--muted); line-height:1.4;">Только инструментал. Вокал отвлекает зрителя и блокируется модерацией.</div>
+          </div>
+
+          <div style="background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:4px; box-shadow:0 1px 2px rgba(14,36,30,.03);">
+            <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;">🌊 Фейды и переходы</div>
+            <div style="font-size:14px; font-weight:800; color:var(--green);">Fade In / Out 0.3–0.5 с</div>
+            <div style="font-size:11.5px; color:var(--muted); line-height:1.4;">Плавный старт и затухание в финале, без резких обрывов дорожки.</div>
+          </div>
+        </div>
+
+        <!-- 4 Официальных источника музыки -->
+        <div style="margin-top:4px;">
+          <div style="font-size:13px; font-weight:800; color:var(--euc); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+            <span>🎧</span> <strong>Разрешённые источники музыки для видео-креативов:</strong>
+          </div>
+
+          <div class="music-sources-grid" style="margin-top:0;">
+
+            <!-- 1. Google Drive — Пак MBF (Димы) -->
+            <div class="music-source-card primary">
+              <div class="music-source-top">
+                <span class="music-source-icon">📁</span>
+                <div>
+                  <div class="music-source-title">Google Drive · Папка «🎵 МУЗЫКА»</div>
+                  <div class="music-source-tag">Основной пак MBF · Пак Димы</div>
+                </div>
+              </div>
+              <div class="music-source-text">
+                Официально купленная лицензионная музыка команды. Все треки 100% без слов, рассортированы по стилям: лёгкая, энергичная, загадочная, трендовая.
+              </div>
+              <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+                📂 Открыть папку на Google Drive ↗
+              </a>
+            </div>
+
+            <!-- 2. Meta Sound Collection -->
+            <div class="music-source-card">
+              <div class="music-source-top">
+                <span class="music-source-icon">🎵</span>
+                <div>
+                  <div class="music-source-title">Meta Sound Collection</div>
+                  <div class="music-source-tag">Creator Studio Audio · Для Meta Ads</div>
+                </div>
+              </div>
+              <div class="music-source-text">
+                Официальная библиотека Meta для Instagram Reels & Stories. 10 000+ треков и звуковых эффектов (SFX), 100% чистых от бана за авторские права. <em>Выбирать: Instrumental / Без вокала.</em>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+                  🎵 Meta Creator Studio Sound ↗
+                </a>
+                <a href="https://www.facebook.com/sound/collection/" target="_blank" rel="noopener noreferrer" style="font-size:11.5px; color:var(--flame); text-align:center; text-decoration:underline;">
+                  Запасная ссылка: Facebook Sound ↗
+                </a>
+              </div>
+            </div>
+
+            <!-- 3. Freepik / Magnific Audio -->
+            <div class="music-source-card">
+              <div class="music-source-top">
+                <span class="music-source-icon">🎧</span>
+                <div>
+                  <div class="music-source-title">Freepik / Magnific Audio</div>
+                  <div class="music-source-tag">Royalty-Free треки и эффекты</div>
+                </div>
+              </div>
+              <div class="music-source-text">
+                Каталог качественных инструментальных коммерческих саундтреков и фоновой подложки. Искать по тегам: ambient, cinematic, minimal, health, wellness.
+              </div>
+              <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+                🎧 Каталог Freepik Audio ↗
+              </a>
+            </div>
+
+            <!-- 4. MBF Video Base -->
+            <div class="music-source-card">
+              <div class="music-source-top">
+                <span class="music-source-icon">🌐</span>
+                <div>
+                  <div class="music-source-title">MBF Video Base</div>
+                  <div class="music-source-tag">Единый онлайн-портал</div>
+                </div>
+              </div>
+              <div class="music-source-text">
+                Онлайн-библиотека материалов MBF. По мере синхронизации и добавления аудиофайлов коллекция треков доступна в веб-интерфейсе базы.
+              </div>
+              <a href="https://mbf-videobase.vercel.app/#" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+                🌐 Перейти в Video Base ↗
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Напоминание по сдаче проекта -->
+        <div class="note orange" style="margin-top:2px;">
+          <strong>⚠️ Напоминание по сдаче проекта (Шаг 10):</strong> для каждого креатива обязательно рендерятся 2 чистых мастер-файла <code>M_S</code> и <code>M_F</code> <strong>БЕЗ музыки и субтитров</strong> под перевод на испанский и другие языки. Держите музыку на отдельной звуковой дорожке, чтобы отключать её в один клик перед экспортом!
+        </div>
+
       </div>
 
       <!-- ═══════ КОНЦОВКА И CTA (ШАГ 9) ═══════ -->
@@ -2087,111 +2191,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- ═══════ МУЗЫКА И ЗВУКИ MBF ═══════ -->
-  <div class="card" id="music" >
-    <div class="card-head" onclick="toggle(this)">
-      <span class="emoji">🎵</span>
-      <h2>Официальная музыкальная коллекция MBF (Все разрешённые источники)</h2>
-      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
-    </div>
-    <div class="card-body">
-
-      <div class="music-box" style="margin-top:0;">
-        <div class="music-header">
-          <div>
-            <span class="music-tag-pill">🎵 Официальные аудиотреки и звуки</span>
-            <div class="music-box-title">
-              <span>🎧</span> Все разрешённые источники музыки для видео-креативов
-            </div>
-            <div class="music-box-desc">
-              Музыка для роликов берётся <strong>ТОЛЬКО из официальных источников ниже</strong>. Любые случайные треки из сторонних пабликов или стримингов использовать категорически запрещено!<br>
-              <strong>Главные аудио-правила:</strong> музыка <strong>строго БЕЗ слов и вокала</strong> (только инструментал). Громкость музыки в миксе: <strong>-18... -40 dB</strong> (тихий ненавязчивый фон). Голос доктора Алеся: плотный и чистый, на уровне <strong>+2... -6 dB</strong>.
-            </div>
-          </div>
-        </div>
-
-        <!-- Сетка всех доступных источников музыки -->
-        <div class="music-sources-grid">
-
-          <!-- 1. Google Drive — Пак MBF (Димы) -->
-          <div class="music-source-card primary">
-            <div class="music-source-top">
-              <span class="music-source-icon">📁</span>
-              <div>
-                <div class="music-source-title">Google Drive · Папка «🎵 МУЗЫКА»</div>
-                <div class="music-source-tag">Основной пак MBF · Пак Димы</div>
-              </div>
-            </div>
-            <div class="music-source-text">
-              Официально купленная лицензионная музыка команды. Все треки 100% без слов, рассортированы по стилям: лёгкая, энергичная, загадочная, трендовая.
-            </div>
-            <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" class="music-source-btn">
-              📂 Открыть папку на Google Drive ↗
-            </a>
-          </div>
-
-          <!-- 2. Meta Sound Collection -->
-          <div class="music-source-card">
-            <div class="music-source-top">
-              <span class="music-source-icon">🎵</span>
-              <div>
-                <div class="music-source-title">Meta Sound Collection</div>
-                <div class="music-source-tag">Creator Studio Audio · Для Meta Ads</div>
-              </div>
-            </div>
-            <div class="music-source-text">
-              Официальная библиотека Meta для Instagram Reels & Stories. 10 000+ треков и звуковых эффектов (SFX), 100% чистых от бана за авторские права. <em>Выбирать: Instrumental / Без вокала.</em>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" class="music-source-btn">
-                🎵 Meta Creator Studio Sound ↗
-              </a>
-              <a href="https://www.facebook.com/sound/collection/" target="_blank" rel="noopener noreferrer" style="font-size:11.5px; color:#38bdf8; text-align:center; text-decoration:underline;">
-                Запасная ссылка: Facebook Sound ↗
-              </a>
-            </div>
-          </div>
-
-          <!-- 3. Freepik / Magnific Audio -->
-          <div class="music-source-card">
-            <div class="music-source-top">
-              <span class="music-source-icon">🎧</span>
-              <div>
-                <div class="music-source-title">Freepik / Magnific Audio</div>
-                <div class="music-source-tag">Royalty-Free треки и эффекты</div>
-              </div>
-            </div>
-            <div class="music-source-text">
-              Каталог качественных инструментальных коммерческих саундтреков и фоновой подложки. Искать по тегам: ambient, cinematic, minimal, health, wellness.
-            </div>
-            <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" class="music-source-btn">
-              🎧 Каталог Freepik Audio ↗
-            </a>
-          </div>
-
-          <!-- 4. MBF Video Base -->
-          <div class="music-source-card">
-            <div class="music-source-top">
-              <span class="music-source-icon">🌐</span>
-              <div>
-                <div class="music-source-title">MBF Video Base</div>
-                <div class="music-source-tag">Единый онлайн-портал</div>
-              </div>
-            </div>
-            <div class="music-source-text">
-              Онлайн-библиотека материалов MBF. По мере синхронизации и добавления аудиофайлов коллекция треков будет также доступна в веб-интерфейсе базы.
-            </div>
-            <a href="https://mbf-videobase.vercel.app/#" target="_blank" rel="noopener noreferrer" class="music-source-btn">
-              🌐 Перейти в Video Base ↗
-            </a>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </div>
 
