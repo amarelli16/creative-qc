@@ -763,71 +763,218 @@
       color: #fff;
     }
 
-    /* Music Banner */
-    .music-banner {
-      margin-top: 14px;
-      background: linear-gradient(135deg, rgba(236,72,153,.08) 0%, rgba(139,92,246,.08) 100%);
-      border: 1px solid rgba(236,72,153,.3);
-      border-radius: 12px;
-      padding: 16px 18px;
+    /* Music Box & Multi-Source Music Hub */
+    .music-box {
+      margin-top: 16px;
+      background: linear-gradient(135deg, rgba(236,72,153,.07) 0%, rgba(139,92,246,.07) 100%);
+      border: 1px solid rgba(236,72,153,.32);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .music-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+      margin-bottom: 14px;
     }
-    .music-banner-info {
-      flex: 1;
-      min-width: 260px;
-    }
-    .music-banner-tag {
+    .music-tag-pill {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       background: rgba(236,72,153,.18);
-      border: 1px solid rgba(236,72,153,.35);
+      border: 1px solid rgba(236,72,153,.38);
       color: #f472b6;
       border-radius: 20px;
-      padding: 2px 8px;
+      padding: 3px 10px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      letter-spacing: .04em;
     }
-    .music-banner-title {
-      font-size: 15px;
+    .music-box-title {
+      font-size: 17px;
       font-weight: 800;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      margin-top: 6px;
     }
-    .music-banner-desc {
+    .music-box-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+    .music-box-desc strong { color: #f0f1f5; }
+
+    .music-sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .music-source-card {
+      background: rgba(18,20,29,.75);
+      border: 1px solid rgba(236,72,153,.25);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all .2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .music-source-card:hover {
+      border-color: rgba(236,72,153,.65);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(236,72,153,.2);
+      background: rgba(24,26,38,.9);
+    }
+    .music-source-card.primary {
+      border-color: rgba(236,72,153,.5);
+      background: linear-gradient(180deg, rgba(236,72,153,.12) 0%, rgba(18,20,29,.85) 100%);
+    }
+    .music-source-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .music-source-icon {
+      font-size: 26px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .music-source-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+    }
+    .music-source-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #f472b6;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-top: 2px;
+    }
+    .music-source-text {
       font-size: 12.5px;
       color: var(--text-2);
       line-height: 1.45;
-      margin-top: 4px;
     }
-    .music-banner-desc strong { color: #f0f1f5; }
-    .music-banner-btn {
-      background: linear-gradient(135deg, #ec4899, #db2777);
-      color: #fff;
-      font-weight: 800;
-      font-size: 13px;
-      padding: 10px 18px;
-      border-radius: 8px;
-      text-decoration: none;
+    .music-source-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
+      background: rgba(236,72,153,.14);
+      border: 1px solid rgba(236,72,153,.35);
+      color: #f472b6;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 9px 14px;
+      border-radius: 8px;
+      transition: all .15s;
+      text-align: center;
+    }
+    .music-source-card:hover .music-source-btn {
+      background: #ec4899;
+      color: #fff;
+      border-color: #ec4899;
+      box-shadow: 0 4px 14px rgba(236,72,153,.45);
+    }
+    .music-source-card.primary .music-source-btn {
+      background: linear-gradient(135deg, #ec4899, #db2777);
+      color: #fff;
+      border-color: transparent;
       box-shadow: 0 4px 14px rgba(236,72,153,.35);
-      transition: all .2s;
-      white-space: nowrap;
     }
-    .music-banner-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(236,72,153,.5);
+
+    /* Workflow & Payouts Cards */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
     }
+    .workflow-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all .2s ease;
+    }
+    .workflow-card:hover {
+      border-color: rgba(16,185,129,.45);
+      background: rgba(255,255,255,.04);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .workflow-card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .workflow-icon {
+      font-size: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.06);
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .workflow-card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+    }
+    .workflow-badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-top: 3px;
+    }
+    .workflow-badge.green { background: rgba(16,185,129,.18); color: #34d399; border: 1px solid rgba(16,185,129,.35); }
+    .workflow-badge.orange { background: rgba(245,158,11,.18); color: #fbbf24; border: 1px solid rgba(245,158,11,.35); }
+    .workflow-badge.blue { background: rgba(56,189,248,.18); color: #38bdf8; border: 1px solid rgba(56,189,248,.35); }
+    .workflow-badge.purple { background: rgba(168,85,247,.18); color: #c084fc; border: 1px solid rgba(168,85,247,.35); }
+    .workflow-card-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+    .workflow-card-desc strong {
+      color: #f0f1f5;
+    }
+    .workflow-callout {
+      background: rgba(16,185,129,.07);
+      border: 1px solid rgba(16,185,129,.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-2);
+    }
+    .workflow-callout strong { color: #34d399; }
 
         /* Benchmark Video Cards with Previews */
     .ref-cards-grid {
@@ -1386,7 +1533,7 @@
 <!-- ═══════ IN-PAGE SUBNAV ═══════ -->
 <nav class="subnav">
   <a href="#videobase" style="color:#38bdf8; font-weight:700;">🎬 База видеоматериалов</a>
-  <a href="#music" style="color:#ec4899; font-weight:600;">🎵 Музыка (Drive)</a>
+  <a href="#music" style="color:#ec4899; font-weight:700;">🎵 Музыка & Источники</a>
   <a href="#pipeline">🚀 Пайплайн монтажа (10 шагов)</a>
   <a href="#subtitles">💬 Субтитры Montserrat</a>
   <a href="#audio">🎵 Звук и музыка</a>
@@ -1394,7 +1541,8 @@
   <a href="#naming">🏷️ Нейминг 4 файлов</a>
   <a href="#meta-visual">🛡️ Meta & Бренд для монтажа</a>
   <a href="#safezone">📐 Safe Zones (Сейф-зоны)</a>
-  <a href="#specs">📐 Технические параметры</a>
+  <a href="#specs">⚙️ Технические параметры</a>
+  <a href="#workflow" style="color:#10b981; font-weight:700;">🤝 Процесс, сдача и выплаты</a>
   <a href="#traffic">🚦 Светофор</a>
   <a href="#checklist">✓ Экспресс-чеклист</a>
 </nav>
@@ -1471,21 +1619,98 @@
         </div>
       </div>
 
-      <!-- 🎵 КАРТОЧКА МУЗЫКИ (ОСТАВЛЯЕМ GOOGLE DRIVE, Т.К. В БАЗЕ ЕЁ НЕТ) -->
-      <div class="music-banner" id="music">
-        <div class="music-banner-info">
-          <span class="music-banner-tag">🎵 Официальный аудиотрек-пак</span>
-          <div class="music-banner-title">
-            <span>🎧</span> Музыка для видео-креативов (Google Drive)
-          </div>
-          <div class="music-banner-desc">
-            В веб-библиотеке музыки пока нет — <strong>все треки для монтажа берём строго из этой официальной папки на Google Drive</strong>.<br>
-            Строгое правило: музыка <strong>строго БЕЗ слов и вокала</strong>. Любые сторонние треки использовать запрещено! Уровень в миксе: <strong>-18... -40 dB</strong>.
+      <!-- 🎵 ЕДИНЫЙ ХАБ МУЗЫКАЛЬНЫХ ИСТОЧНИКОВ MBF -->
+      <div class="music-box" id="music">
+        <div class="music-header">
+          <div>
+            <span class="music-tag-pill">🎵 Официальные аудиотреки и звуки</span>
+            <div class="music-box-title">
+              <span>🎧</span> Все разрешённые источники музыки для видео-креативов
+            </div>
+            <div class="music-box-desc">
+              Музыка для роликов берётся <strong>ТОЛЬКО из официальных источников ниже</strong>. Любые случайные треки из сторонних пабликов или стримингов использовать категорически запрещено!<br>
+              <strong>Главные аудио-правила:</strong> музыка <strong>строго БЕЗ слов и вокала</strong> (только инструментал). Громкость музыки в миксе: <strong>-18... -40 dB</strong> (тихий ненавязчивый фон). Голос доктора Алеся: плотный и чистый, на уровне <strong>+2... -6 dB</strong>.
+            </div>
           </div>
         </div>
-        <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" class="music-banner-btn">
-          🎵 Открыть папку с музыкой на Drive ↗
-        </a>
+
+        <!-- Сетка всех доступных источников музыки -->
+        <div class="music-sources-grid">
+
+          <!-- 1. Google Drive — Пак MBF (Димы) -->
+          <div class="music-source-card primary">
+            <div class="music-source-top">
+              <span class="music-source-icon">📁</span>
+              <div>
+                <div class="music-source-title">Google Drive · Папка «🎵 МУЗЫКА»</div>
+                <div class="music-source-tag">Основной пак MBF · Пак Димы</div>
+              </div>
+            </div>
+            <div class="music-source-text">
+              Официально купленная лицензионная музыка команды. Все треки 100% без слов, рассортированы по стилям: лёгкая, энергичная, загадочная, трендовая.
+            </div>
+            <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+              📂 Открыть папку на Google Drive ↗
+            </a>
+          </div>
+
+          <!-- 2. Meta Sound Collection -->
+          <div class="music-source-card">
+            <div class="music-source-top">
+              <span class="music-source-icon">🎵</span>
+              <div>
+                <div class="music-source-title">Meta Sound Collection</div>
+                <div class="music-source-tag">Creator Studio Audio · Для Meta Ads</div>
+              </div>
+            </div>
+            <div class="music-source-text">
+              Официальная библиотека Meta для Instagram Reels & Stories. 10 000+ треков и звуковых эффектов (SFX), 100% чистых от бана за авторские права. <em>Выбирать: Instrumental / Без вокала.</em>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+                🎵 Meta Creator Studio Sound ↗
+              </a>
+              <a href="https://www.facebook.com/sound/collection/" target="_blank" rel="noopener noreferrer" style="font-size:11.5px; color:#38bdf8; text-align:center; text-decoration:underline;">
+                Запасная ссылка: Facebook Sound ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Freepik / Magnific Audio -->
+          <div class="music-source-card">
+            <div class="music-source-top">
+              <span class="music-source-icon">🎧</span>
+              <div>
+                <div class="music-source-title">Freepik / Magnific Audio</div>
+                <div class="music-source-tag">Royalty-Free треки и эффекты</div>
+              </div>
+            </div>
+            <div class="music-source-text">
+              Каталог качественных инструментальных коммерческих саундтреков и фоновой подложки. Искать по тегам: ambient, cinematic, minimal, health, wellness.
+            </div>
+            <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+              🎧 Каталог Freepik Audio ↗
+            </a>
+          </div>
+
+          <!-- 4. MBF Video Base -->
+          <div class="music-source-card">
+            <div class="music-source-top">
+              <span class="music-source-icon">🌐</span>
+              <div>
+                <div class="music-source-title">MBF Video Base</div>
+                <div class="music-source-tag">Единый онлайн-портал</div>
+              </div>
+            </div>
+            <div class="music-source-text">
+              Онлайн-библиотека материалов MBF. По мере синхронизации и добавления аудиофайлов коллекция треков будет также доступна в веб-интерфейсе базы.
+            </div>
+            <a href="https://mbf-videobase.vercel.app/#" target="_blank" rel="noopener noreferrer" class="music-source-btn">
+              🌐 Перейти в Video Base ↗
+            </a>
+          </div>
+
+        </div>
       </div>
 
     </div>
@@ -1594,6 +1819,9 @@
           <div class="rule-title"><span class="chip crit">Шаг 2 · Основа</span> Живые футажи с доктором Алесем (или экспертом курса) и моделями</div>
           <div class="rule-hint">
             <strong>Первостепенно вставлять кадры самого Алеся (или автора курса)</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Все необходимые футажи, демонстрации техник и раскадровки берём из интерактивной <a href="#videobase" style="color:#38bdf8; font-weight:700; text-decoration:underline;">Видеотеки MBF (mbf-videobase.vercel.app)</a> — в ней собраны все курсы, раскадровки сценариев и удобный поиск по частям тела, упражнениям и словам Алеся.
+            <div class="note orange" style="margin-top:8px;">
+              <strong>⏱️ Правило неповторяемости футажей:</strong> футажи и фрагменты <strong>не должны повторяться хотя бы 30 секунд</strong>, а в идеале — <strong>вообще не повторяться на протяжении всего ролика</strong>! Зацикливание одних и тех же кадров зритель считывает как халтуру, и retention сразу падает. Обеспечивайте постоянное разнообразие планов и действий.
+            </div>
           </div>
         </div>
       </div>
@@ -1619,7 +1847,8 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip warn">Шаг 4 · Темп</span> Динамика: смена кадров каждые 3–5 секунд</div>
           <div class="rule-hint">
-            Видео не должно зависать на одной статичной картинке дольше 5 секунд. Меняй крупность планов: общий → средний → крупный на руки/лицо → анатомическая врезка → лицо Алеся (или эксперта курса).
+            Видео не должно зависать на одной статичной картинке дольше 5 секунд. Меняй крупность планов: общий → средний → крупный на руки/лицо → анатомическая врезка → лицо Алеся (или эксперта курса).<br>
+            • <strong>Без зацикливаний и повторов:</strong> один и тот же футаж не должен повторяться чаще, чем через 30 секунд (в идеале — ролик монтируется без единого повторного кадра).
           </div>
         </div>
       </div>
@@ -1726,16 +1955,32 @@
       </div>
 
       <!-- ═══════ МУЗЫКА И ЗВУК (ШАГ 8) ═══════ -->
-      <div class="rule" id="audio">
+      <div class="rule" id="audio" style="border-color: rgba(236,72,153,.35); background: linear-gradient(180deg, rgba(236,72,153,.03) 0%, rgba(255,255,255,.015) 100%);">
         <div class="pip crit"></div>
         <div class="rule-body">
-          <div class="rule-title"><span class="chip crit">Шаг 8 · Аудио</span> Музыка ТОЛЬКО из нашей коллекции + чистый баланс звука</div>
+          <div class="rule-title"><span class="chip crit">Шаг 8 · Аудио</span> Музыка ТОЛЬКО из официальных источников + баланс звука</div>
           <div class="rule-hint">
             <ul style="margin:6px 0 6px 18px; line-height:1.65;">
-              <li><strong>Характер музыки:</strong> лёгкая / энергичная / загадочная / нагнетающая / трендовая.</li>
-              <li><strong>Источник:</strong> <strong>ТОЛЬКО из нашей коллекции</strong> (<a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline; font-weight:600;">папка 🎵 МУЗЫКА на Google Drive ↗</a>). <strong>Никакие другие источники не использовать!</strong> Музыка строго без слов/вокала.</li>
+              <li><strong>Главное табу:</strong> Музыка <strong>строго БЕЗ слов и вокала</strong> (только инструментал). Вокал отвлекает от речи доктора и приводит к отклонению ролика модерацией.</li>
+              <li><strong>Характер музыки:</strong> лёгкая / энергичная / загадочная / нагнетающая / трендовая (соответствует настроению сценария).</li>
               <li><strong>Громкость голоса доктора:</strong> разброс от <strong>+2 dB до -6 dB</strong> (чистый, плотный, без длинных пауз и вздохов).</li>
-              <li><strong>Громкость музыки:</strong> уровень <strong>-18... -40 dB</strong>, чтобы она ни в коем случае не перекрывала голос.</li>
+              <li><strong>Громкость музыки в миксе:</strong> уровень <strong>-18... -40 dB</strong> (тихая фоновая подложка, ни в коем случае не заглушает речь).</li>
+              <li><strong>Официальные источники треков (сторонние брать запрещено):</strong>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+                  <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:rgba(236,72,153,.15); border:1px solid rgba(236,72,153,.35); color:#f472b6; padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+                    📁 1. Папка «МУЗЫКА» на Drive ↗
+                  </a>
+                  <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:rgba(56,189,248,.12); border:1px solid rgba(56,189,248,.3); color:#38bdf8; padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+                    🎵 2. Meta Sound Collection ↗
+                  </a>
+                  <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:rgba(168,85,247,.12); border:1px solid rgba(168,85,247,.3); color:#c084fc; padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+                    🎧 3. Freepik Audio ↗
+                  </a>
+                  <a href="#music" style="display:inline-flex; align-items:center; gap:5px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); color:var(--text-2); padding:5px 11px; border-radius:6px; font-weight:600; font-size:12px; text-decoration:none;">
+                    ↑ Подробнее о музыке в начале страницы
+                  </a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -2018,6 +2263,93 @@
     </div>
   </div>
 
+  <!-- ═══════ РЕГЛАМЕНТ РАБОТЫ, СДАЧА И ВЫПЛАТЫ ═══════ -->
+  <div class="card" id="workflow" style="border-color: rgba(16,185,129,.35); background: linear-gradient(180deg, rgba(16,185,129,.03) 0%, rgba(255,255,255,.015) 100%);">
+    <div class="card-head" onclick="toggle(this)">
+      <span class="emoji">🤝</span>
+      <h2>Процесс работы, сдача креативов, правки и выплаты</h2>
+      <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/></svg>
+    </div>
+    <div class="card-body">
+      <p style="font-size: 13.5px; color: var(--text-2); margin-bottom: 12px;">
+        Официальный регламент взаимодействия монтажёров с командой маркетинга и кураторами MBF:
+      </p>
+
+      <div class="workflow-grid">
+
+        <!-- 1. Выплаты -->
+        <div class="workflow-card">
+          <div class="workflow-card-head">
+            <div class="workflow-icon" style="background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.3); color: #34d399;">
+              💳
+            </div>
+            <div>
+              <div class="workflow-card-title">Выплаты раз в неделю — каждый понедельник</div>
+              <span class="workflow-badge green">Оплата & Финансы</span>
+            </div>
+          </div>
+          <div class="workflow-card-desc">
+            Выплаты монтажёрам за выполненную работу начисляются <strong>раз в неделю по понедельникам</strong>. В оплату попадают все принятые креативы, прошедшие QC-проверку и выгруженные по стандарту 4 файлов к понедельнику.
+          </div>
+        </div>
+
+        <!-- 2. Дедлайны -->
+        <div class="workflow-card">
+          <div class="workflow-card-head">
+            <div class="workflow-icon" style="background: rgba(245,158,11,.1); border-color: rgba(245,158,11,.3); color: #fbbf24;">
+              ⏱️
+            </div>
+            <div>
+              <div class="workflow-card-title">Дедлайны: сдаём вовремя · предупреждаем заранее</div>
+              <span class="workflow-badge orange">Сроки задач</span>
+            </div>
+          </div>
+          <div class="workflow-card-desc">
+            Сдавать работу стараемся строго вовремя. Если по каким-то причинам (технические проблемы, рендер, личные обстоятельства) вы <strong>не успеваете — обязательно предупредите заранее</strong> в своей ветке, не дожидаясь наступления дедлайна.
+          </div>
+        </div>
+
+        <!-- 3. Ветка в чате Монтаж песочница -->
+        <div class="workflow-card">
+          <div class="workflow-card-head">
+            <div class="workflow-icon" style="background: rgba(56,189,248,.1); border-color: rgba(56,189,248,.3); color: #38bdf8;">
+              💬
+            </div>
+            <div>
+              <div class="workflow-card-title">Все правки — в своей ветке чата «Монтаж песочница»</div>
+              <span class="workflow-badge blue">Коммуникация</span>
+            </div>
+          </div>
+          <div class="workflow-card-desc">
+            Все обсуждения задач, вопросы по сценарию и правки обсуждаем <strong>строго в своей персональной ветке (топике) в чате Telegram «Монтаж песочница»</strong>. Не переносим обсуждение в личку — контекст должен быть виден всей команде.
+          </div>
+        </div>
+
+        <!-- 4. Сдача пачками и теги -->
+        <div class="workflow-card">
+          <div class="workflow-card-head">
+            <div class="workflow-icon" style="background: rgba(168,85,247,.1); border-color: rgba(168,85,247,.3); color: #c084fc;">
+              🚀
+            </div>
+            <div>
+              <div class="workflow-card-title">Сдача пачками · Тег куратора и @ariannamarelli</div>
+              <span class="workflow-badge purple">Сдача на QC</span>
+            </div>
+          </div>
+          <div class="workflow-card-desc">
+            Креативы сдаём <strong>порционно по мере готовности, пачками</strong> (не ждём завершения всего пула роликов). Когда креатив готов: отправляем в ветку, <strong>тягаем своего куратора и Арианну @ariannamarelli + прикладываем ссылку</strong> на папку Google Drive с 4 файлами (<code>S</code>, <code>M_S</code>, <code>F</code>, <code>M_F</code>).
+          </div>
+        </div>
+
+      </div>
+
+      <div class="workflow-callout">
+        <strong>💡 Быстрый шаблон сдачи пачки роликов:</strong> смонтировали 2–3 ролика → проверили по чек-листу → залили на Google Drive → отправляем в свою ветку чата «Монтаж песочница»: <em>«Готова пачка роликов [ID], ссылка: [URL], @куратор @ariannamarelli»</em>.
+      </div>
+
+    </div>
+  </div>
+
   <!-- ═══════ СВЕТОФОР ═══════ -->
   <div class="card" id="traffic">
     <div class="card-head" onclick="toggle(this)">
@@ -2031,10 +2363,11 @@
           <h3>Красный · Переделать</h3>
           <ul>
             <li>Нет лица Алеся (или другого эксперта курса) в первые 3 секунды</li>
-            <li>Использован сторонний трек НЕ из нашей коллекции</li>
+            <li>Футажи повторяются по кругу (один и тот же кадр чаще чем через 30 сек)</li>
+            <li>Использован сторонний трек НЕ из официальных источников</li>
+            <li>Музыка со словами/вокалом</li>
             <li>Использован сток или мыльный нейрослоп</li>
             <li>Кадр висит неподвижно более 6 секунд</li>
-            <li>Ошиблись в имени Dr. Ales</li>
             <li>Не сданы все 4 обязательных файла (S, M_S, F, M_F)</li>
           </ul>
         </div>
@@ -2045,17 +2378,19 @@
             <li>Субтитры залезли в нижнюю зону 250px (safe zone)</li>
             <li>Резкая, дерганая анимация стрелки</li>
             <li>В нейминге пропущено сокращение продюсера (I, A, Al, Ar)</li>
+            <li>Сдали всю партию в последний момент вместо сдачи пачками</li>
           </ul>
         </div>
         <div class="tl-col green">
           <h3>Зелёный · В релиз ✓</h3>
           <ul>
             <li>Экспортированы все 4 файла (S, M_S, F, M_F) с кодом продюсера</li>
-            <li>Лицо Алеся (или другого эксперта курса) в хуке и в середине ролика</li>
-            <li>Монсеррат органичного размера в 2 строки с оранжевым/зеленым акцентом</li>
-            <li>Музыка ТОЛЬКО из нашей коллекции (-18... -40 dB)</li>
-            <li>Голос доктора от +2 до -6 dB, без пауз</li>
-            <li>Скролл лендинга курса в конце</li>
+            <li>Лицо Алеся (или эксперта курса) в хуке и в середине ролика</li>
+            <li>Футажи не повторяются хотя бы 30 сек (в идеале уникальный видеоряд)</li>
+            <li>Субтитры Montserrat органичного размера в 2 строки с плашкой градиента</li>
+            <li>Музыка ТОЛЬКО из официальных источников (-18... -40 dB, без слов)</li>
+            <li>Голос доктора от +2 до -6 dB, без длинных пауз</li>
+            <li>Скролл лендинга курса в конце + сдача в ветку чата «Монтаж песочница»</li>
           </ul>
         </div>
       </div>
@@ -2067,7 +2402,7 @@
     <div class="check-top">
       <div class="check-title">
         <h2>✓ Экспресс-проверка монтажёра перед сдачей</h2>
-        <p id="checkSub">0 / 16 пунктов</p>
+        <p id="checkSub">0 / 18 пунктов</p>
       </div>
       <div class="progress-wrap">
         <div class="progress-ring">
@@ -2083,20 +2418,22 @@
     <div class="chk-list">
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Хук 0–3 сек: лицо доктора Алеся (или другого эксперта курса) + визуализация боли/проблемы</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Использованы живые футажи Алеся или автора курса (на себе, моделях, доске)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Футажи не повторяются хотя бы 30 секунд (в идеале — уникальные кадры без повторов на протяжении всего ролика)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ банального стока (сток не используем вообще)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">НЕТ нейрослопа, мыльных текстур и пластиковых лиц</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Динамика: планы и ракурсы меняются каждые 3–5 секунд</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Анимации плавные и сглаженные (ease-in-out, без резких рывков)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Субтитры: Montserrat SemiBold/Bold Italic CAPS органичного размера в 2 строчки</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Под субтитры наложена полупрозрачная градиентная плашка для читаемости</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Ключевые слова выделены оранжевым #e7551a или зелёным #164236</span></label>
-      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Музыка ТОЛЬКО из нашей коллекции Drive (легкая/энергичная/загадочная/нагнетающая/трендовая)</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Музыка ТОЛЬКО из официальных источников (Drive / Meta Sound / Freepik), строго БЕЗ слов</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Баланс звука: голос от +2 до -6 dB, музыка -18... -40 dB, голос не перекрывается</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Концовка: скролл лендинга курса + тапы и понятный CTA</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Соблюдены Safe Zones Instagram (отступ 14% сверху, 20% снизу)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Правильное написание: Dr. Ales Ulishchenko и Faceplastica (без значка ®)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Соблюдены форматы: Stories/Reels (1080×1920 9:16) и Feed (1080×1350 4:5)</span></label>
       <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Экспортированы все 4 файла по неймингу: S, M_S, F, M_F с кодом продюсера (I, A, Al, Ar)</span></label>
-      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Прослушал в наушниках целиком + проверил последние 15 секунд</span></label>
+      <label class="chk" onclick="chk(this)"><input type="checkbox"><div class="chk-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="chk-text">Сдача пачкой в свою ветку «Монтаж песочница» с тегом куратора и @ariannamarelli + ссылка на Google Drive</span></label>
     </div>
   </div>
 
@@ -2214,7 +2551,7 @@ function toggleVbFullscreen() {
 
 function filterRules(){
   const q = document.getElementById('ruleSearch').value.toLowerCase().trim();
-  const rules = document.querySelectorAll('.rule, .naming-box, .ref-box, .folder-card, .vb-quick-card');
+  const rules = document.querySelectorAll('.rule, .naming-box, .ref-box, .folder-card, .vb-quick-card, .workflow-card, .music-source-card');
   rules.forEach(r => {
     if(!q){ r.style.display = ''; return; }
     const match = r.textContent.toLowerCase().includes(q);
