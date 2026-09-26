@@ -5,75 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MBF · Регламент видеомонтажа (Video Editor Guide)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Montserrat:ital,wght@1,600;1,700;1,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23023A3B'/><path d='M11 9l12 7-12 7z' fill='%23E7551A'/></svg>">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #08090d;
-      --surface: rgba(255,255,255,.04);
-      --surface-hover: rgba(255,255,255,.07);
-      --border: rgba(255,255,255,.08);
-      --text: #f0f1f5;
-      --text-2: #a0a4b8;
-      --text-3: #636882;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56,189,248,.18);
-      --red: #f43f5e;
-      --orange: #f59e0b;
-      --green: #10b981;
-      --blue: #3b82f6;
-      --purple: #8b5cf6;
-      --red-glow: rgba(244,63,94,.12);
-      --orange-glow: rgba(245,158,11,.10);
-      --green-glow: rgba(16,185,129,.10);
-      --blue-glow: rgba(59,130,246,.10);
-      --brand-orange: #e7551a;
-      --brand-green: #164236;
+      /* MBF Video Base Corporate Color Tokens */
+      --euc: #023a3b;          /* Primary Deep Eucalyptus Green */
+      --euc2: #0e241e;         /* Deep Forest Green / Header */
+      --euc-deep: #073f3e;     /* Deep Teal / Hero gradient */
+      --euc-light: #ebf3f0;    /* Light Eucalyptus tint */
+      --euc-glow: rgba(2, 58, 59, 0.16);
+
+      --flame: #e7551a;        /* Signature MBF Flame Orange */
+      --flame-soft: #fca355;   /* Soft Warm Flame Accent */
+      --flame-glow: rgba(231, 85, 26, 0.22);
+      --flame-light: #fff2eb;  /* Light orange tint for tags/hover */
+
+      --cream: #ffecd1;        /* Warm Cream */
+      --cream2: #fff6ea;       /* Soft Cream Card Highlight */
+      --ground: #f8f6f1;       /* Warm Ground / Body Background */
+      --bg: #f8f6f1;           /* Page background */
+      --surface: #ffffff;      /* Pure White Card Surface */
+      --surface-2: #fdfbf7;    /* Subtle Warm Card Background */
+      --surface-hover: #f2eee6;/* Hover state */
+
+      --ink: #0e241e;          /* Main Text: Deep Eucalyptus Black */
+      --ink-2: #243b35;        /* Secondary Dark Text */
+      --muted: #586c62;        /* Muted Green-Gray Text */
+      --subtle: #8a9d96;       /* Subtle Text */
+
+      --line: #dde5e0;         /* Primary Card Border */
+      --line-strong: #c2d1cb;  /* Emphasized Border */
+      --rule: #eadbc4;         /* Warm Rule / Divider */
+
+      --gold: #f5b824;         /* Star / Badge Gold */
+      --red: #d9381e;          /* Critical Error Red */
+      --red-glow: rgba(217, 56, 30, 0.12);
+      --green: #0e7c6b;        /* Verified / Success Green */
+      --green-glow: rgba(14, 124, 107, 0.12);
+
+      --shadow-sm: 0 1px 3px rgba(14, 36, 30, 0.05), 0 4px 12px rgba(14, 36, 30, 0.04);
+      --shadow-md: 0 4px 16px rgba(14, 36, 30, 0.08), 0 12px 32px rgba(14, 36, 30, 0.06);
       --radius: 14px;
+      --leaf-pattern: url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%20viewBox%3D%270%200%20160%20160%27%3E%20%3Cg%20fill%3D%27%252391b4bb%27%20fill-opacity%3D%270.08%27%3E%20%20%20%3Cpath%20d%3D%27M20%2C30%20C35%2C18%2055%2C25%2060%2C45%20C45%2C55%2025%2C48%2020%2C30%20Z%27/%3E%20%20%20%3Cpath%20d%3D%27M20%2C30%20Q38%2C36%2060%2C45%27%20stroke%3D%27%2523ffecd1%27%20stroke-width%3D%271%27%20stroke-opacity%3D%270.12%27%20fill%3D%27none%27/%3E%20%20%20%3Cpath%20d%3D%27M65%2C48%20C78%2C35%2098%2C40%20102%2C60%20C90%2C70%2070%2C65%2065%2C48%20Z%27/%3E%20%20%20%3Cpath%20d%3D%27M10%2C20%20Q40%2C38%2075%2C55%20T140%2C95%27%20stroke%3D%27%2523ffecd1%27%20stroke-width%3D%271.2%27%20stroke-opacity%3D%270.1%27%20fill%3D%27none%27/%3E%20%20%20%3Cpath%20d%3D%27M110%2C80%20C125%2C65%20145%2C72%20150%2C90%20C135%2C102%20115%2C95%20110%2C80%20Z%27/%3E%20%20%20%3Cpath%20d%3D%27M80%2C68%20C72%2C85%2080%2C105%2098%2C108%20C105%2C92%2098%2C73%2080%2C68%20Z%27/%3E%20%20%20%3Cpath%20d%3D%27M130%2C120%20C140%2C108%20155%2C112%20158%2C126%20C148%2C134%20133%2C130%20130%2C120%20Z%27/%3E%20%3C/g%3E%20%3C/svg%3E');
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 14.5px;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Top Sticky Navigation */
     .top-nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(8,9,13,.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 24px;
+      background: var(--euc2);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      padding: 0 24px;
+      height: 56px;
       display: flex; align-items: center; justify-content: space-between;
       gap: 16px;
     }
     .top-brand {
       display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: inherit;
+      text-decoration: none; color: #fff;
     }
     .top-logo {
       width: 32px; height: 32px; border-radius: 9px;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      background: var(--flame);
       display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 13px; color: #fff;
-      box-shadow: 0 0 14px rgba(56,189,248,.4);
+      box-shadow: 0 2px 10px rgba(231,85,26,.4);
     }
-    .top-title { font-weight: 700; font-size: 13.5px; color: var(--text); }
-    .top-subtitle { font-size: 11px; color: var(--text-3); }
+    .top-title { font-weight: 700; font-size: 14px; color: #fff; line-height: 1.2; }
+    .top-subtitle { font-size: 11px; color: #a3b8b0; }
 
     /* Role Switcher Pills */
     .role-switcher {
       display: inline-flex; align-items: center;
-      background: rgba(255,255,255,.05);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
       border-radius: 30px;
       padding: 3px;
       gap: 4px;
@@ -81,23 +102,25 @@
     .role-btn {
       padding: 6px 14px; border-radius: 20px;
       font-size: 12.5px; font-weight: 600;
-      text-decoration: none; color: var(--text-2);
+      text-decoration: none; color: rgba(255,255,255,.85);
       transition: all .2s ease;
       display: inline-flex; align-items: center; gap: 6px;
       white-space: nowrap;
     }
-    .role-btn:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .role-btn:hover { color: #fff; background: rgba(255,255,255,.14); }
     .role-btn.active {
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      background: var(--flame);
       color: #fff;
-      box-shadow: 0 2px 10px rgba(56,189,248,.35);
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(231,85,26,.4);
     }
     .role-btn.inactive {
-      color: #f472b6;
+      color: var(--cream);
+      opacity: .85;
     }
     .role-btn.inactive:hover {
-      background: rgba(236,72,153,.15);
-      color: #fff;
+      background: rgba(255,255,255,.16);
+      opacity: 1;
     }
 
     .top-actions {
@@ -105,168 +128,188 @@
     }
     .top-link {
       padding: 6px 12px; border-radius: 8px;
-      font-size: 12px; font-weight: 500;
-      color: var(--text-2); text-decoration: none;
-      background: var(--surface); border: 1px solid var(--border);
+      font-size: 12px; font-weight: 600;
+      color: #fff; text-decoration: none;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
       transition: all .2s ease;
     }
-    .top-link:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+    .top-link:hover { background: rgba(255,255,255,.2); color: #fff; }
 
-    /* Hero */
+    /* Hero Banner with Botanical Eucalyptus Leaves Pattern */
     .hero {
       position: relative;
-      padding: 48px 24px 32px;
+      background: linear-gradient(135deg, var(--euc) 0%, var(--euc-deep) 50%, var(--euc2) 100%);
+      color: #fff;
+      padding: 50px 24px 42px;
       text-align: center;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(2,58,59,.18);
     }
-    .hero::before {
-      content: '';
+    .hero-leaf-pattern {
       position: absolute;
-      top: -120px; left: 50%; transform: translateX(-50%);
-      width: 650px; height: 650px;
-      background: radial-gradient(circle, rgba(56,189,248,.15) 0%, transparent 70%);
+      inset: 0;
+      background-image: var(--leaf-pattern);
+      background-repeat: repeat;
+      background-size: 160px 160px;
+      opacity: 0.9;
       pointer-events: none;
+    }
+    .hero-leaf-branch {
+      position: absolute;
+      top: -15px;
+      width: 190px;
+      height: 230px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-leaf-left {
+      left: 10px;
+    }
+    .hero-leaf-right {
+      right: 10px;
+      transform: scaleX(-1);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin: 0 auto;
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: linear-gradient(135deg, rgba(56,189,248,.2), rgba(56,189,248,.05));
-      border: 1px solid rgba(56,189,248,.35);
+      background: rgba(231,85,26,.22);
+      border: 1px solid var(--flame);
       border-radius: 20px;
       padding: 4px 14px;
-      font-size: 11.5px; font-weight: 600;
-      color: #38bdf8;
+      font-size: 11.5px; font-weight: 700;
+      color: var(--cream);
       letter-spacing: .04em; text-transform: uppercase;
       margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
     }
     .hero h1 {
-      font-size: clamp(26px, 4.5vw, 40px);
-      font-weight: 900;
-      letter-spacing: -.03em;
-      line-height: 1.15;
+      font-size: clamp(26px, 4.5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.18;
       margin-bottom: 12px;
+      color: #fff;
     }
     .hero h1 span {
-      background: linear-gradient(135deg, #fff 30%, #38bdf8 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      color: var(--flame-soft);
+      text-shadow: 0 0 24px rgba(252,163,85,.35);
     }
     .hero p {
-      font-size: clamp(14px, 1.8vw, 16.5px);
-      color: var(--text-2);
+      font-size: clamp(14px, 1.8vw, 16px);
+      color: #d3e3dd;
       max-width: 680px;
-      margin: 0 auto 20px;
-      font-weight: 400;
+      margin: 0 auto;
+      line-height: 1.55;
     }
-
-    /* Sub-nav in Hero to switch pages */
-    .role-callout-banner {
-      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 18px;
-      margin: 0 auto 16px;
-      max-width: 720px;
-      font-size: 13px;
-      color: var(--text-2);
-      flex-wrap: wrap;
-    }
-    .role-callout-banner strong { color: var(--text); }
-    .role-callout-btn {
-      padding: 5px 12px; border-radius: 6px;
-      font-size: 12px; font-weight: 600;
-      text-decoration: none; color: #fff;
-      background: rgba(236,72,153,.25);
-      border: 1px solid rgba(236,72,153,.4);
-      transition: all .2s ease;
-      display: inline-flex; align-items: center; gap: 5px;
-    }
-    .role-callout-btn:hover { background: rgba(236,72,153,.4); }
 
     /* Sticky In-page anchors */
     nav.subnav {
-      position: sticky; top: 53px; z-index: 90;
-      background: rgba(8,9,13,.82);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 8px 24px;
+      position: sticky; top: 56px; z-index: 90;
+      background: rgba(248, 246, 241, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      padding: 9px 24px;
       display: flex; gap: 6px;
       overflow-x: auto;
       justify-content: center;
     }
     nav.subnav a {
-      color: var(--text-3);
+      color: var(--ink-2);
+      background: #fff;
+      border: 1px solid var(--line);
       text-decoration: none;
-      font-size: 12.5px;
-      font-weight: 500;
-      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 13px;
       border-radius: 20px;
       white-space: nowrap;
       transition: all .15s;
+      box-shadow: 0 1px 2px rgba(14,36,30,.03);
     }
-    nav.subnav a:hover { color: var(--text); background: var(--surface-hover); }
+    nav.subnav a:hover {
+      color: var(--flame);
+      border-color: var(--flame);
+      background: #fff;
+    }
 
     /* Container */
     .container {
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 24px 16px 80px;
+      padding: 28px 18px 80px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
 
     /* Cards */
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: border-color .2s;
+      box-shadow: var(--shadow-sm);
+      transition: border-color .2s, box-shadow .2s;
     }
-    .card:hover { border-color: rgba(255,255,255,.14); }
+    .card:hover {
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-md);
+    }
     .card-head {
       display: flex; align-items: center; gap: 12px;
-      padding: 16px 20px;
+      padding: 16px 22px;
       cursor: pointer;
       user-select: none;
     }
-    .card-head:hover { background: var(--surface-hover); }
+    .card-head:hover { background: #f7f5f0; }
     .card-head .emoji { font-size: 20px; flex-shrink: 0; }
     .card-head h2 {
-      font-size: 16px; font-weight: 700;
+      font-size: 16.5px; font-weight: 800;
       letter-spacing: -.01em; flex: 1;
+      color: var(--euc);
     }
     .card-head .arrow {
-      width: 18px; height: 18px; color: var(--text-3);
+      width: 18px; height: 18px; color: var(--muted);
       transition: transform .25s ease;
       flex-shrink: 0;
     }
     .card.shut .card-body { display: none; }
     .card.shut .arrow { transform: rotate(-90deg); }
     .card-body {
-      padding: 0 20px 20px;
-      border-top: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 12px;
+      padding: 0 22px 22px;
+      border-top: 1px solid var(--line);
+      display: flex; flex-direction: column; gap: 14px;
     }
 
     /* Rules */
     .rule {
       display: flex; gap: 12px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid var(--border);
+      background: #faf8f5;
+      border: 1px solid #e8e4dc;
       border-radius: 10px;
       padding: 14px 16px;
-      transition: background .15s;
+      transition: background .15s, border-color .15s;
     }
-    .rule:hover { background: rgba(255,255,255,.035); }
+    .rule:hover {
+      background: #ffffff;
+      border-color: #d5cebf;
+      box-shadow: 0 2px 8px rgba(2,58,59,.04);
+    }
     .pip {
       width: 4px; border-radius: 2px;
       flex-shrink: 0; align-self: stretch;
       min-height: 24px;
     }
     .pip.crit { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
-    .pip.warn { background: var(--orange); }
-    .pip.info { background: var(--accent); }
+    .pip.warn { background: var(--gold); }
+    .pip.info { background: var(--euc); }
     .pip.ok   { background: var(--green); }
 
     .rule-body { flex: 1; min-width: 0; }
@@ -274,24 +317,26 @@
       font-size: 14px; font-weight: 700;
       display: flex; align-items: center; gap: 8px;
       flex-wrap: wrap; margin-bottom: 4px;
+      color: var(--ink);
     }
-    .rule-hint { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .rule-hint { font-size: 13px; color: var(--ink-2); line-height: 1.55; }
     .tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      color: var(--text-3);
-      background: rgba(255,255,255,.06);
+      font-size: 11px; font-weight: 600;
+      color: var(--euc);
+      background: #ebf3f0;
+      border: 1px solid #d2e2db;
       padding: 1px 6px; border-radius: 4px;
     }
     .chip {
       font-size: 10.5px; font-weight: 700;
-      padding: 1px 7px; border-radius: 4px;
+      padding: 2px 7px; border-radius: 4px;
       text-transform: uppercase; letter-spacing: .03em;
     }
-    .chip.crit { background: var(--red-glow); color: var(--red); }
-    .chip.warn { background: var(--orange-glow); color: var(--orange); }
-    .chip.info { background: rgba(56,189,248,.12); color: #38bdf8; }
-    .chip.ok   { background: var(--green-glow); color: var(--green); }
+    .chip.crit { background: #ffe8e5; color: #c52711; }
+    .chip.warn { background: #fff3e0; color: #b25e00; }
+    .chip.info { background: #e4f1ee; color: var(--euc); }
+    .chip.ok   { background: #e4f5ee; color: var(--green); }
 
     /* Examples */
     .exs {
@@ -304,8 +349,8 @@
       font-size: 12.5px; line-height: 1.45;
       display: flex; align-items: flex-start; gap: 8px;
     }
-    .ex.bad { background: var(--red-glow); border: 1px solid rgba(244,63,94,.2); color: #fda4af; }
-    .ex.good { background: var(--green-glow); border: 1px solid rgba(16,185,129,.2); color: #6ee7b7; }
+    .ex.bad { background: #fff2f0; border: 1px solid #f5c6cb; color: #8a1f11; }
+    .ex.good { background: #f0f9f5; border: 1px solid #c3e6cb; color: #0a4d3c; }
     .ex::before { font-size: 13px; flex-shrink: 0; line-height: 1.3; }
     .ex.bad::before { content: '✕'; color: var(--red); font-weight: 800; }
     .ex.good::before { content: '✓'; color: var(--green); font-weight: 800; }
@@ -315,13 +360,13 @@
       border-radius: 10px; padding: 14px 16px;
       font-size: 13px; line-height: 1.6;
     }
-    .note.red { background: var(--red-glow); border: 1px solid rgba(244,63,94,.25); color: #fda4af; }
-    .note.orange { background: var(--orange-glow); border: 1px solid rgba(245,158,11,.25); color: #fde68a; }
-    .note.green { background: var(--green-glow); border: 1px solid rgba(16,185,129,.25); color: #a7f3d0; }
-    .note.blue { background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.25); color: #bae6fd; }
+    .note.red { background: #fff2f0; border: 1px solid #f5c6cb; color: #8a1f11; }
+    .note.orange { background: #fff7ed; border: 1px solid #fed7aa; color: #8c2e0b; }
+    .note.green { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .note.blue { background: #ebf5f3; border: 1px solid #bedad3; color: #023a3b; }
 
     .ctx {
-      font-size: 13.5px; color: var(--text-2);
+      font-size: 13.5px; color: var(--ink-2);
       line-height: 1.6; margin-bottom: 6px;
     }
 
@@ -331,8 +376,8 @@
       gap: 10px; margin-top: 10px;
     }
     .folder-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 10px;
       padding: 12px 14px;
       text-decoration: none;
@@ -342,45 +387,60 @@
       transition: all .2s ease;
     }
     .folder-card:hover {
-      background: rgba(255,255,255,.07);
-      border-color: rgba(56,189,248,.4);
+      background: #ffffff;
+      border-color: var(--euc);
       transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(2,58,59,.08);
     }
     .folder-name {
-      font-size: 13.5px; font-weight: 700; color: #38bdf8;
+      font-size: 13.5px; font-weight: 700; color: var(--euc);
       display: flex; align-items: center; gap: 6px;
     }
-    .folder-desc { font-size: 12px; color: var(--text-3); line-height: 1.4; }
+    .folder-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
     .folder-action {
-      font-size: 11px; font-weight: 600; color: var(--text-2);
+      font-size: 11px; font-weight: 600; color: var(--flame);
       display: flex; align-items: center; gap: 4px;
     }
 
-        /* MBF Video Base Showcase */
+    /* MBF Video Base Showcase */
     .videobase-hero {
-      background: linear-gradient(135deg, rgba(56,189,248,.12) 0%, rgba(139,92,246,.08) 50%, rgba(2,58,59,.25) 100%);
-      border: 1px solid rgba(56,189,248,.35);
+      background: linear-gradient(135deg, var(--euc) 0%, var(--euc2) 100%);
+      color: #fff;
+      border: 1px solid var(--euc2);
       border-radius: 14px;
-      padding: 20px 22px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      padding: 22px 24px;
+      box-shadow: 0 8px 32px rgba(2,58,59,.18);
       position: relative;
       overflow: hidden;
       margin-bottom: 16px;
     }
+    .videobase-hero::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 180px;
+      height: 180px;
+      background-image: var(--leaf-pattern);
+      background-size: 140px 140px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
     .videobase-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(56,189,248,.18);
-      border: 1px solid rgba(56,189,248,.4);
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.28);
       border-radius: 20px;
       padding: 3px 10px;
       font-size: 11px; font-weight: 700;
-      color: #38bdf8;
+      color: var(--cream);
       letter-spacing: .04em; text-transform: uppercase;
       margin-bottom: 10px;
     }
     .videobase-head {
       display: flex; align-items: center; justify-content: space-between;
       gap: 16px; flex-wrap: wrap; margin-bottom: 10px;
+      position: relative; z-index: 2;
     }
     .videobase-title {
       font-size: 19px; font-weight: 800; color: #fff;
@@ -388,58 +448,61 @@
     }
     .videobase-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, #38bdf8, #0284c7);
-      color: #041017;
+      background: var(--flame);
+      color: #fff;
       font-weight: 800; font-size: 13.5px;
-      padding: 10px 18px;
-      border-radius: 10px;
+      padding: 10px 20px;
+      border-radius: 22px;
       text-decoration: none;
-      box-shadow: 0 4px 16px rgba(56,189,248,.35);
+      box-shadow: 0 4px 16px rgba(231,85,26,.4);
       transition: all .2s;
     }
     .videobase-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(56,189,248,.5);
-      color: #000;
+      box-shadow: 0 6px 22px rgba(231,85,26,.55);
+      background: #cf4a15;
+      color: #fff;
     }
     .videobase-desc {
-      font-size: 13px; color: var(--text-2); line-height: 1.6;
+      font-size: 13.5px; color: #d3e3dd; line-height: 1.6;
       margin-bottom: 16px; max-width: 900px;
+      position: relative; z-index: 2;
     }
     .vb-quick-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
       gap: 10px;
+      position: relative; z-index: 2;
     }
     .vb-quick-card {
-      background: rgba(8,9,13,.6);
-      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
       border-radius: 10px;
-      padding: 10px 12px;
+      padding: 11px 13px;
       text-decoration: none;
-      color: inherit;
+      color: #fff;
       display: flex; flex-direction: column; justify-content: space-between;
       gap: 4px;
       transition: all .2s ease;
     }
     .vb-quick-card:hover {
-      background: rgba(56,189,248,.12);
-      border-color: rgba(56,189,248,.4);
+      background: rgba(255,255,255,.16);
+      border-color: var(--flame-soft);
       transform: translateY(-2px);
     }
     .vb-quick-title {
-      font-size: 13px; font-weight: 700; color: #f0f1f5;
+      font-size: 13px; font-weight: 700; color: #fff;
       display: flex; align-items: center; gap: 6px;
     }
     .vb-quick-desc {
-      font-size: 11.5px; color: var(--text-3); line-height: 1.35;
+      font-size: 11.5px; color: #b8ccc5; line-height: 1.35;
     }
     .vb-quick-action {
-      font-size: 11px; font-weight: 600; color: #38bdf8;
+      font-size: 11px; font-weight: 700; color: var(--flame-soft);
       margin-top: 4px;
     }
 
-        /* Safe Zone Visual Gallery */
+    /* Safe Zone Visual Gallery */
     .safezone-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -452,8 +515,8 @@
       }
     }
     .safezone-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 12px;
       overflow: hidden;
       display: flex;
@@ -461,17 +524,17 @@
       transition: all .2s ease;
     }
     .safezone-card:hover {
-      border-color: rgba(56,189,248,.4);
+      border-color: var(--euc);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      box-shadow: 0 8px 24px rgba(2,58,59,.08);
     }
     .safezone-card.good {
-      border-color: rgba(16,185,129,.35);
-      background: linear-gradient(180deg, rgba(16,185,129,.06) 0%, rgba(255,255,255,.02) 100%);
+      border-color: #c3e6cb;
+      background: #f7fbf9;
     }
     .safezone-card.bad {
-      border-color: rgba(244,63,94,.35);
-      background: linear-gradient(180deg, rgba(244,63,94,.06) 0%, rgba(255,255,255,.02) 100%);
+      border-color: #f5c6cb;
+      background: #fff8f8;
     }
     .safezone-card-img-wrap {
       width: 100%;
@@ -480,7 +543,7 @@
       justify-content: center;
       align-items: center;
       padding: 10px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
     }
     .safezone-card-img {
       width: 100%;
@@ -509,25 +572,25 @@
       width: fit-content;
       margin-bottom: 4px;
     }
-    .safezone-card-badge.template { background: rgba(56,189,248,.18); color: #38bdf8; border: 1px solid rgba(56,189,248,.35); }
-    .safezone-card-badge.good { background: rgba(16,185,129,.18); color: #34d399; border: 1px solid rgba(16,185,129,.35); }
-    .safezone-card-badge.bad { background: rgba(244,63,94,.18); color: #f43f5e; border: 1px solid rgba(244,63,94,.35); }
+    .safezone-card-badge.template { background: var(--euc-light); color: var(--euc); border: 1px solid #d2e2db; }
+    .safezone-card-badge.good { background: #e4f5ee; color: var(--green); border: 1px solid #bbf7d0; }
+    .safezone-card-badge.bad { background: #ffe8e5; color: #c52711; border: 1px solid #fecaca; }
     .safezone-card-title {
       font-size: 14px;
-      font-weight: 700;
-      color: #fff;
+      font-weight: 800;
+      color: var(--ink);
     }
     .safezone-card-desc {
       font-size: 12.5px;
-      color: var(--text-2);
+      color: var(--ink-2);
       line-height: 1.5;
     }
-    .safezone-card-desc strong { color: #f0f1f5; }
+    .safezone-card-desc strong { color: var(--ink); }
     .safezone-download-link {
       margin-top: auto;
       padding-top: 10px;
       font-size: 12px;
-      color: #38bdf8;
+      color: var(--flame);
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
@@ -538,10 +601,10 @@
       text-decoration: underline;
     }
 
-        /* Subtitle Gradient Guide Card */
+    /* Subtitle Gradient Guide Card */
     .gradient-guide-card {
-      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(56,189,248,.04) 100%);
-      border: 1px solid rgba(56,189,248,.3);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 12px;
       padding: 16px;
       margin-top: 14px;
@@ -560,7 +623,7 @@
       flex-shrink: 0;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.15);
+      border: 1px solid var(--line);
       background: #000;
       display: flex;
       position: relative;
@@ -579,29 +642,29 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(56,189,248,.15);
-      border: 1px solid rgba(56,189,248,.3);
+      background: var(--euc-light);
+      border: 1px solid #d2e2db;
       border-radius: 20px;
       padding: 2px 10px;
       font-size: 11px;
       font-weight: 700;
-      color: #38bdf8;
+      color: var(--euc);
       text-transform: uppercase;
       margin-bottom: 6px;
     }
     .gradient-title {
       font-size: 15px;
       font-weight: 800;
-      color: #fff;
+      color: var(--ink);
       margin-bottom: 6px;
     }
     .gradient-desc {
       font-size: 12.5px;
-      color: var(--text-2);
+      color: var(--ink-2);
       line-height: 1.55;
       margin-bottom: 12px;
     }
-    .gradient-desc strong { color: #f0f1f5; }
+    .gradient-desc strong { color: var(--ink); }
     .gradient-actions {
       display: flex;
       gap: 10px;
@@ -619,41 +682,42 @@
       transition: all .2s;
     }
     .gradient-btn.primary {
-      background: linear-gradient(135deg, #38bdf8, #0284c7);
-      color: #041017;
-      box-shadow: 0 4px 14px rgba(56,189,248,.3);
+      background: var(--flame);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(231,85,26,.3);
     }
     .gradient-btn.primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(56,189,248,.45);
-      color: #000;
+      box-shadow: 0 6px 18px rgba(231,85,26,.45);
+      background: #cf4a15;
+      color: #fff;
     }
     .gradient-btn.secondary {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
     }
     .gradient-btn.secondary:hover {
-      background: rgba(255,255,255,.12);
-      border-color: rgba(56,189,248,.4);
+      background: #f7f5f0;
+      border-color: var(--euc);
       transform: translateY(-1px);
     }
 
-        /* Embedded Video Base Frame */
+    /* Embedded Video Base Frame */
     .videobase-frame-container {
-      background: #090a0f;
-      border: 1px solid rgba(56,189,248,.35);
+      background: #fff;
+      border: 1px solid var(--line);
       border-radius: 14px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 36px rgba(0,0,0,.45);
+      box-shadow: var(--shadow-sm);
       transition: all .2s ease;
       position: relative;
     }
     .videobase-frame-header {
-      background: rgba(255,255,255,.03);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: #f4f7f5;
+      border-bottom: 1px solid var(--line);
       padding: 10px 14px;
       display: flex;
       align-items: center;
@@ -664,7 +728,7 @@
     .vb-frame-title {
       font-size: 14px;
       font-weight: 800;
-      color: #fff;
+      color: var(--euc);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -678,21 +742,21 @@
       padding-bottom: 2px;
     }
     .vb-tab-btn {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
+      background: #fff;
+      border: 1px solid var(--line);
       border-radius: 6px;
       padding: 4px 8px;
       font-size: 11.5px;
       font-weight: 600;
-      color: var(--text-2);
+      color: var(--ink-2);
       cursor: pointer;
       white-space: nowrap;
       transition: all .15s;
     }
     .vb-tab-btn:hover, .vb-tab-btn.active {
-      background: rgba(56,189,248,.18);
-      border-color: rgba(56,189,248,.4);
-      color: #38bdf8;
+      background: var(--euc);
+      border-color: var(--euc);
+      color: #fff;
     }
     .vb-frame-actions {
       display: flex;
@@ -700,9 +764,9 @@
       gap: 8px;
     }
     .vb-action-btn {
-      background: rgba(56,189,248,.12);
-      border: 1px solid rgba(56,189,248,.3);
-      color: #38bdf8;
+      background: var(--flame-light);
+      border: 1px solid var(--flame-soft);
+      color: var(--flame);
       border-radius: 6px;
       padding: 5px 10px;
       font-size: 12px;
@@ -715,7 +779,7 @@
       transition: all .2s;
     }
     .vb-action-btn:hover {
-      background: rgba(56,189,248,.25);
+      background: var(--flame);
       color: #fff;
     }
     .videobase-iframe {
@@ -723,7 +787,7 @@
       height: 380px;
       border: none;
       display: block;
-      background: #021a1b;
+      background: #f8f6f1;
       transition: height .35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .videobase-frame-container.expanded .videobase-iframe {
@@ -743,13 +807,13 @@
       height: calc(100vh - 54px) !important;
     }
     .vb-bottom-bar {
-      background: rgba(8,9,13,.85);
-      border-top: 1px solid rgba(255,255,255,.08);
+      background: #f4f7f5;
+      border-top: 1px solid var(--line);
       text-align: center;
-      padding: 7px 14px;
+      padding: 8px 14px;
       font-size: 12px;
       font-weight: 700;
-      color: #38bdf8;
+      color: var(--euc);
       cursor: pointer;
       transition: all .2s;
       display: flex;
@@ -759,17 +823,18 @@
       user-select: none;
     }
     .vb-bottom-bar:hover {
-      background: rgba(56,189,248,.15);
-      color: #fff;
+      background: #ebf3f0;
+      color: var(--flame);
     }
 
     /* Music Box & Multi-Source Music Hub */
     .music-box {
       margin-top: 16px;
-      background: linear-gradient(135deg, rgba(236,72,153,.07) 0%, rgba(139,92,246,.07) 100%);
-      border: 1px solid rgba(236,72,153,.32);
+      background: #ffffff;
+      border: 1px solid #fcceb0;
       border-radius: 14px;
       padding: 20px 22px;
+      box-shadow: var(--shadow-sm);
     }
     .music-header {
       display: flex;
@@ -783,9 +848,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(236,72,153,.18);
-      border: 1px solid rgba(236,72,153,.38);
-      color: #f472b6;
+      background: #ffe8d6;
+      border: 1px solid var(--flame-soft);
+      color: #c84613;
       border-radius: 20px;
       padding: 3px 10px;
       font-size: 11px;
@@ -796,7 +861,7 @@
     .music-box-title {
       font-size: 17px;
       font-weight: 800;
-      color: #fff;
+      color: var(--euc);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -804,11 +869,11 @@
     }
     .music-box-desc {
       font-size: 13px;
-      color: var(--text-2);
+      color: var(--ink-2);
       line-height: 1.55;
       margin-top: 6px;
     }
-    .music-box-desc strong { color: #f0f1f5; }
+    .music-box-desc strong { color: var(--ink); }
 
     .music-sources-grid {
       display: grid;
@@ -817,8 +882,8 @@
       margin-top: 14px;
     }
     .music-source-card {
-      background: rgba(18,20,29,.75);
-      border: 1px solid rgba(236,72,153,.25);
+      background: #faf8f5;
+      border: 1px solid var(--rule);
       border-radius: 12px;
       padding: 16px 18px;
       display: flex;
@@ -830,14 +895,14 @@
       color: inherit;
     }
     .music-source-card:hover {
-      border-color: rgba(236,72,153,.65);
+      border-color: var(--flame);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(236,72,153,.2);
-      background: rgba(24,26,38,.9);
+      box-shadow: 0 8px 24px rgba(231,85,26,.15);
+      background: #ffffff;
     }
     .music-source-card.primary {
-      border-color: rgba(236,72,153,.5);
-      background: linear-gradient(180deg, rgba(236,72,153,.12) 0%, rgba(18,20,29,.85) 100%);
+      border-color: var(--flame);
+      background: #fffdfb;
     }
     .music-source-top {
       display: flex;
@@ -852,20 +917,20 @@
     .music-source-title {
       font-size: 14.5px;
       font-weight: 800;
-      color: #fff;
+      color: var(--euc);
       line-height: 1.25;
     }
     .music-source-tag {
       font-size: 10.5px;
       font-weight: 700;
-      color: #f472b6;
+      color: var(--flame);
       text-transform: uppercase;
       letter-spacing: .03em;
       margin-top: 2px;
     }
     .music-source-text {
       font-size: 12.5px;
-      color: var(--text-2);
+      color: var(--muted);
       line-height: 1.45;
     }
     .music-source-btn {
@@ -873,9 +938,9 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      background: rgba(236,72,153,.14);
-      border: 1px solid rgba(236,72,153,.35);
-      color: #f472b6;
+      background: var(--flame-light);
+      border: 1px solid var(--flame-soft);
+      color: var(--flame);
       font-size: 12.5px;
       font-weight: 700;
       padding: 9px 14px;
@@ -884,16 +949,16 @@
       text-align: center;
     }
     .music-source-card:hover .music-source-btn {
-      background: #ec4899;
+      background: var(--flame);
       color: #fff;
-      border-color: #ec4899;
-      box-shadow: 0 4px 14px rgba(236,72,153,.45);
+      border-color: var(--flame);
+      box-shadow: 0 4px 14px rgba(231,85,26,.3);
     }
     .music-source-card.primary .music-source-btn {
-      background: linear-gradient(135deg, #ec4899, #db2777);
+      background: var(--flame);
       color: #fff;
       border-color: transparent;
-      box-shadow: 0 4px 14px rgba(236,72,153,.35);
+      box-shadow: 0 4px 14px rgba(231,85,26,.25);
     }
 
     /* Workflow & Payouts Cards */
@@ -904,20 +969,20 @@
       margin-top: 14px;
     }
     .workflow-card {
-      background: rgba(255,255,255,.025);
-      border: 1px solid rgba(255,255,255,.09);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 14px;
       padding: 18px 20px;
       display: flex;
       flex-direction: column;
       gap: 12px;
       transition: all .2s ease;
+      box-shadow: var(--shadow-sm);
     }
     .workflow-card:hover {
-      border-color: rgba(16,185,129,.45);
-      background: rgba(255,255,255,.04);
+      border-color: var(--euc);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      box-shadow: var(--shadow-md);
     }
     .workflow-card-head {
       display: flex;
@@ -932,14 +997,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,.06);
+      background: var(--euc-light);
+      color: var(--euc);
       flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,.1);
+      border: 1px solid #d2e2db;
     }
     .workflow-card-title {
       font-size: 15px;
       font-weight: 800;
-      color: #fff;
+      color: var(--euc);
       line-height: 1.25;
     }
     .workflow-badge {
@@ -952,31 +1018,31 @@
       letter-spacing: .03em;
       margin-top: 3px;
     }
-    .workflow-badge.green { background: rgba(16,185,129,.18); color: #34d399; border: 1px solid rgba(16,185,129,.35); }
-    .workflow-badge.orange { background: rgba(245,158,11,.18); color: #fbbf24; border: 1px solid rgba(245,158,11,.35); }
-    .workflow-badge.blue { background: rgba(56,189,248,.18); color: #38bdf8; border: 1px solid rgba(56,189,248,.35); }
-    .workflow-badge.purple { background: rgba(168,85,247,.18); color: #c084fc; border: 1px solid rgba(168,85,247,.35); }
+    .workflow-badge.green { background: #e4f5ee; color: var(--green); border: 1px solid #bbf7d0; }
+    .workflow-badge.orange { background: #fff3e0; color: #b25e00; border: 1px solid #fed7aa; }
+    .workflow-badge.blue { background: #ebf5f3; color: var(--euc); border: 1px solid #bedad3; }
+    .workflow-badge.purple { background: #f5f0fb; color: #7a4ea3; border: 1px solid #e9d5ff; }
     .workflow-card-desc {
       font-size: 13px;
-      color: var(--text-2);
+      color: var(--ink-2);
       line-height: 1.55;
     }
     .workflow-card-desc strong {
-      color: #f0f1f5;
+      color: var(--ink);
     }
     .workflow-callout {
-      background: rgba(16,185,129,.07);
-      border: 1px solid rgba(16,185,129,.25);
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
       border-radius: 10px;
       padding: 12px 14px;
       margin-top: 14px;
       font-size: 13px;
       line-height: 1.55;
-      color: var(--text-2);
+      color: #166534;
     }
-    .workflow-callout strong { color: #34d399; }
+    .workflow-callout strong { color: #0e7c6b; }
 
-        /* Benchmark Video Cards with Previews */
+    /* Benchmark Video Cards with Previews */
     .ref-cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -984,8 +1050,8 @@
       margin-top: 14px;
     }
     .ref-video-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(56,189,248,.25);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 14px;
       overflow: hidden;
       display: flex;
@@ -993,12 +1059,12 @@
       transition: all .25s ease;
       text-decoration: none;
       color: inherit;
+      box-shadow: var(--shadow-sm);
     }
     .ref-video-card:hover {
-      border-color: rgba(56,189,248,.6);
+      border-color: var(--flame);
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(56,189,248,.18);
-      background: rgba(255,255,255,.05);
+      box-shadow: 0 12px 30px rgba(231,85,26,.15);
     }
     .ref-thumb-wrap {
       width: 100%;
@@ -1024,7 +1090,7 @@
     .ref-play-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.7) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.65) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1034,29 +1100,29 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      background: rgba(56,189,248,.9);
-      color: #041017;
+      background: var(--flame);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      box-shadow: 0 4px 20px rgba(56,189,248,.5);
+      box-shadow: 0 4px 20px rgba(231,85,26,.5);
       transition: all .2s ease;
       padding-left: 3px;
     }
     .ref-video-card:hover .ref-play-circle {
       transform: scale(1.15);
-      background: #38bdf8;
-      box-shadow: 0 6px 26px rgba(56,189,248,.8);
+      background: #cf4a15;
+      box-shadow: 0 6px 26px rgba(231,85,26,.7);
     }
     .ref-badge {
       position: absolute;
       top: 10px;
       left: 10px;
-      background: rgba(8,9,13,.82);
+      background: rgba(2,58,59,.88);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(56,189,248,.45);
-      color: #38bdf8;
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--cream);
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
@@ -1074,29 +1140,29 @@
     .ref-title {
       font-size: 15px;
       font-weight: 800;
-      color: #fff;
+      color: var(--euc);
     }
     .ref-desc {
       font-size: 12.5px;
-      color: var(--text-2);
+      color: var(--muted);
       line-height: 1.5;
     }
-    .ref-desc strong { color: #f0f1f5; }
+    .ref-desc strong { color: var(--ink); }
     .ref-cta {
       margin-top: auto;
       padding-top: 10px;
       font-size: 12.5px;
       font-weight: 700;
-      color: #38bdf8;
+      color: var(--flame);
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-        /* Animation Example Card */
+    /* Animation Example Card */
     .anim-example-card {
-      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(56,189,248,.04) 100%);
-      border: 1px solid rgba(56,189,248,.3);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 12px;
       overflow: hidden;
       margin-top: 14px;
@@ -1106,6 +1172,7 @@
       text-decoration: none;
       color: inherit;
       transition: all .25s ease;
+      box-shadow: var(--shadow-sm);
     }
     @media (max-width: 680px) {
       .anim-example-card {
@@ -1113,10 +1180,9 @@
       }
     }
     .anim-example-card:hover {
-      border-color: rgba(56,189,248,.6);
+      border-color: var(--flame);
       transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(56,189,248,.2);
-      background: rgba(255,255,255,.06);
+      box-shadow: 0 10px 28px rgba(231,85,26,.15);
     }
     .anim-thumb-wrap {
       width: 140px;
@@ -1158,29 +1224,29 @@
       width: 46px;
       height: 46px;
       border-radius: 50%;
-      background: rgba(56,189,248,.9);
-      color: #041017;
+      background: var(--flame);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
-      box-shadow: 0 4px 16px rgba(56,189,248,.5);
+      box-shadow: 0 4px 16px rgba(231,85,26,.5);
       transition: all .2s ease;
       padding-left: 3px;
     }
     .anim-example-card:hover .anim-play-circle {
       transform: scale(1.15);
-      background: #38bdf8;
-      box-shadow: 0 6px 22px rgba(56,189,248,.8);
+      background: #cf4a15;
+      box-shadow: 0 6px 22px rgba(231,85,26,.7);
     }
     .anim-badge {
       position: absolute;
       top: 8px;
       left: 8px;
-      background: rgba(8,9,13,.82);
+      background: rgba(2,58,59,.88);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(56,189,248,.45);
-      color: #38bdf8;
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--cream);
       font-size: 10px;
       font-weight: 800;
       text-transform: uppercase;
@@ -1203,20 +1269,20 @@
     .anim-title {
       font-size: 15px;
       font-weight: 800;
-      color: #fff;
+      color: var(--euc);
     }
     .anim-desc {
       font-size: 12.5px;
-      color: var(--text-2);
+      color: var(--muted);
       line-height: 1.5;
     }
-    .anim-desc strong { color: #f0f1f5; }
+    .anim-desc strong { color: var(--ink); }
     .anim-cta {
       margin-top: auto;
       padding-top: 10px;
       font-size: 12.5px;
       font-weight: 700;
-      color: #38bdf8;
+      color: var(--flame);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -1224,8 +1290,8 @@
 
     /* Subtitle Live Preview Box - 2 lines, organic size, orange & green highlights */
     .sub-preview-box {
-      background: #000;
-      border: 1px solid rgba(255,255,255,.15);
+      background: #0a1412;
+      border: 1px solid var(--euc2);
       border-radius: 12px;
       position: relative;
       height: 190px;
@@ -1235,7 +1301,7 @@
     }
     .sub-preview-bg {
       position: absolute; inset: 0;
-      background: radial-gradient(circle at center, rgba(56,189,248,.2) 0%, #000 85%);
+      background: radial-gradient(circle at center, rgba(2,58,59,.4) 0%, #050b0a 85%);
       opacity: .85;
     }
     .sub-preview-glow {
@@ -1265,7 +1331,7 @@
     }
     .sub-preview-text span.highlight-green {
       color: #34d399;
-      background: rgba(22,66,54,.85);
+      background: rgba(2,58,59,.85);
       padding: 2px 8px;
       border-radius: 4px;
       text-shadow: 0 0 16px rgba(52,211,153,.6);
@@ -1273,8 +1339,8 @@
 
     /* Naming files grid - 2 files standard (S and M_S) */
     .naming-box {
-      background: rgba(56,189,248,.05);
-      border: 1px solid rgba(56,189,248,.25);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 12px;
       padding: 16px;
       margin-top: 8px;
@@ -1285,27 +1351,28 @@
     }
     @media(max-width:600px){ .naming-grid { grid-template-columns: 1fr; } }
     .naming-file-card {
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.08);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 8px;
       padding: 12px 14px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12.5px;
+      box-shadow: 0 1px 3px rgba(14,36,30,.03);
     }
     .naming-legend {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 8px; margin-top: 12px; font-size: 11.5px;
     }
     .naming-tag {
-      background: rgba(255,255,255,.03); border: 1px solid var(--border);
-      border-radius: 6px; padding: 4px 8px; color: var(--text-2);
+      background: #ffffff; border: 1px solid var(--line);
+      border-radius: 6px; padding: 4px 8px; color: var(--ink-2);
     }
-    .naming-tag span { font-weight: 700; color: #38bdf8; font-family: 'JetBrains Mono', monospace; }
+    .naming-tag span { font-weight: 700; color: var(--euc); font-family: 'JetBrains Mono', monospace; }
 
     /* Interactive Naming Tool */
     .tool-box {
-      background: rgba(255,255,255,.02);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 10px;
       padding: 14px;
       margin-top: 10px;
@@ -1315,83 +1382,93 @@
       gap: 8px; margin-bottom: 12px;
     }
     .tool-input-group label {
-      display: block; font-size: 11px; color: var(--text-3); margin-bottom: 4px; font-weight: 600;
+      display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 600;
     }
     .tool-input-group input, .tool-input-group select {
       width: 100%;
-      background: rgba(0,0,0,.4);
-      border: 1px solid rgba(255,255,255,.15);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 6px;
       padding: 6px 10px;
       font-size: 12.5px;
-      color: var(--text);
+      color: var(--ink);
       font-family: 'JetBrains Mono', monospace;
+    }
+    .tool-input-group input:focus, .tool-input-group select:focus {
+      outline: 2px solid var(--euc);
+      background: #fff;
     }
     .tool-results {
       display: flex; flex-direction: column; gap: 6px;
     }
     .tool-result-row {
       display: flex; align-items: center; justify-content: space-between;
-      background: rgba(0,0,0,.4);
-      border: 1px solid var(--border);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 6px;
       padding: 8px 12px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12.5px;
     }
     .copy-btn {
-      background: rgba(255,255,255,.1);
-      border: none; border-radius: 4px;
-      color: var(--text-2); cursor: pointer;
-      font-size: 11px; padding: 3px 10px;
+      background: var(--euc-light);
+      border: 1px solid #d2e2db;
+      border-radius: 4px;
+      color: var(--euc);
+      cursor: pointer;
+      font-size: 11px; padding: 4px 10px;
+      font-weight: 600;
       transition: all .15s;
     }
-    .copy-btn:hover { background: rgba(255,255,255,.2); color: #fff; }
+    .copy-btn:hover { background: var(--euc); color: #fff; }
 
     /* Checklist */
     .check-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 24px;
+      box-shadow: var(--shadow-sm);
     }
     .check-top {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 20px; flex-wrap: wrap; gap: 16px;
     }
-    .check-title h2 { font-size: 18px; font-weight: 800; }
-    .check-title p  { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+    .check-title h2 { font-size: 18px; font-weight: 800; color: var(--euc); }
+    .check-title p  { font-size: 13px; color: var(--muted); margin-top: 2px; }
     .progress-wrap { display: flex; align-items: center; gap: 12px; }
     .progress-ring { position: relative; width: 56px; height: 56px; }
     .progress-ring svg { transform: rotate(-90deg); }
-    .ring-bg { stroke: rgba(255,255,255,.08); }
+    .ring-bg { stroke: #e8e4dc; }
     .ring-fg { stroke: var(--green); transition: stroke-dashoffset .35s; }
     .ring-text {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 12px; font-weight: 800;
+      color: var(--euc);
     }
     .chk-list { display: flex; flex-direction: column; gap: 6px; }
     .chk {
       display: flex; align-items: center; gap: 12px;
-      padding: 9px 12px; border-radius: 8px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid transparent;
+      padding: 10px 14px; border-radius: 8px;
+      background: #faf8f5;
+      border: 1px solid #eae5dc;
       cursor: pointer; user-select: none;
       transition: all .15s;
     }
-    .chk:hover { background: rgba(255,255,255,.04); }
+    .chk:hover { background: #f2eee6; }
     .chk.done {
-      background: var(--green-glow);
-      border-color: rgba(16,185,129,.2);
+      background: #e8f5ee;
+      border-color: #a5d6a7;
     }
-    .chk.done .chk-text { color: #a7f3d0; text-decoration: line-through; opacity: .75; }
+    .chk.done .chk-text { color: #1b5e20; text-decoration: line-through; opacity: .75; }
     .chk input { display: none; }
     .chk-box {
       width: 18px; height: 18px; border-radius: 5px;
-      border: 1.5px solid var(--text-3);
+      border: 1.5px solid var(--muted);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; transition: all .15s;
+      background: #fff;
     }
     .chk.done .chk-box {
       background: var(--green);
@@ -1399,7 +1476,7 @@
     }
     .chk-box svg { display: none; }
     .chk.done .chk-box svg { display: block; }
-    .chk-text { font-size: 13.5px; color: var(--text); }
+    .chk-text { font-size: 13.5px; color: var(--ink); }
 
     /* Traffic Light */
     .traffic {
@@ -1408,23 +1485,23 @@
     }
     .tl-col {
       border-radius: 10px; padding: 14px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
     }
-    .tl-col.red    { background: var(--red-glow);    border-color: rgba(244,63,94,.25); }
-    .tl-col.yellow { background: var(--orange-glow); border-color: rgba(245,158,11,.25); }
-    .tl-col.green  { background: var(--green-glow);  border-color: rgba(16,185,129,.25); }
+    .tl-col.red    { background: #fff5f5; border-color: #fed7d7; }
+    .tl-col.yellow { background: #fffaf0; border-color: #feebc8; }
+    .tl-col.green  { background: #f0fff4; border-color: #c6f6d5; }
     .tl-col h3 {
       font-size: 13px; font-weight: 800;
       margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
     }
-    .tl-col.red h3    { color: var(--red); }
-    .tl-col.yellow h3 { color: var(--orange); }
-    .tl-col.green h3  { color: var(--green); }
+    .tl-col.red h3    { color: #c52711; }
+    .tl-col.yellow h3 { color: #b25e00; }
+    .tl-col.green h3  { color: #166534; }
     .tl-col ul { list-style: none; font-size: 12px; line-height: 1.55; }
-    .tl-col ul li { position: relative; padding-left: 14px; margin-bottom: 5px; }
-    .tl-col.red ul li::before    { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
-    .tl-col.yellow ul li::before { content: '△'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
-    .tl-col.green ul li::before  { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .tl-col ul li { position: relative; padding-left: 14px; margin-bottom: 5px; color: var(--ink-2); }
+    .tl-col.red ul li::before    { content: '✕'; position: absolute; left: 0; color: #c52711; font-weight: 700; }
+    .tl-col.yellow ul li::before { content: '△'; position: absolute; left: 0; color: #b25e00; font-weight: 700; }
+    .tl-col.green ul li::before  { content: '✓'; position: absolute; left: 0; color: #166534; font-weight: 700; }
 
     /* Search Box */
     .search-box {
@@ -1433,33 +1510,34 @@
     }
     .search-input {
       width: 100%;
-      background: rgba(255,255,255,.05);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 10px;
       padding: 10px 16px 10px 38px;
       font-size: 13.5px;
-      color: var(--text);
+      color: var(--ink);
       outline: none;
       transition: all .2s ease;
+      box-shadow: 0 1px 3px rgba(14,36,30,.03);
     }
     .search-input:focus {
-      border-color: rgba(56,189,248,.4);
-      background: rgba(255,255,255,.08);
+      border-color: var(--euc);
+      box-shadow: 0 0 0 3px rgba(2,58,59,.12);
     }
     .search-icon {
       position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-      font-size: 14px; color: var(--text-3); pointer-events: none;
+      font-size: 14px; color: var(--muted); pointer-events: none;
     }
 
     /* Ref Links */
     .ref-box {
-      background: rgba(56,189,248,.06);
-      border: 1px solid rgba(56,189,248,.25);
+      background: #faf8f5;
+      border: 1px solid var(--line);
       border-radius: 10px;
       padding: 14px 16px;
     }
     .ref-box-title {
-      font-size: 14px; font-weight: 700; color: #38bdf8;
+      font-size: 14px; font-weight: 700; color: var(--euc);
       display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
     }
     .ref-links {
@@ -1467,19 +1545,21 @@
     }
     .ref-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
+      background: #ffffff;
+      border: 1px solid var(--line);
       border-radius: 8px;
       padding: 8px 14px;
       font-size: 13px; font-weight: 600;
-      color: var(--text);
+      color: var(--ink);
       text-decoration: none;
       transition: all .2s;
     }
     .ref-btn:hover {
-      background: rgba(255,255,255,.12);
-      border-color: rgba(56,189,248,.4);
+      background: #ffffff;
+      border-color: var(--euc);
+      color: var(--euc);
       transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(2,58,59,.08);
     }
 
     .terms {
@@ -1487,12 +1567,12 @@
     }
     @media(max-width: 580px){ .terms { grid-template-columns: 1fr; } }
     .term-card {
-      background: rgba(255,255,255,.03); border: 1px solid var(--border);
+      background: #faf8f5; border: 1px solid var(--line);
       border-radius: 8px; padding: 10px 12px; font-size: 13px;
     }
     .term-label {
       font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
-      color: var(--text-3); font-weight: 700; margin-bottom: 2px;
+      color: var(--muted); font-weight: 700; margin-bottom: 2px;
     }
   </style>
 </head>
@@ -1525,16 +1605,45 @@
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
-  <div class="hero-badge">🎬 Для видеомонтажёров</div>
-  <h1>Регламент <span>видеомонтажа</span> креативов</h1>
-
+  <div class="hero-leaf-pattern"></div>
+  <svg class="hero-leaf-branch hero-leaf-left" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M-10,230 Q60,160 110,80 T160,-20" stroke="#FFECD1" stroke-width="2" stroke-opacity="0.35" stroke-linecap="round"/>
+    <path d="M45,175 C55,145 90,148 95,178 C75,195 48,188 45,175 Z" fill="#91B4BB" fill-opacity="0.28"/>
+    <path d="M45,175 Q68,162 95,178" stroke="#FFECD1" stroke-width="1" stroke-opacity="0.35"/>
+    <path d="M25,190 C12,165 35,145 55,158 C52,180 32,195 25,190 Z" fill="#E7551A" fill-opacity="0.25"/>
+    <path d="M85,120 C100,95 135,102 138,130 C118,144 90,136 85,120 Z" fill="#91B4BB" fill-opacity="0.32"/>
+    <path d="M85,120 Q110,110 138,130" stroke="#FFECD1" stroke-width="1" stroke-opacity="0.4"/>
+    <path d="M60,130 C45,110 65,85 88,100 C85,122 68,136 60,130 Z" fill="#FFECD1" fill-opacity="0.22"/>
+    <path d="M125,60 C145,35 178,45 176,75 C155,86 130,76 125,60 Z" fill="#91B4BB" fill-opacity="0.3"/>
+    <path d="M125,60 Q150,52 176,75" stroke="#FFECD1" stroke-width="1" stroke-opacity="0.35"/>
+    <path d="M102,70 C92,48 115,30 135,46 C130,66 112,77 102,70 Z" fill="#E7551A" fill-opacity="0.22"/>
+    <path d="M150,5 C162,-15 188,-6 186,16 C170,24 154,16 150,5 Z" fill="#91B4BB" fill-opacity="0.32"/>
+  </svg>
+  <svg class="hero-leaf-branch hero-leaf-right" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M-10,230 Q60,160 110,80 T160,-20" stroke="#FFECD1" stroke-width="2" stroke-opacity="0.35" stroke-linecap="round"/>
+    <path d="M45,175 C55,145 90,148 95,178 C75,195 48,188 45,175 Z" fill="#91B4BB" fill-opacity="0.28"/>
+    <path d="M45,175 Q68,162 95,178" stroke="#FFECD1" stroke-width="1" stroke-opacity="0.35"/>
+    <path d="M25,190 C12,165 35,145 55,158 C52,180 32,195 25,190 Z" fill="#E7551A" fill-opacity="0.25"/>
+    <path d="M85,120 C100,95 135,102 138,130 C118,144 90,136 85,120 Z" fill="#91B4BB" fill-opacity="0.32"/>
+    <path d="M85,120 Q110,110 138,130" stroke="#FFECD1" stroke-width="1" stroke-opacity="0.4"/>
+    <path d="M60,130 C45,110 65,85 88,100 C85,122 68,136 60,130 Z" fill="#FFECD1" fill-opacity="0.22"/>
+    <path d="M125,60 C145,35 178,45 176,75 C155,86 130,76 125,60 Z" fill="#91B4BB" fill-opacity="0.3"/>
+    <path d="M125,60 Q150,52 176,75" stroke="#FFECD1" stroke-width="1" stroke-opacity="0.35"/>
+    <path d="M102,70 C92,48 115,30 135,46 C130,66 112,77 102,70 Z" fill="#E7551A" fill-opacity="0.22"/>
+    <path d="M150,5 C162,-15 188,-6 186,16 C170,24 154,16 150,5 Z" fill="#91B4BB" fill-opacity="0.32"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-badge">🎬 Для видеомонтажёров</div>
+    <h1>Регламент <span>видеомонтажа</span> креативов</h1>
+    <p>Корпоративные стандарты MindBodyFace: отбор футажей, субтитры Montserrat, чистый звук, безопасные зоны и правила сдачи.</p>
+  </div>
 </section>
 
 <!-- ═══════ IN-PAGE SUBNAV ═══════ -->
 <nav class="subnav">
-  <a href="#videobase" style="color:#38bdf8; font-weight:700;">🎬 База видеоматериалов</a>
+  <a href="#videobase" style="color:var(--flame); font-weight:700;">🎬 База видеоматериалов</a>
   <a href="#pipeline">🚀 Пайплайн монтажа (10 шагов)</a>
-  <a href="#music" style="color:#ec4899; font-weight:700;">🎵 Музыка & Источники</a>
+  <a href="#music" style="color:var(--flame); font-weight:700;">🎵 Музыка & Источники</a>
   <a href="#subtitles">💬 Субтитры Montserrat</a>
   <a href="#audio">🎵 Звук и музыка</a>
   <a href="#cta">🌐 Лендинг и CTA</a>
@@ -1542,7 +1651,7 @@
   <a href="#meta-visual">🛡️ Meta & Бренд для монтажа</a>
   <a href="#safezone">📐 Safe Zones (Сейф-зоны)</a>
   <a href="#specs">⚙️ Технические параметры</a>
-  <a href="#workflow" style="color:#10b981; font-weight:700;">🤝 Процесс, сдача и выплаты</a>
+  <a href="#workflow" style="color:var(--euc); font-weight:700;">🤝 Процесс, сдача и выплаты</a>
   <a href="#traffic">🚦 Светофор</a>
   <a href="#checklist">✓ Экспресс-чеклист</a>
 </nav>
@@ -1556,7 +1665,7 @@
   </div>
 
   <!-- ═══════ БАЗА МАТЕРИАЛОВ: ИНТЕРАКТИВНАЯ ВИДЕОТЕКА ═══════ -->
-  <div class="card" id="videobase" style="border-color: rgba(56,189,248,.35); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+  <div class="card" id="videobase" >
     <div id="drive" style="position:relative; top:-20px;"></div>
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🎬</span>
@@ -1573,7 +1682,7 @@
       <div class="videobase-frame-container" id="vbFrameContainer">
         <div class="videobase-frame-header">
           <div class="vb-frame-title">
-            <span style="color:#38bdf8;">▶️</span> MBF Video Base
+            <span style="color:var(--flame);">▶️</span> MBF Video Base
           </div>
 
           <!-- Быстрые разделы для переключения внутри фрейма -->
@@ -1623,7 +1732,7 @@
   </div>
 
   <!-- ═══════ ПАЙПЛАЙН МОНТАЖА ═══════ -->
-  <div class="card" id="pipeline" style="border-color: rgba(56,189,248,.3); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+  <div class="card" id="pipeline" >
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🚀</span>
       <h2>Пошаговый пайплайн монтажа крео (10 стандартов)</h2>
@@ -1631,7 +1740,7 @@
     </div>
     <div class="card-body">
       <!-- Референсы с визуальными превью -->
-      <div class="ref-box" style="background: rgba(56,189,248,.04); border-color: rgba(56,189,248,.35); padding: 18px 20px;">
+      <div class="ref-box" style="background: #faf8f5; border: 1px solid var(--line); padding: 18px 20px;">
         <div class="ref-box-title" style="font-size: 16px;">
           <span>🎬</span>
           <span>Эталонные примеры креативов (брать за основу):</span>
@@ -1686,13 +1795,13 @@
           </a>
 
           <!-- Карточка базы рилсов -->
-          <a class="ref-video-card" href="https://mbf-videobase.vercel.app/#f=Шортс+%2F+Reels+%28вертикаль%29" target="_blank" rel="noopener noreferrer" style="border-color: rgba(139,92,246,.35);">
-            <div class="ref-thumb-wrap" style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);">
+          <a class="ref-video-card" href="https://mbf-videobase.vercel.app/#f=Шортс+%2F+Reels+%28вертикаль%29" target="_blank" rel="noopener noreferrer" style="border-color: var(--line);">
+            <div class="ref-thumb-wrap" style="background: #0e241e;">
               <div style="font-size: 52px;">📱</div>
               <div class="ref-play-overlay">
-                <div class="ref-play-circle" style="background: #a78bfa;">▶</div>
+                <div class="ref-play-circle">▶</div>
               </div>
-              <span class="ref-badge" style="border-color: #a78bfa; color: #c4b5fd;">🌐 Видеотека</span>
+              <span class="ref-badge">🌐 Видеотека</span>
             </div>
             <div class="ref-info">
               <div class="ref-title">Рилсы и хуки доктора (База)</div>
@@ -1700,7 +1809,7 @@
                 • Большая онлайн-подборка готовых вертикальных форматов и рилсов Алеся для насмотренности.<br>
                 • Фильтры по длительности и раскадровкам в Video Base.
               </div>
-              <div class="ref-cta" style="color:#a78bfa;">Открыть подборку в Video Base ↗</div>
+              <div class="ref-cta">Открыть подборку в Video Base ↗</div>
             </div>
           </a>
 
@@ -1724,7 +1833,7 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 2 · Основа</span> Живые футажи с доктором Алесем (или экспертом курса) и моделями</div>
           <div class="rule-hint">
-            <strong>Первостепенно вставлять кадры самого Алеся (или автора курса)</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Все необходимые футажи, демонстрации техник и раскадровки берём из интерактивной <a href="#videobase" style="color:#38bdf8; font-weight:700; text-decoration:underline;">Видеотеки MBF (mbf-videobase.vercel.app)</a> — в ней собраны все курсы, раскадровки сценариев и удобный поиск по частям тела, упражнениям и словам Алеся.
+            <strong>Первостепенно вставлять кадры самого Алеся (или автора курса)</strong>: как он показывает техники на себе, как работает с моделью на массажном столе, как объясняет анатомию у доски. Все необходимые футажи, демонстрации техник и раскадровки берём из интерактивной <a href="#videobase" style="color:var(--euc); font-weight:700; text-decoration:underline;">Видеотеки MBF (mbf-videobase.vercel.app)</a> — в ней собраны все курсы, раскадровки сценариев и удобный поиск по частям тела, упражнениям и словам Алеся.
             <div class="note orange" style="margin-top:8px;">
               <strong>⏱️ Правило неповторяемости футажей:</strong> футажи и фрагменты <strong>не должны повторяться хотя бы 30 секунд</strong>, а в идеале — <strong>вообще не повторяться на протяжении всего ролика</strong>! Зацикливание одних и тех же кадров зритель считывает как халтуру, и retention сразу падает. Обеспечивайте постоянное разнообразие планов и действий.
             </div>
@@ -1771,12 +1880,12 @@
       </div>
 
       <!-- 6. Микро-анимации -->
-      <div class="rule" id="animations" style="border-color: rgba(56,189,248,.35); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+      <div class="rule" id="animations" >
         <div class="pip warn"></div>
         <div class="rule-body">
           <div class="rule-title"><span class="chip warn">Шаг 6 · Акценты</span> Плавные микро-анимации проблемных зон (Ease-in-out)</div>
           <div class="rule-hint">
-            Используй круги, стрелочки, плавные зумы и маркеры на проблемных зонах. Готовые анатомические схемы и 3D-врезки бери в разделе <a href="https://mbf-videobase.vercel.app/anatomy" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline; font-weight:600;">Анатомия Maxilla (Видеотека) ↗</a>.<br>
+            Используй круги, стрелочки, плавные зумы и маркеры на проблемных зонах. Готовые анатомические схемы и 3D-врезки бери в разделе <a href="https://mbf-videobase.vercel.app/anatomy" target="_blank" rel="noopener noreferrer" style="color:var(--euc); text-decoration:underline; font-weight:700;">Анатомия Maxilla (Видеотека) ↗</a>.<br>
             <strong>Критически важно:</strong> анимации должны быть мягкими и сглаженными (кривые <em>ease-in-out</em>). <strong>Никаких резких линейных дерганых рывков стрелки!</strong>
           </div>
 
@@ -1804,14 +1913,14 @@
       </div>
 
       <!-- ═══════ СУБТИТРЫ (ШАГ 7) ═══════ -->
-      <div class="rule" id="subtitles" style="border-color: rgba(56,189,248,.35); background: linear-gradient(180deg, rgba(56,189,248,.03) 0%, rgba(255,255,255,.015) 100%);">
+      <div class="rule" id="subtitles" >
         <div class="pip crit"></div>
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 7 · Субтитры</span> Montserrat CAPS органичного размера в 2 строчки + плашка градиента</div>
           <div class="rule-hint">
             Субтитры оформляем по следующим стандартам MBF:
             <ul style="margin:6px 0 6px 18px; line-height:1.65;">
-              <li><strong>Шрифт:</strong> <code style="color:#38bdf8;">Montserrat</code>, начертание <strong>SemiBold</strong> или <strong>Bold</strong>, курсив (<em>Italic</em>), все буквы <strong>ЗАГЛАВНЫЕ (CAPS)</strong>.</li>
+              <li><strong>Шрифт:</strong> <code style="color:var(--euc); font-weight:700;">Montserrat</code>, начертание <strong>SemiBold</strong> или <strong>Bold</strong>, курсив (<em>Italic</em>), все буквы <strong>ЗАГЛАВНЫЕ (CAPS)</strong>.</li>
               <li><strong>Размер шрифта:</strong> <strong>подбирается органичный</strong> (базово около 42–48 px, чтобы гармонично вписывался в кадр, не был гигантским и не мельчил).</li>
               <li><strong>Компоновка:</strong> делаем аккуратно <strong>в две строчки</strong> (1–3 слова в блоке).</li>
               <li><strong>Читаемость:</strong> <strong>обязательно используем градиентную плашку-шейп</strong> снизу позади текста (см. гайд и файлы ниже).</li>
@@ -1861,7 +1970,7 @@
       </div>
 
       <!-- ═══════ МУЗЫКА И ЗВУК (ШАГ 8) ═══════ -->
-      <div class="rule" id="audio" style="border-color: rgba(236,72,153,.35); background: linear-gradient(180deg, rgba(236,72,153,.03) 0%, rgba(255,255,255,.015) 100%);">
+      <div class="rule" id="audio" >
         <div class="pip crit"></div>
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 8 · Аудио</span> Музыка ТОЛЬКО из официальных источников + баланс звука</div>
@@ -1873,16 +1982,16 @@
               <li><strong>Громкость музыки в миксе:</strong> уровень <strong>-18... -40 dB</strong> (тихая фоновая подложка, ни в коем случае не заглушает речь).</li>
               <li><strong>Официальные источники треков (сторонние брать запрещено):</strong>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
-                  <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:rgba(236,72,153,.15); border:1px solid rgba(236,72,153,.35); color:#f472b6; padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+                  <a href="https://drive.google.com/drive/folders/1Diz6CLTdcX3Aj7vxKNzP0O9LY-oK_miu" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:var(--flame-light); border:1px solid var(--flame-soft); color:var(--flame); padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
                     📁 1. Папка «МУЗЫКА» на Drive ↗
                   </a>
-                  <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:rgba(56,189,248,.12); border:1px solid rgba(56,189,248,.3); color:#38bdf8; padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+                  <a href="https://business.facebook.com/creatorstudio/sound_collection" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:var(--euc-light); border:1px solid #d2e2db; color:var(--euc); padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
                     🎵 2. Meta Sound Collection ↗
                   </a>
-                  <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:rgba(168,85,247,.12); border:1px solid rgba(168,85,247,.3); color:#c084fc; padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+                  <a href="https://www.freepik.com/audio" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; background:var(--euc-light); border:1px solid #d2e2db; color:var(--euc); padding:5px 11px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
                     🎧 3. Freepik Audio ↗
                   </a>
-                  <a href="#music" style="display:inline-flex; align-items:center; gap:5px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); color:var(--text-2); padding:5px 11px; border-radius:6px; font-weight:600; font-size:12px; text-decoration:none;">
+                  <a href="#music" style="display:inline-flex; align-items:center; gap:5px; background:#fff; border:1px solid var(--line); color:var(--ink-2); padding:5px 11px; border-radius:6px; font-weight:600; font-size:12px; text-decoration:none;">
                     ↑ Подробнее о музыке в начале страницы
                   </a>
                 </div>
@@ -1898,7 +2007,7 @@
         <div class="rule-body">
           <div class="rule-title"><span class="chip crit">Шаг 9 · Концовка</span> Скролл лендинга курса, тапы и CTA</div>
           <div class="rule-hint">
-            В финале ролика показываем <strong>интерфейс лендинга курса</strong>: красивый скроллинг страницы сайта, анимированные тапы/стрелочки, понятный призыв перейти по ссылке. Готовые скринкасты и плашки для концовок собраны в каталоге <a href="https://mbf-videobase.vercel.app/endings" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline; font-weight:600;">Концовки & CTA (Видеотека) ↗</a>.<br>
+            В финале ролика показываем <strong>интерфейс лендинга курса</strong>: красивый скроллинг страницы сайта, анимированные тапы/стрелочки, понятный призыв перейти по ссылке. Готовые скринкасты и плашки для концовок собраны в каталоге <a href="https://mbf-videobase.vercel.app/endings" target="_blank" rel="noopener noreferrer" style="color:var(--euc); text-decoration:underline; font-weight:700;">Концовки & CTA (Видеотека) ↗</a>.<br>
             <div class="note blue" style="margin-top:8px;">
               <strong>ℹ️ Правило по указанию цены:</strong><br>
               Указание цены <strong>не строго регламентировано — это зависит от сценария</strong>. Если по сценарию заложена цена, спецпредложение или акция — показываем её на экране. Если в сценарии упор на бесплатный пробный период, тест-драйв или ценность — показываем лендинг без ценников.
@@ -1908,7 +2017,7 @@
       </div>
 
       <!-- 10. Сейф-зоны -->
-      <div class="rule" id="safezone" style="background: rgba(255,255,255,.025); border-color: rgba(56,189,248,.3);">
+      <div class="rule" id="safezone" style="background: #faf8f5; border: 1px solid var(--line);">
         <div class="pip warn"></div>
         <div class="rule-body">
           <div class="rule-title"><span class="chip warn">Шаг 10 · Сейф-зоны</span> Safe Zones Instagram Stories & Reels (1080×1920)</div>
@@ -1982,7 +2091,7 @@
   </div>
 
   <!-- ═══════ МУЗЫКА И ЗВУКИ MBF ═══════ -->
-  <div class="card" id="music" style="border-color: rgba(236,72,153,.35); background: linear-gradient(180deg, rgba(236,72,153,.03) 0%, rgba(255,255,255,.015) 100%);">
+  <div class="card" id="music" >
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🎵</span>
       <h2>Официальная музыкальная коллекция MBF (Все разрешённые источники)</h2>
@@ -2099,28 +2208,28 @@
         2 файла в вертикальном формате Stories/Reels (1080×1920) и 2 файла в формате Feed/Лента (1080×1350).<br>
         Для каждого формата сдаётся полная версия со звуком и сабами и чистый мастер (<code style="color:#f59e0b;">M_</code>) без музыки и субтитров под перевод.<br>
         <strong>После ID креатива</strong> через нижнее подчеркивание обязательно указывается сокращенное имя продюсера или таргетолога:
-        <code style="color:#38bdf8;">I</code> (Илья), <code style="color:#38bdf8;">A</code> (Андрей), <code style="color:#38bdf8;">Al</code> (Алексей), <code style="color:#38bdf8;">Ar</code> (Арианна).
+        <code style="color:var(--euc);">I</code> (Илья), <code style="color:var(--euc);">A</code> (Андрей), <code style="color:var(--euc);">Al</code> (Алексей), <code style="color:var(--euc);">Ar</code> (Арианна).
       </div>
 
       <div class="naming-grid">
         <div class="naming-file-card">
           <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">1 · Stories/Reels полная</div>
-          <strong style="color:#fff;" id="displaySFullName">BDY_VID_S_BD123_I_DanD.mp4</strong>
+          <strong style="color:var(--ink);" id="displaySFullName">BDY_VID_S_BD123_I_DanD.mp4</strong>
           <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · со звуком и сабами</div>
         </div>
         <div class="naming-file-card">
           <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">2 · Stories/Reels чистая</div>
-          <strong style="color:#fff;" id="displaySCleanName">M_BDY_VID_S_BD123_I_DanD.mp4</strong>
+          <strong style="color:var(--ink);" id="displaySCleanName">M_BDY_VID_S_BD123_I_DanD.mp4</strong>
           <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1920 (9:16) · БЕЗ музыки и субтитров</div>
         </div>
         <div class="naming-file-card">
           <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">3 · Feed (Лента) полная</div>
-          <strong style="color:#fff;" id="displayFFullName">BDY_VID_F_BD123_I_DanD.mp4</strong>
+          <strong style="color:var(--ink);" id="displayFFullName">BDY_VID_F_BD123_I_DanD.mp4</strong>
           <div style="color:var(--green); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · со звуком и сабами</div>
         </div>
         <div class="naming-file-card">
           <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">4 · Feed (Лента) чистая</div>
-          <strong style="color:#fff;" id="displayFCleanName">M_BDY_VID_F_BD123_I_DanD.mp4</strong>
+          <strong style="color:var(--ink);" id="displayFCleanName">M_BDY_VID_F_BD123_I_DanD.mp4</strong>
           <div style="color:var(--orange); font-size:11.5px; margin-top:4px;">1080×1350 (4:5) · БЕЗ музыки и субтитров</div>
         </div>
       </div>
@@ -2275,7 +2384,7 @@
   </div>
 
   <!-- ═══════ РЕГЛАМЕНТ РАБОТЫ, СДАЧА И ВЫПЛАТЫ ═══════ -->
-  <div class="card" id="workflow" style="border-color: rgba(16,185,129,.35); background: linear-gradient(180deg, rgba(16,185,129,.03) 0%, rgba(255,255,255,.015) 100%);">
+  <div class="card" id="workflow" >
     <div class="card-head" onclick="toggle(this)">
       <span class="emoji">🤝</span>
       <h2>Процесс работы, сдача креативов, правки и выплаты</h2>
